@@ -7,7 +7,6 @@ const PHOTOS = [
   '/images/gallery/photo_2.jpg',
   '/images/gallery/photo_3.jpg',
   '/images/gallery/photo_4.jpg',
-  '/images/gallery/photo_5.jpg',
   '/images/gallery/photo_6.jpg',
   '/images/gallery/photo_7.jpg',
   '/images/gallery/photo_8.jpg',
