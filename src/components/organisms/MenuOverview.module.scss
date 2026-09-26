@@ -1,0 +1,99 @@
+@import '@/styles/vars.scss';
+
+.section {
+  padding: $space-2xl $space-md;
+  background-color: $color-surface-flat;
+}
+
+.container {
+  max-width: 1120px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: $space-xl;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: $space-lg;
+}
+
+.title {
+  font-size: 32px;
+  color: $color-primary;
+  margin-bottom: $space-sm;
+}
+
+.subtitle {
+  color: rgba(249, 246, 240, 0.7);
+}
+
+.menuGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $space-2xl;
+  
+  @media (min-width: 768px) {
+    grid-template-columns: 1fr 1fr;
+    gap: $space-2xl $space-xl;
+  }
+}
+
+.menuColumn {
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+}
+
+.sectionTitle {
+  font-size: 24px;
+  border-bottom: 1px solid rgba(212, 163, 115, 0.2);
+  padding-bottom: $space-xs;
+  margin-bottom: $space-sm;
+  color: $color-parchment;
+}
+
+.itemsList {
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+}
+
+.menuItem {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.itemHeader {
+  display: flex;
+  align-items: baseline;
+  gap: $space-xs;
+}
+
+.itemName {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.itemDots {
+  flex-grow: 1;
+  border-bottom: 1px dotted rgba(212, 163, 115, 0.4);
+}
+
+.itemPrice {
+  color: $color-secondary;
+  font-weight: bold;
+}
+
+.itemDesc {
+  font-size: 14px;
+  color: rgba(249, 246, 240, 0.6);
+  font-style: italic;
+}
+
+.action {
+  display: flex;
+  justify-content: center;
+  margin-top: $space-lg;
+}

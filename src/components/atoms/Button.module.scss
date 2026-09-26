@@ -1,0 +1,54 @@
+@import '@/styles/vars.scss';
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-sm;
+  border-radius: $border-radius-sm;
+  font-family: $font-body;
+  font-weight: 600;
+  font-size: 14px;
+  height: 48px;
+  padding: 0 $space-md;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+
+  &--primary {
+    background-color: $color-secondary;
+    color: $color-neutral;
+    
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+
+  &--secondary {
+    background-color: transparent;
+    border: 1.5px solid $color-primary;
+    color: $color-primary;
+
+    &:hover {
+      background-color: rgba(212, 163, 115, 0.1);
+    }
+  }
+
+  &--icon {
+    border-radius: $border-radius-pill;
+    background-color: $color-surface-flat;
+    border: 1px solid $color-primary;
+    color: $color-primary;
+    padding: 0 $space-sm;
+    width: 48px;
+    height: 48px;
+
+    &:hover {
+      background-color: rgba(212, 163, 115, 0.1);
+    }
+  }
+
+  &--full {
+    width: 100%;
+  }
+}

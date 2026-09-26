@@ -1,0 +1,52 @@
+@import '@/styles/vars.scss';
+
+.bottomNav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  padding-bottom: env(safe-area-inset-bottom); // iOS safe area
+  background-color: rgba(18, 18, 18, 0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid rgba(212, 163, 115, 0.2);
+  z-index: 100;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  
+  @media (min-width: 768px) {
+    display: none; // Hidden on tablet/desktop
+  }
+}
+
+.navItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  flex: 1;
+  color: rgba(249, 246, 240, 0.6);
+  text-decoration: none;
+  height: 100%;
+  
+  span {
+    font-size: 10px;
+    font-weight: 500;
+  }
+  
+  .icon {
+    transition: transform 0.2s;
+  }
+
+  &:hover,
+  &:active {
+    color: $color-primary;
+    
+    .icon {
+      transform: scale(1.1);
+    }
+  }
+}

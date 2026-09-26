@@ -1,0 +1,217 @@
+@import '@/styles/vars.scss';
+
+.section {
+  padding: $space-2xl $space-md;
+  background-color: $color-canvas;
+}
+
+.container {
+  background-color: $color-surface-elevated;
+  border-radius: $border-radius-md;
+  padding: $space-xl;
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: $space-xl;
+  box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(212, 163, 115, 0.1);
+  border: 1px solid rgba(212, 163, 115, 0.15);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.headerText {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.tag {
+  color: $color-primary;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.title {
+  font-size: 24px;
+  color: $color-parchment;
+}
+
+.callBtn {
+  width: 40px;
+  height: 40px;
+  border-radius: $border-radius-pill;
+  background-color: $color-surface-flat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $color-primary;
+  text-decoration: none;
+  border: 1px solid rgba(212, 163, 115, 0.2);
+  
+  &:hover {
+    background-color: rgba(212, 163, 115, 0.1);
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $space-md;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  
+  label {
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(249, 246, 240, 0.7);
+  }
+}
+
+.inputGroup {
+  height: 44px;
+  background-color: $color-surface-flat;
+  border-radius: $border-radius-sm;
+  padding: 0 $space-sm;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid rgba(212, 163, 115, 0.15);
+}
+
+.adjustBtn {
+  background: none;
+  border: none;
+  color: $color-primary;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  
+  &:hover {
+    color: $color-secondary;
+  }
+}
+
+.value {
+  font-size: 14px;
+  font-weight: 600;
+  color: $color-parchment;
+}
+
+.icon {
+  color: $color-primary;
+}
+
+.dateInput {
+  background: transparent;
+  border: none;
+  color: $color-parchment;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  width: 100%;
+  outline: none;
+  
+  /* Make the native calendar icon styled properly or somewhat fit */
+  &::-webkit-calendar-picker-indicator {
+    filter: invert(0.8) sepia(1) saturate(3) hue-rotate(340deg);
+    cursor: pointer;
+  }
+}
+
+.slotsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $space-sm;
+}
+
+.slot {
+  height: 40px;
+  background-color: $color-surface-flat;
+  border: 1px solid rgba(212, 163, 115, 0.15);
+  border-radius: $border-radius-sm;
+  color: $color-parchment;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  
+  &:hover {
+    background-color: rgba(212, 163, 115, 0.1);
+  }
+}
+
+.slotActive {
+  @extend .slot;
+  background-color: $color-secondary;
+  color: $color-neutral;
+  border-color: $color-secondary;
+  font-weight: bold;
+  
+  &:hover {
+    background-color: $color-secondary;
+  }
+}
+
+.textInput {
+  height: 44px;
+  background-color: $color-surface-flat;
+  border: 1px solid rgba(212, 163, 115, 0.15);
+  border-radius: $border-radius-sm;
+  padding: 0 $space-sm;
+  color: $color-parchment;
+  font-family: inherit;
+  font-size: 14px;
+  
+  &:focus {
+    outline: none;
+    border-color: $color-primary;
+  }
+  
+  &::placeholder {
+    color: rgba(249, 246, 240, 0.4);
+  }
+}
+
+.footerNote {
+  font-size: 11px;
+  color: rgba(249, 246, 240, 0.5);
+  text-align: center;
+  margin-top: 4px;
+}
+
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+.successBtn {
+  background-color: $color-primary !important;
+  color: $color-neutral !important;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

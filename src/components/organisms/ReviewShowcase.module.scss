@@ -1,0 +1,84 @@
+@import '@/styles/vars.scss';
+
+.section {
+  padding: $space-2xl $space-md;
+  background-color: $color-canvas;
+}
+
+.container {
+  max-width: 1120px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: $space-xl;
+}
+
+.headerRow {
+  display: flex;
+  align-items: center;
+  gap: $space-md;
+}
+
+.badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background-color: $color-surface-elevated;
+  border-radius: $border-radius-md;
+  color: $color-primary;
+  border: 1px solid rgba(212, 163, 115, 0.15);
+}
+
+.google {
+  font-weight: bold;
+  font-family: sans-serif;
+  font-size: 24px;
+}
+
+.ratingInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.ratingTitle {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+  font-weight: bold;
+  font-size: 18px;
+  color: $color-parchment;
+}
+
+.ratingSubtitle {
+  font-size: 14px;
+  color: rgba(249, 246, 240, 0.6);
+  
+  strong {
+    color: $color-parchment;
+  }
+}
+
+.stars {
+  display: flex;
+  gap: 2px;
+  color: $color-stars;
+}
+
+.carousel {
+  display: flex;
+  gap: $space-lg;
+  overflow-x: auto;
+  padding: $space-md 0;
+  width: 100%;
+  snap-type: x mandatory;
+  
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  & > * {
+    scroll-snap-align: center;
+  }
+}

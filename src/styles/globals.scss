@@ -1,0 +1,30 @@
+@import './vars';
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  background-color: $color-canvas;
+  color: $color-parchment;
+  font-family: $font-body;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-headline;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}

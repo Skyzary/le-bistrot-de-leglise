@@ -1,0 +1,163 @@
+@import '@/styles/vars.scss';
+
+.footer {
+  width: 100%;
+  margin-top: $space-2xl;
+  background-color: $color-surface-elevated;
+  padding: $space-xl $space-md calc($space-xl + 80px) $space-md;
+  
+  @media (min-width: 768px) {
+    padding-bottom: $space-xl;
+  }
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: $space-2xl;
+}
+
+.topSection {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2xl;
+  
+  @media (min-width: 768px) {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: $space-xl;
+  }
+}
+
+.brandCol {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: $space-xl;
+  max-width: 400px;
+}
+
+.brandGroup {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xs;
+}
+
+.addressGroup {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xs;
+}
+
+.infoCol {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+}
+
+.title {
+  font-family: $font-headline;
+  font-size: 26px;
+  color: $color-primary;
+}
+
+.subtitle, .text {
+  font-size: 14px;
+  color: rgba(249, 246, 240, 0.7);
+  line-height: 1.6;
+}
+
+.label {
+  font-size: 13px;
+  text-transform: uppercase;
+  color: $color-primary;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  margin-bottom: $space-xs;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  font-size: 14px;
+  color: rgba(249, 246, 240, 0.7);
+  border-bottom: 1px solid rgba(249, 246, 240, 0.05);
+  padding-bottom: $space-xs;
+  margin-bottom: $space-xs;
+}
+
+.time {
+  text-align: right;
+  line-height: 1.5;
+}
+
+.closed {
+  color: #ff5252;
+  font-weight: 500;
+}
+
+.link {
+  color: $color-primary;
+  text-decoration: none;
+  font-weight: 500;
+  
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.socials {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+  margin-top: $space-xs;
+}
+
+.socialBtn {
+  width: 40px;
+  height: 40px;
+  border-radius: $border-radius-pill;
+  background-color: rgba(249, 246, 240, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(249, 246, 240, 0.7);
+  transition: all 0.2s;
+  
+  &:hover {
+    background-color: $color-primary;
+    color: $color-surface-elevated;
+  }
+}
+
+.bottomSection {
+  border-top: 1px solid rgba(212, 163, 115, 0.1);
+  padding-top: $space-xl;
+  display: flex;
+  justify-content: center;
+}
+
+.legal {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: $space-sm;
+  font-size: 12px;
+  color: rgba(249, 246, 240, 0.5);
+  
+  a {
+    transition: color 0.2s;
+    &:hover {
+      color: $color-primary;
+    }
+  }
+}
+
+.dot {
+  color: rgba(212, 163, 115, 0.3);
+}
