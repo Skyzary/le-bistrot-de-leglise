@@ -131,9 +131,11 @@
   white-space: nowrap;
   transition: all 0.2s;
   
-  &:hover {
-    border-color: $color-primary;
-    color: $color-primary;
+  @media (hover: hover) {
+    &:hover {
+      border-color: $color-primary;
+      color: $color-primary;
+    }
   }
 }
 
@@ -143,8 +145,10 @@
   border-color: $color-secondary;
   color: $color-neutral;
   
-  &:hover {
-    color: $color-neutral;
+  @media (hover: hover) {
+    &:hover {
+      color: $color-neutral;
+    }
   }
 }
 
@@ -246,7 +250,9 @@
   font-weight: 500;
   transition: all 0.2s;
   
-  &:hover {
-    background-color: rgba(212, 163, 115, 0.1);
+  @media (hover: hover) {
+    &:hover {
+      background-color: rgba(212, 163, 115, 0.1);
+    }
   }
 }

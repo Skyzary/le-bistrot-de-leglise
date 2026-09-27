@@ -41,10 +41,18 @@
     transition: transform 0.2s;
   }
 
-  &:hover,
+  @media (hover: hover) {
+    &:hover {
+      color: $color-primary;
+      
+      .icon {
+        transform: scale(1.1);
+      }
+    }
+  }
+  
   &:active {
     color: $color-primary;
-    
     .icon {
       transform: scale(1.1);
     }
