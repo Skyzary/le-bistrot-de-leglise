@@ -50,6 +50,7 @@
   padding: 0 $space-xl $space-xl $space-xl; // padding for scrollbar visibility and starting offset
   overflow-x: auto;
   scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
   
   /* Custom scrollbar to act as a scroll indicator */
   &::-webkit-scrollbar {
