@@ -74,11 +74,40 @@
   width: 100%;
   snap-type: x mandatory;
   
+  /* Custom scrollbar to act as a scroll indicator */
   &::-webkit-scrollbar {
-    display: none;
+    height: 6px;
+  }
+  &::-webkit-scrollbar-track {
+    background: rgba(212, 163, 115, 0.1);
+    border-radius: 4px;
+    margin: 0 $space-md; /* Prevent it from touching the edges */
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgba(212, 163, 115, 0.4);
+    border-radius: 4px;
+    cursor: pointer;
+    
+    &:hover {
+      background: rgba(212, 163, 115, 0.8);
+    }
   }
 
   & > * {
     scroll-snap-align: center;
+  }
+}
+
+.scrollHint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: rgba(249, 246, 240, 0.5);
+  font-size: 12px;
+  margin-top: -8px;
+  
+  @media (min-width: 1024px) {
+    display: none; // Only show hint on smaller screens where scroll is obvious
   }
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './ReviewShowcase.module.scss';
 import { ReviewCard } from '@/components/molecules/ReviewCard';
-import { Star } from 'lucide-react';
+import { Star, ArrowRight } from 'lucide-react';
 
 export const ReviewShowcase = () => {
   const reviews = [
@@ -54,6 +54,11 @@ export const ReviewShowcase = () => {
           {reviews.map((review) => (
             <ReviewCard key={review.id} {...review} />
           ))}
+        </div>
+        
+        <div className={styles.scrollHint}>
+          <span>Faites glisser pour voir plus</span>
+          <ArrowRight size={14} />
         </div>
       </div>
     </section>

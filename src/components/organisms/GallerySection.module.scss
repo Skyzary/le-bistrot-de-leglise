@@ -52,10 +52,36 @@
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
   
-  // hide scrollbar across browsers
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+  /* Custom scrollbar to act as a scroll indicator */
   &::-webkit-scrollbar {
+    height: 6px;
+  }
+  &::-webkit-scrollbar-track {
+    background: rgba(212, 163, 115, 0.1);
+    border-radius: 4px;
+    margin: 0 $space-xl;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgba(212, 163, 115, 0.4);
+    border-radius: 4px;
+    cursor: pointer;
+    
+    &:hover {
+      background: rgba(212, 163, 115, 0.8);
+    }
+  }
+}
+
+.scrollHint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: rgba(249, 246, 240, 0.5);
+  font-size: 12px;
+  margin-top: -16px;
+  
+  @media (min-width: 1024px) {
     display: none;
   }
 }

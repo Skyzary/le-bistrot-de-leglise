@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import styles from './GallerySection.module.scss';
-import { Camera } from 'lucide-react';
+import { Camera, ArrowRight } from 'lucide-react';
 
 const PHOTOS = [
   '/images/gallery/photo_1.jpg',
@@ -40,6 +40,11 @@ export const GallerySection = () => {
               />
             </div>
           ))}
+        </div>
+        
+        <div className={styles.scrollHint}>
+          <span>Faites glisser pour voir plus</span>
+          <ArrowRight size={14} />
         </div>
       </div>
     </section>
