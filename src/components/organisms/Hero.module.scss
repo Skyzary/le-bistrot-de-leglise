@@ -7,7 +7,7 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: $space-2xl $space-md;
+  padding: calc(64px + $space-xl) $space-md $space-2xl; // Ensure space below fixed header
   overflow: hidden;
 }
 
