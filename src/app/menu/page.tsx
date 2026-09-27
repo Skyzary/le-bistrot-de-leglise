@@ -6,7 +6,6 @@ import { Footer } from '@/components/organisms/Footer';
 import { QuickActionMenu } from '@/components/organisms/QuickActionMenu';
 import { ChevronLeft, Search } from 'lucide-react';
 import Link from 'next/link';
-import { ScrollReveal } from '@/components/atoms/ScrollReveal';
 
 const menuData = [
   {
@@ -195,8 +194,7 @@ export default function MenuPage() {
       <div className={styles.menuContainer}>
         {filteredMenu.length > 0 ? (
           filteredMenu.map((section, idx) => (
-            <ScrollReveal key={idx}>
-              <section className={styles.section}>
+              <section key={idx} className={styles.section}>
                 <h2 className={styles.categoryTitle}>{section!.category}</h2>
                 {section!.desc && <p className={styles.categoryDesc}>{section!.desc}</p>}
                 
@@ -213,7 +211,6 @@ export default function MenuPage() {
                   ))}
                 </div>
               </section>
-            </ScrollReveal>
           ))
         ) : (
           <div className={styles.emptyState}>

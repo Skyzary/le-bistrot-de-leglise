@@ -9,19 +9,18 @@ import { TourismDiscovery } from '@/components/organisms/TourismDiscovery';
 import { ReservationBlock } from '@/components/organisms/ReservationBlock';
 import { QuickActionMenu } from '@/components/organisms/QuickActionMenu';
 import { Footer } from '@/components/organisms/Footer';
-import { ScrollReveal } from '@/components/atoms/ScrollReveal';
 
 export default function Home() {
   return (
     <main className={styles.main}>
       <Header />
       <Hero />
-      <ScrollReveal><ReviewShowcase /></ScrollReveal>
-      <ScrollReveal><Philosophy /></ScrollReveal>
-      <ScrollReveal><MenuOverview /></ScrollReveal>
-      <ScrollReveal><GallerySection /></ScrollReveal>
-      <ScrollReveal><TourismDiscovery /></ScrollReveal>
-      <ScrollReveal><ReservationBlock /></ScrollReveal>
+      <ReviewShowcase />
+      <Philosophy />
+      <MenuOverview />
+      <GallerySection />
+      <TourismDiscovery />
+      <ReservationBlock />
       <Footer />
       <QuickActionMenu />
     </main>
