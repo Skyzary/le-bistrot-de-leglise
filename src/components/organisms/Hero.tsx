@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import styles from './Hero.module.scss';
 import { Button } from '@/components/atoms/Button';
 import { MapPin } from 'lucide-react';
@@ -6,6 +7,14 @@ import { MapPin } from 'lucide-react';
 export const Hero = () => {
   return (
     <section className={styles.hero}>
+      <Image 
+        src="/images/interior_1.jpg" 
+        alt="Le Bistrot de l'Église Intérieur" 
+        fill
+        priority
+        className={styles.bgImage}
+        sizes="100vw"
+      />
       <div className={styles.overlay}></div>
       <div className={styles.content}>
         <div className={styles.tags}>

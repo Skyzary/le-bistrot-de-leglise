@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import styles from './GallerySection.module.scss';
 import { Camera } from 'lucide-react';
 
@@ -30,7 +31,13 @@ export const GallerySection = () => {
         <div className={styles.sliderTrack}>
           {PHOTOS.map((src, idx) => (
             <div key={idx} className={styles.slide}>
-              <img src={src} alt={`Galerie photo ${idx + 1}`} loading="lazy" />
+              <Image 
+                src={src} 
+                alt={`Galerie photo ${idx + 1}`} 
+                fill 
+                sizes="(max-width: 768px) 80vw, 400px"
+                style={{ objectFit: 'cover' }} 
+              />
             </div>
           ))}
         </div>

@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import styles from './Philosophy.module.scss';
 import { ChefHat } from 'lucide-react';
 
@@ -29,7 +30,14 @@ export const Philosophy = () => {
           </div>
           
           <div className={styles.imageContent}>
-            <img src="/images/interior_2.jpg" alt="L'intérieur du Bistrot" className={styles.philosophyImage} />
+            <Image 
+              src="/images/interior_2.jpg" 
+              alt="L'intérieur du Bistrot" 
+              className={styles.philosophyImage}
+              width={500}
+              height={625}
+              sizes="(max-width: 1024px) 100vw, 500px"
+            />
           </div>
         </div>
       </div>

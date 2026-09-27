@@ -1,6 +1,7 @@
 'use client';
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import styles from './Header.module.scss';
 import { Phone, MapPin } from 'lucide-react';
 import { FaInstagram, FaFacebook } from 'react-icons/fa';
@@ -12,10 +13,13 @@ export const Header = () => {
         
         {/* Left: Branding */}
         <Link href="/" className={styles.brand}>
-          <img 
+          <Image 
             src="/logo.jpg" 
             alt="Logo Le Bistrot de l'Église" 
+            width={36}
+            height={36}
             className={styles.logoImage} 
+            priority
           />
           <div className={styles.brandText}>
             <span className={styles.title}>Le Bistrot de l'Église</span>
