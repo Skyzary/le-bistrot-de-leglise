@@ -50,8 +50,9 @@
   position: sticky;
   top: 64px; // Assuming a global header height if exists, or 0
   z-index: 40;
-  background-color: rgba(18, 18, 18, 0.95);
-  backdrop-filter: blur(12px);
+  background-color: rgba(18, 18, 18, 0.6); // more transparent
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   padding: $space-md;
   border-bottom: 1px solid rgba(212, 163, 115, 0.15);
   display: flex;
@@ -77,22 +78,26 @@
 .searchInput {
   width: 100%;
   height: 44px;
-  background-color: $color-surface-flat;
+  background-color: rgba(255, 255, 255, 0.05); // Glassmorphic look instead of flat black
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   border: 1px solid rgba(212, 163, 115, 0.2);
   border-radius: $border-radius-pill;
   padding: 0 $space-md 0 40px;
   color: $color-parchment;
   font-family: inherit;
   font-size: 14px;
-  transition: border-color 0.2s;
+  transition: all 0.2s;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
   
   &:focus {
     outline: none;
     border-color: $color-primary;
+    background-color: rgba(255, 255, 255, 0.08);
   }
   
   &::placeholder {
-    color: rgba(249, 246, 240, 0.4);
+    color: rgba(249, 246, 240, 0.5);
   }
 }
 
