@@ -5,6 +5,8 @@ import { Button } from '@/components/atoms/Button';
 import { MapPin } from 'lucide-react';
 
 export const Hero = () => {
+  const isClosed = new Date().getDay() === 0;
+
   return (
     <section className={styles.hero}>
       <Image 
@@ -21,7 +23,12 @@ export const Hero = () => {
           <span className={styles.tag}>
             <MapPin size={14} /> Place de l'Église • Fabrègues
           </span>
-          <span className={styles.tagActive}>Ouvert aujourd'hui</span>
+          <span 
+            className={isClosed ? styles.tagClosed : styles.tagOpen} 
+            suppressHydrationWarning
+          >
+            {isClosed ? "Fermé aujourd'hui" : "Ouvert aujourd'hui"}
+          </span>
         </div>
         <h1 className={styles.title}>Bienvenue chez vous, au Bistrot de l'Église.</h1>
         <p className={styles.subtitle}>

@@ -55,7 +55,7 @@
   font-weight: 600;
 }
 
-.tagActive {
+.tagOpen {
   background-color: rgba(34, 31, 29, 0.8);
   padding: 6px 14px;
   border-radius: $border-radius-pill;
@@ -73,7 +73,15 @@
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background-color: $color-secondary;
+    background-color: #22c55e; /* Green */
+  }
+}
+
+.tagClosed {
+  @extend .tagOpen;
+  
+  &::before {
+    background-color: #ef4444; /* Red */
   }
 }
 
