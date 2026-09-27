@@ -57,4 +57,13 @@
       transform: scale(1.1);
     }
   }
+
+  &.active {
+    color: $color-primary;
+    .icon {
+      transform: scale(1.1);
+      /* optional: you can add a subtle drop shadow or something to make it pop */
+      filter: drop-shadow(0 0 8px rgba(212, 163, 115, 0.4));
+    }
+  }
 }

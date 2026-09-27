@@ -89,9 +89,26 @@
   font-size: 14px;
   font-weight: 500;
   transition: color 0.2s;
+  position: relative;
   
-  &:hover {
+  @media (hover: hover) {
+    &:hover {
+      color: $color-primary;
+    }
+  }
+
+  &.active {
     color: $color-primary;
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background-color: $color-primary;
+      border-radius: 2px;
+    }
   }
 }
 
