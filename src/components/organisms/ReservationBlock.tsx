@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import styles from './ReservationBlock.module.scss';
 import { Button } from '@/components/atoms/Button';
-import { Phone, Calendar, Loader2, CheckCircle, Plus, Minus } from 'lucide-react';
+import { Phone, Calendar, Loader2, CheckCircle, Plus, Minus, User, Smartphone } from 'lucide-react';
 
 export const ReservationBlock = () => {
   const [guests, setGuests] = useState(2);
@@ -83,9 +83,15 @@ export const ReservationBlock = () => {
             </div>
           </div>
 
-          <div className={styles.field}>
-            <input type="text" placeholder="Votre nom complet" required className={styles.textInput} />
-            <input type="tel" placeholder="Numéro de mobile (ex: 06 12 34 56 78)" required className={styles.textInput} />
+          <div className={styles.fieldGrid}>
+            <div className={styles.inputWrapper}>
+              <User size={18} className={styles.inputIcon} />
+              <input type="text" placeholder="Votre nom complet" required className={styles.textInputWithIcon} />
+            </div>
+            <div className={styles.inputWrapper}>
+              <Smartphone size={18} className={styles.inputIcon} />
+              <input type="tel" placeholder="Numéro de mobile (ex: 06...)" required className={styles.textInputWithIcon} />
+            </div>
           </div>
 
           {success ? (
