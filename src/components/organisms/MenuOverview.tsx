@@ -4,19 +4,19 @@ import { Button } from '@/components/atoms/Button';
 
 const menuSections = [
   {
-    title: 'Côté Terre',
+    title: 'Les plats de saison',
     items: [
-      { name: 'Pièce du Boucher', price: '23.50 €', desc: 'Selon arrivage +/- 350G' },
-      { name: 'Magret de Canard', price: '19.90 €', desc: '+/- 350G' },
-      { name: 'Tartare de Boeuf', price: '17.00 €', desc: 'Coupé au couteau 180gr' }
+      { name: 'Parmentier de canard', price: '19.50 €', desc: 'Patate douce' },
+      { name: 'Joue de bœuf au cidre', price: '19.50 €', desc: 'Et gratin de pommes de terre' },
+      { name: 'Côte de porc aveyronnaise', price: '19.50 €', desc: 'Sauce miel-moutarde' }
     ]
   },
   {
-    title: 'Côté Mer',
+    title: 'Nos incontournables',
     items: [
-      { name: 'Seiches Grillées', price: '19.00 €', desc: 'Seiches en persillade' },
-      { name: 'Steack de Thon', price: '21.00 €', desc: '+/- 250G' },
-      { name: 'Tartare de Thon', price: '21.00 €', desc: 'Aux notes fraiches et exotiques' }
+      { name: 'Magret de canard 300/350g', price: '23.90 €' },
+      { name: 'Bourride de poisson', price: '25.00 €', desc: 'Gratinés de rouille maison' },
+      { name: 'Le BISTROT\'S Burger', price: '21.00 €', desc: 'Viandard + 2 tranches St Nectaire' }
     ]
   }
 ];
