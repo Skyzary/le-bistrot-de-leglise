@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import styles from './ReservationBlock.module.scss';
 import { Button } from '@/components/atoms/Button';
-import { Phone, Calendar, Loader2, CheckCircle, Plus, Minus, User, Smartphone } from 'lucide-react';
+import { Phone, Calendar, Loader2, CheckCircle, Plus, Minus, User, Smartphone, Clock } from 'lucide-react';
 
 export const ReservationBlock = () => {
   const [guests, setGuests] = useState(2);
@@ -65,21 +65,19 @@ export const ReservationBlock = () => {
                 />
               </div>
             </div>
-          </div>
 
-          <div className={styles.field}>
-            <label>Service souhaité</label>
-            <div className={styles.slotsGrid}>
-              {['12:15', '19:45', '20:30'].map((slot) => (
-                <button 
-                  key={slot} 
-                  type="button" 
-                  className={time === slot ? styles.slotActive : styles.slot}
-                  onClick={() => setTime(slot)}
-                >
-                  {slot.replace(':', 'h')}
-                </button>
-              ))}
+            <div className={styles.field}>
+              <label htmlFor="time-input">Heure</label>
+              <div className={styles.inputGroup}>
+                <input 
+                  id="time-input"
+                  type="time" 
+                  value={time} 
+                  onChange={(e) => setTime(e.target.value)} 
+                  className={styles.dateInput}
+                  required
+                />
+              </div>
             </div>
           </div>
 

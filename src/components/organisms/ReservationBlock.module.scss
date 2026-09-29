@@ -68,8 +68,12 @@
 
 .grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: $space-md;
+
+  @media (min-width: 600px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 .field {
