@@ -56,3 +56,7 @@ crawl_results.txt
 extracted_*.html
 dev.log
 
+
+# OpenNext & Cloudflare
+.open-next
+.wrangler

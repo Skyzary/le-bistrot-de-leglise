@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import styles from './ReservationBlock.module.scss';
 import { Button } from '@/components/atoms/Button';
-import { Phone, Calendar, Loader2, CheckCircle, Plus, Minus, User, Smartphone, Clock } from 'lucide-react';
+import { Phone, Calendar, Loader2, CheckCircle, Plus, Minus, User, Smartphone, Clock, Mail, MessageSquare } from 'lucide-react';
 
 export const ReservationBlock = () => {
   const [guests, setGuests] = useState(2);
@@ -10,6 +10,7 @@ export const ReservationBlock = () => {
   const [success, setSuccess] = useState(false);
   const [time, setTime] = useState('19:45');
   const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
+  const [location, setLocation] = useState('inside');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -89,6 +90,39 @@ export const ReservationBlock = () => {
             <div className={styles.inputWrapper}>
               <Smartphone size={18} className={styles.inputIcon} />
               <input type="tel" placeholder="Numéro de mobile (ex: 06...)" required className={styles.textInputWithIcon} />
+            </div>
+            <div className={styles.inputWrapper} style={{ gridColumn: '1 / -1' }}>
+              <Mail size={18} className={styles.inputIcon} />
+              <input type="email" placeholder="Adresse e-mail" required className={styles.textInputWithIcon} />
+            </div>
+
+            <div className={styles.field} style={{ gridColumn: '1 / -1' }}>
+              <label>Emplacement souhaité</label>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
+                <button 
+                  type="button" 
+                  className={location === 'inside' ? styles.slotActive : styles.slot}
+                  onClick={() => setLocation('inside')}
+                >
+                  En salle
+                </button>
+                <button 
+                  type="button" 
+                  className={location === 'terrace' ? styles.slotActive : styles.slot}
+                  onClick={() => setLocation('terrace')}
+                >
+                  En terrasse
+                </button>
+              </div>
+            </div>
+
+            <div className={styles.inputWrapper} style={{ gridColumn: '1 / -1', alignItems: 'flex-start' }}>
+              <MessageSquare size={18} className={styles.inputIcon} style={{ top: '13px' }} />
+              <textarea 
+                placeholder="Demandes particulières (allergies, chaise haute, etc.)" 
+                className={styles.textInputWithIcon}
+                style={{ height: 'auto', minHeight: '80px', paddingTop: '12px', paddingBottom: '12px', resize: 'vertical' }}
+              />
             </div>
           </div>
 
