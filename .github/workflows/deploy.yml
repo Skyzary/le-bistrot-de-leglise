@@ -28,7 +28,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build with OpenNext for Cloudflare
-        run: pnpm dlx @opennextjs/cloudflare@latest build
+        run: pnpm exec opennextjs-cloudflare build
 
       - name: Deploy to Cloudflare
         uses: cloudflare/wrangler-action@v3
