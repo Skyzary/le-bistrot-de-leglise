@@ -1,13 +1,15 @@
-'use server';
+import { NextResponse } from 'next/server';
+export const dynamic = 'force-dynamic';
 
-export async function sendReservationAction(formData: FormData) {
+export async function POST(request: Request) {
   try {
     const apiKey = process.env.RESEND_API_KEY;
     if (!apiKey) {
       console.error("Missing RESEND_API_KEY");
-      return { success: false, error: 'Configuration serveur invalide.' };
+      return NextResponse.json({ success: false, error: 'Configuration serveur invalide.' }, { status: 500 });
     }
 
+    const formData = await request.formData();
     const guests = formData.get('guests');
     const date = formData.get('date');
     const time = formData.get('time');
@@ -18,7 +20,7 @@ export async function sendReservationAction(formData: FormData) {
     const requests = formData.get('requests') as string | null;
 
     if (!name || !phone || !email || !date || !time) {
-      return { success: false, error: 'Champs obligatoires manquants.' };
+      return NextResponse.json({ success: false, error: 'Champs obligatoires manquants.' }, { status: 400 });
     }
 
     const htmlContent = `
@@ -78,7 +80,7 @@ export async function sendReservationAction(formData: FormData) {
       },
       body: JSON.stringify({
         from: `Réservation Le Bistrot <notifications@reservation.lebistrotdeleglise.fr>`,
-        to: ["skyzary@outlook.com"],
+        to: ["valeresicot@yahoo.fr"],
         subject: `Réservation - ${name} - ${date} à ${time}`,
         html: htmlContent,
         reply_to: email as string,
@@ -89,15 +91,13 @@ export async function sendReservationAction(formData: FormData) {
 
     if (!res.ok) {
       console.error("Resend API Error:", data);
-      return { success: false, error: data.message || 'Erreur API' };
+      return NextResponse.json({ success: false, error: data.message || 'Erreur API' }, { status: 400 });
     }
 
     console.log("mail sent", data);
-    return { success: true, data };
+    return NextResponse.json({ success: true, data });
   } catch (error: any) {
     console.error("Error sending email:", error);
-    return { success: false, error: error.message };
+    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
   }
 }
-
-

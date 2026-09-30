@@ -6,4 +6,10 @@ compatibility_flags = ["nodejs_compat"]
 [assets]
 directory = ".open-next/assets"
 binding = "ASSETS"
+# ...
+[vars]
+IS_DEV = "false"
+RESEND_API_KEY = "YOUR_RESEND_API_KEY_HERE"
+# ...
+
 

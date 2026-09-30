@@ -4,7 +4,6 @@ import styles from './ReservationBlock.module.scss';
 import { Button } from '@/components/atoms/Button';
 import { Phone, Calendar, Loader2, CheckCircle, Plus, Minus, User, Smartphone, Clock, Mail, MessageSquare } from 'lucide-react';
 
-import { sendReservationAction } from '@/actions/send-reservation';
 
 export const ReservationBlock = () => {
   const [guests, setGuests] = useState(2);
@@ -25,7 +24,12 @@ export const ReservationBlock = () => {
     formData.append('location', location);
     
     try {
-      const result = await sendReservationAction(formData);
+      const res = await fetch('/api/send-reservation', {
+        method: 'POST',
+        body: formData,
+      });
+      const result = await res.json();
+      
       if (result.success) {
         setSuccess(true);
       } else {
@@ -149,11 +153,11 @@ export const ReservationBlock = () => {
           {error && <p style={{ color: 'red', textAlign: 'center', marginBottom: '16px' }}>{error}</p>}
 
           {success ? (
-            <Button variant="primary" fullWidth className={styles.successBtn}>
+            <Button type="button" variant="primary" fullWidth className={styles.successBtn}>
               <CheckCircle size={18} /> Demande envoyée ! À très vite.
             </Button>
           ) : (
-            <Button variant="primary" fullWidth disabled={loading}>
+            <Button type="submit" variant="primary" fullWidth disabled={loading}>
               {loading ? <Loader2 size={18} className={styles.spin} /> : <CheckCircle size={18} />}
               {loading ? 'Envoi en cours...' : 'Confirmer ma demande de table'}
             </Button>
