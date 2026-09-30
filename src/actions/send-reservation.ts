@@ -17,7 +17,7 @@ export async function sendReservationAction(formData: FormData) {
     const phone = formData.get('phone');
     const email = formData.get('email');
     const location = formData.get('location');
-    const requests = formData.get('requests');
+    const requests = formData.get('requests') as string | null;
 
     if (!name || !phone || !email || !date || !time) {
       return { success: false, error: 'Champs obligatoires manquants.' };
