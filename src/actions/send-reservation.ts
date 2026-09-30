@@ -72,14 +72,20 @@ export async function sendReservationAction(formData: FormData) {
       </div>
     `;
 
-    const data = await resend.emails.send({
-      from: "Réservation Le Bistrot <onboarding@resend.dev>",
-      to: ["valeresicot@yahoo.fr"],
+    const { data, error } = await resend.emails.send({
+      from: `Réservation Le Bistrot <notifications@reservation.lebistrotdeleglise.fr>`,
+      to: ["valeresicot@yahoo.fr"], // NOTE: Needs a verified domain or matching verified email
       subject: `Réservation - ${name} - ${date} à ${time}`,
       html: htmlContent,
       replyTo: email as string,
     });
-    console.log("mail sent");
+
+    if (error) {
+      console.error("Resend API Error:", error);
+      return { success: false, error: error.message };
+    }
+
+    console.log("mail sent", data);
 
     return { success: true, data };
   } catch (error: any) {
