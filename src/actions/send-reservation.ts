@@ -1,23 +1,23 @@
-'use server';
+"use server";
 
-import { Resend } from 'resend';
+import { Resend } from "resend";
 import * as process from "node:process";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function sendReservationAction(formData: FormData) {
   try {
-    const guests = formData.get('guests');
-    const date = formData.get('date');
-    const time = formData.get('time');
-    const name = formData.get('name');
-    const phone = formData.get('phone');
-    const email = formData.get('email');
-    const location = formData.get('location');
-    const requests = formData.get('requests');
+    const guests = formData.get("guests");
+    const date = formData.get("date");
+    const time = formData.get("time");
+    const name = formData.get("name");
+    const phone = formData.get("phone");
+    const email = formData.get("email");
+    const location = formData.get("location");
+    const requests = formData.get("requests");
 
     if (!name || !phone || !email || !date || !time) {
-      return { success: false, error: 'Champs obligatoires manquants.' };
+      return { success: false, error: "Champs obligatoires manquants." };
     }
 
     const htmlContent = `
@@ -42,7 +42,7 @@ export async function sendReservationAction(formData: FormData) {
               <tr>
                 <td style="padding: 12px 0; border-bottom: 1px solid #eeeeee;">
                   <span style="color: #7f8c8d; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 4px;">Détails de la table</span>
-                  <strong style="color: #2c3e50; font-size: 16px;">${guests} personnes — ${location === 'terrace' ? 'En terrasse' : 'En salle'}</strong>
+                  <strong style="color: #2c3e50; font-size: 16px;">${guests} personnes — ${location === "terrace" ? "En terrasse" : "En salle"}</strong>
                 </td>
               </tr>
               <tr>
@@ -59,7 +59,7 @@ export async function sendReservationAction(formData: FormData) {
 
           <div style="margin-top: 25px; padding: 15px; background-color: #fdfbf7; border-left: 4px solid #b78c43; border-radius: 4px;">
             <span style="color: #7f8c8d; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 8px;">Demandes particulières</span>
-            <p style="color: #34495e; font-size: 15px; margin: 0; line-height: 1.5;">${requests ? requests.replace(/\n/g, '<br>') : '<em>Aucune demande spécifique.</em>'}</p>
+            <p style="color: #34495e; font-size: 15px; margin: 0; line-height: 1.5;">${requests ? requests.replace(/\n/g, "<br>") : "<em>Aucune demande spécifique.</em>"}</p>
           </div>
 
           <div style="margin-top: 30px; text-align: center; font-size: 13px; color: #95a5a6;">
@@ -70,17 +70,17 @@ export async function sendReservationAction(formData: FormData) {
     `;
 
     const data = await resend.emails.send({
-      from: 'Réservation Le Bistrot <onboarding@resend.dev>',
-      to: process.env.IS_DEV = 'true' ? ['levkovskii44@gmail.com'] : ['valeresicot@yahoo.fr'],
+      from: "Réservation Le Bistrot <onboarding@resend.dev>",
+      to: ["valeresicot@yahoo.fr"],
       subject: `Réservation - ${name} - ${date} à ${time}`,
       html: htmlContent,
       replyTo: email as string,
     });
-    console.log('mail sent')
+    console.log("mail sent");
 
     return { success: true, data };
   } catch (error: any) {
-    console.error('Error sending email:', error);
+    console.error("Error sending email:", error);
     return { success: false, error: error.message };
   }
 }

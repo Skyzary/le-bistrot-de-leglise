@@ -4,21 +4,38 @@ import styles from './ReservationBlock.module.scss';
 import { Button } from '@/components/atoms/Button';
 import { Phone, Calendar, Loader2, CheckCircle, Plus, Minus, User, Smartphone, Clock, Mail, MessageSquare } from 'lucide-react';
 
+import { sendReservationAction } from '@/actions/send-reservation';
+
 export const ReservationBlock = () => {
   const [guests, setGuests] = useState(2);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [time, setTime] = useState('19:45');
   const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
   const [location, setLocation] = useState('inside');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-    setTimeout(() => {
+    setError(null);
+    
+    const formData = new FormData(e.currentTarget);
+    formData.append('guests', guests.toString());
+    formData.append('location', location);
+    
+    try {
+      const result = await sendReservationAction(formData);
+      if (result.success) {
+        setSuccess(true);
+      } else {
+        setError(result.error || 'Erreur lors de l\'envoi');
+      }
+    } catch (err) {
+      setError('Erreur inattendue');
+    } finally {
       setLoading(false);
-      setSuccess(true);
-    }, 800);
+    }
   };
 
   const adjustGuests = (delta: number) => {
@@ -58,6 +75,7 @@ export const ReservationBlock = () => {
               <div className={styles.inputGroup}>
                 <input 
                   id="date-input"
+                  name="date"
                   type="date" 
                   value={date} 
                   onChange={(e) => setDate(e.target.value)} 
@@ -72,6 +90,7 @@ export const ReservationBlock = () => {
               <div className={styles.inputGroup}>
                 <input 
                   id="time-input"
+                  name="time"
                   type="time" 
                   value={time} 
                   onChange={(e) => setTime(e.target.value)} 
@@ -85,15 +104,15 @@ export const ReservationBlock = () => {
           <div className={styles.fieldGrid}>
             <div className={styles.inputWrapper}>
               <User size={18} className={styles.inputIcon} />
-              <input type="text" placeholder="Votre nom complet" required className={styles.textInputWithIcon} />
+              <input type="text" name="name" placeholder="Votre nom complet" required className={styles.textInputWithIcon} />
             </div>
             <div className={styles.inputWrapper}>
               <Smartphone size={18} className={styles.inputIcon} />
-              <input type="tel" placeholder="Numéro de mobile (ex: 06...)" required className={styles.textInputWithIcon} />
+              <input type="tel" name="phone" placeholder="Numéro de mobile (ex: 06...)" required className={styles.textInputWithIcon} />
             </div>
             <div className={styles.inputWrapper} style={{ gridColumn: '1 / -1' }}>
               <Mail size={18} className={styles.inputIcon} />
-              <input type="email" placeholder="Adresse e-mail" required className={styles.textInputWithIcon} />
+              <input type="email" name="email" placeholder="Adresse e-mail" required className={styles.textInputWithIcon} />
             </div>
 
             <div className={styles.field} style={{ gridColumn: '1 / -1' }}>
@@ -119,12 +138,15 @@ export const ReservationBlock = () => {
             <div className={styles.inputWrapper} style={{ gridColumn: '1 / -1', alignItems: 'flex-start' }}>
               <MessageSquare size={18} className={styles.inputIcon} style={{ top: '13px' }} />
               <textarea 
+                name="requests"
                 placeholder="Demandes particulières (allergies, chaise haute, etc.)" 
                 className={styles.textInputWithIcon}
                 style={{ height: 'auto', minHeight: '80px', paddingTop: '12px', paddingBottom: '12px', resize: 'vertical' }}
               />
             </div>
           </div>
+
+          {error && <p style={{ color: 'red', textAlign: 'center', marginBottom: '16px' }}>{error}</p>}
 
           {success ? (
             <Button variant="primary" fullWidth className={styles.successBtn}>
