@@ -35,7 +35,8 @@ jobs:
 
       - name: Patch worker.js to expose error
         run: |
-          sed -i 's/return handler(reqOrResp, env, ctx, request.signal);/try { return await handler(reqOrResp, env, ctx, request.signal); } catch(e) { return new Response(e.stack || e.message || String(e), { status: 500 }); }/' .open-next/worker.js
+          sed -i 's/async fetch(request, env, ctx) {/async fetch(request, env, ctx) { try {/' .open-next/worker.js
+          sed -i 's/        });/        }); } catch(e) { return new Response(e.stack || e.message || String(e), { status: 500 }); }/' .open-next/worker.js
 
       - name: Deploy to Cloudflare
         uses: cloudflare/wrangler-action@v3
@@ -43,3 +44,4 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: deploy
+          packageManager: pnpm
