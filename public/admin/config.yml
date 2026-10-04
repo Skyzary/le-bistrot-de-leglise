@@ -1,0 +1,66 @@
+backend:
+  name: git-gateway
+  branch: main
+
+
+local_backend: true
+
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+collections:
+  - name: "settings"
+    label: "Paramètres"
+    files:
+      - file: "src/content/schedule.json"
+        label: "Horaires d'Ouverture"
+        name: "schedule"
+        fields:
+          - label: "Horaires"
+            name: "items"
+            widget: "list"
+            fields:
+              - { label: "Jours", name: "days", widget: "string" }
+              - { label: "Heures", name: "time", widget: "string" }
+
+      - file: "src/content/menu-preview.json"
+        label: "Aperçu Menu (Page d'accueil)"
+        name: "menu_preview"
+        fields:
+          - label: "Sections"
+            name: "sections"
+            widget: "list"
+            fields:
+              - label: "Titre de la section"
+                name: "title"
+                widget: "string"
+              - label: "Plats"
+                name: "items"
+                widget: "list"
+                fields:
+                  - { label: "Nom du plat", name: "name", widget: "string" }
+                  - { label: "Prix", name: "price", widget: "string" }
+                  - { label: "Description (optionnel)", name: "desc", widget: "string", required: false }
+
+      - file: "src/content/menu.json"
+        label: "Carte Complète"
+        name: "menu"
+        fields:
+          - label: "Catégories"
+            name: "categories"
+            widget: "list"
+            fields:
+              - label: "Nom de la catégorie"
+                name: "category"
+                widget: "string"
+              - label: "Description de la catégorie (optionnel)"
+                name: "desc"
+                widget: "text"
+                required: false
+              - label: "Plats"
+                name: "items"
+                widget: "list"
+                fields:
+                  - { label: "Nom du plat", name: "name", widget: "string" }
+                  - { label: "Prix", name: "price", widget: "string" }
+                  - { label: "Description (optionnel)", name: "desc", widget: "string", required: false }

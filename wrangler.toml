@@ -1,15 +1,19 @@
-name =  "le_bistrot_de_leglise"
+name = "le_bistrot_de_leglise"
 main = ".open-next/worker.js"
 compatibility_date = "2025-09-29"
-compatibility_flags = ["nodejs_compat"]
+compatibility_flags = [ "nodejs_compat" ]
 
 [assets]
 directory = ".open-next/assets"
 binding = "ASSETS"
-# ...
-[vars]
-IS_DEV = "false"
-RESEND_API_KEY = "YOUR_RESEND_API_KEY_HERE"
-# ...
 
+[previews]
 
+[[routes]]
+pattern = "lebistrotdeleglise.fr/*"
+zone_name = "lebistrotdeleglise.fr"
+
+[[routes]]
+pattern = "lebistrotdeleglise.fr"
+zone_name = "lebistrotdeleglise.fr"
+custom_domain = true
