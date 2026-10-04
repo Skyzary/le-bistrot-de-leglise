@@ -2,24 +2,8 @@ import React from 'react';
 import styles from './MenuOverview.module.scss';
 import { Button } from '@/components/atoms/Button';
 
-const menuSections = [
-  {
-    title: 'Les plats de saison',
-    items: [
-      { name: 'Parmentier de canard', price: '19.50 €', desc: 'Patate douce' },
-      { name: 'Joue de bœuf au cidre', price: '19.50 €', desc: 'Et gratin de pommes de terre' },
-      { name: 'Côte de porc aveyronnaise', price: '19.50 €', desc: 'Sauce miel-moutarde' }
-    ]
-  },
-  {
-    title: 'Nos incontournables',
-    items: [
-      { name: 'Magret de canard 300/350g', price: '23.90 €' },
-      { name: 'Bourride de poisson', price: '25.00 €', desc: 'Gratinés de rouille maison' },
-      { name: 'Le BISTROT\'S Burger', price: '21.00 €', desc: 'Viandard + 2 tranches St Nectaire' }
-    ]
-  }
-];
+import { menuSectionsPreview as menuSections } from '@/config/data';
+
 
 export const MenuOverview = () => {
   return (
