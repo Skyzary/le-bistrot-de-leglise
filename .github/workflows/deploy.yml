@@ -33,6 +33,10 @@ jobs:
       - name: Build with OpenNext for Cloudflare
         run: pnpm exec opennextjs-cloudflare build
 
+      - name: Patch worker.js to expose error
+        run: |
+          sed -i 's/return handler(reqOrResp, env, ctx, request.signal);/try { return await handler(reqOrResp, env, ctx, request.signal); } catch(e) { return new Response(e.stack || e.message || String(e), { status: 500 }); }/' .open-next/worker.js
+
       - name: Deploy to Cloudflare
         uses: cloudflare/wrangler-action@v3
         with:
