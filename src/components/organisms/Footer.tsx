@@ -39,12 +39,16 @@ export const Footer = () => {
           <div className={styles.infoCol}>
             <span className={styles.label}>Horaires d'Ouverture</span>
             <div className={styles.row}>
-              <span>Mardi – Samedi</span>
-              <span className={styles.time}>12h00 - 14h00<br/>19h30 - 22h00</span>
+              <span>Lundi – Jeudi</span>
+              <span className={styles.time}>08h00 - 00h00</span>
             </div>
             <div className={styles.row}>
-              <span>Dimanche – Lundi</span>
-              <span className={styles.closed}>Fermé</span>
+              <span>Vendredi – Samedi</span>
+              <span className={styles.time}>08h00 - 01h00</span>
+            </div>
+            <div className={styles.row}>
+              <span>Dimanche</span>
+              <span className={styles.time}>09h00 - 16h00</span>
             </div>
           </div>
         </div>
