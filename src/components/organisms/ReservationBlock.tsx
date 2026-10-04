@@ -76,14 +76,16 @@ export const ReservationBlock = () => {
             
             <div className={styles.field}>
               <label htmlFor="date-input">Date</label>
-              <div className={styles.inputGroup}>
+              <div className={styles.inputWrapper}>
+                <Calendar size={18} className={styles.inputIcon} />
                 <input 
                   id="date-input"
                   name="date"
                   type="date" 
                   value={date} 
                   onChange={(e) => setDate(e.target.value)} 
-                  className={styles.dateInput}
+                  className={styles.textInputWithIcon}
+                  style={{ colorScheme: 'dark' }}
                   required
                 />
               </div>
@@ -91,14 +93,16 @@ export const ReservationBlock = () => {
 
             <div className={styles.field}>
               <label htmlFor="time-input">Heure</label>
-              <div className={styles.inputGroup}>
+              <div className={styles.inputWrapper}>
+                <Clock size={18} className={styles.inputIcon} />
                 <input 
                   id="time-input"
                   name="time"
                   type="time" 
                   value={time} 
                   onChange={(e) => setTime(e.target.value)} 
-                  className={styles.dateInput}
+                  className={styles.textInputWithIcon}
+                  style={{ colorScheme: 'dark' }}
                   required
                 />
               </div>
