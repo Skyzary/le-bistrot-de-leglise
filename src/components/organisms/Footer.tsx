@@ -42,7 +42,9 @@ export const Footer = () => {
             {scheduleData.map((item, idx) => (
               <div key={idx} className={styles.row}>
                 <span>{item.days}</span>
-                <span className={styles.time}>{item.time}</span>
+                <span className={/ferm[ée]|closed/i.test(item.time) ? styles.closed : styles.time}>
+                  {item.time}
+                </span>
               </div>
             ))}
           </div>

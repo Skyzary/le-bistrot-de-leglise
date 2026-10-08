@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build --webpack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test": "playwright test tests/restaurantStatus.spec.ts"
   },
   "dependencies": {
     "framer-motion": "^13.4.4",
