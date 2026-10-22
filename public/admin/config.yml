@@ -2,6 +2,7 @@ backend:
   name: git-gateway
   branch: main
 
+locale: "fr"
 
 local_backend: true
 
@@ -19,6 +20,7 @@ collections:
           - label: "Horaires"
             name: "items"
             widget: "list"
+            summary: "{{fields.days}} : {{fields.time}}"
             fields:
               - { label: "Jours", name: "days", widget: "string" }
               - { label: "Heures", name: "time", widget: "string" }
@@ -38,10 +40,21 @@ collections:
           - label: "Liste des avis"
             name: "items"
             widget: "list"
+            summary: "{{fields.name}} — {{fields.content}}"
             fields:
               - { label: "Nom de l'auteur", name: "name", widget: "string" }
-              - { label: "Date ou Source", name: "date", widget: "string", default: "Publié sur Google" }
-              - { label: "Initiale de l'avatar (ex: M)", name: "initials", widget: "string", required: false }
+              - {
+                  label: "Date ou Source",
+                  name: "date",
+                  widget: "string",
+                  default: "Publié sur Google",
+                }
+              - {
+                  label: "Initiale de l'avatar (ex: M)",
+                  name: "initials",
+                  widget: "string",
+                  required: false,
+                }
               - { label: "Contenu de l'avis", name: "content", widget: "text" }
 
       - file: "src/content/gallery.json"
@@ -51,9 +64,15 @@ collections:
           - label: "Photos"
             name: "images"
             widget: "list"
+            summary: "{{fields.alt}} ({{fields.image}})"
             fields:
               - { label: "Image", name: "image", widget: "image" }
-              - { label: "Description (alt)", name: "alt", widget: "string", required: false }
+              - {
+                  label: "Description (alt)",
+                  name: "alt",
+                  widget: "string",
+                  required: false,
+                }
 
       - file: "src/content/menu-preview.json"
         label: "Aperçu Menu (Page d'accueil)"
@@ -62,6 +81,7 @@ collections:
           - label: "Sections"
             name: "sections"
             widget: "list"
+            summary: "{{fields.title}}"
             fields:
               - label: "Titre de la section"
                 name: "title"
@@ -69,10 +89,16 @@ collections:
               - label: "Plats"
                 name: "items"
                 widget: "list"
+                summary: "{{fields.name}} — {{fields.price}}"
                 fields:
                   - { label: "Nom du plat", name: "name", widget: "string" }
                   - { label: "Prix", name: "price", widget: "string" }
-                  - { label: "Description (optionnel)", name: "desc", widget: "string", required: false }
+                  - {
+                      label: "Description (optionnel)",
+                      name: "desc",
+                      widget: "string",
+                      required: false,
+                    }
 
       - file: "src/content/menu.json"
         label: "Carte Complète"
@@ -81,6 +107,7 @@ collections:
           - label: "Catégories"
             name: "categories"
             widget: "list"
+            summary: "{{fields.category}}"
             fields:
               - label: "Nom de la catégorie"
                 name: "category"
@@ -92,7 +119,13 @@ collections:
               - label: "Plats"
                 name: "items"
                 widget: "list"
+                summary: "{{fields.name}} — {{fields.price}}"
                 fields:
                   - { label: "Nom du plat", name: "name", widget: "string" }
                   - { label: "Prix", name: "price", widget: "string" }
-                  - { label: "Description (optionnel)", name: "desc", widget: "string", required: false }
+                  - {
+                      label: "Description (optionnel)",
+                      name: "desc",
+                      widget: "string",
+                      required: false,
+                    }
