@@ -1,0 +1,32 @@
+{
+  "images": [
+    {
+      "image": "/images/gallery/photo_1.jpg",
+      "alt": "Plat du jour au Bistrot de l'Église"
+    },
+    {
+      "image": "/images/gallery/photo_2.jpg",
+      "alt": "Assiette gourmande"
+    },
+    {
+      "image": "/images/gallery/photo_3.jpg",
+      "alt": "Spécialité du chef"
+    },
+    {
+      "image": "/images/gallery/photo_4.jpg",
+      "alt": "Viande sélectionnée"
+    },
+    {
+      "image": "/images/gallery/photo_6.jpg",
+      "alt": "Fromages et dégustation"
+    },
+    {
+      "image": "/images/gallery/photo_7.jpg",
+      "alt": "Atmosphère du bistrot"
+    },
+    {
+      "image": "/images/gallery/photo_8.jpg",
+      "alt": "Décoration et ambiance"
+    }
+  ]
+}

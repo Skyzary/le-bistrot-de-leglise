@@ -2,16 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import styles from './GallerySection.module.scss';
 import { Camera, ArrowRight } from 'lucide-react';
-
-const PHOTOS = [
-  '/images/gallery/photo_1.jpg',
-  '/images/gallery/photo_2.jpg',
-  '/images/gallery/photo_3.jpg',
-  '/images/gallery/photo_4.jpg',
-  '/images/gallery/photo_6.jpg',
-  '/images/gallery/photo_7.jpg',
-  '/images/gallery/photo_8.jpg',
-];
+import { galleryData } from '@/config/data';
 
 export const GallerySection = () => {
   return (
@@ -29,11 +20,11 @@ export const GallerySection = () => {
 
       <div className={styles.slider}>
         <div className={styles.sliderTrack}>
-          {PHOTOS.map((src, idx) => (
+          {galleryData.map((item, idx) => (
             <div key={idx} className={styles.slide}>
               <Image 
-                src={src} 
-                alt={`Galerie photo ${idx + 1}`} 
+                src={item.image} 
+                alt={item.alt || `Galerie photo ${idx + 1}`} 
                 fill 
                 sizes="(max-width: 768px) 80vw, 400px"
                 style={{ objectFit: 'cover' }} 

@@ -44,6 +44,17 @@ collections:
               - { label: "Initiale de l'avatar (ex: M)", name: "initials", widget: "string", required: false }
               - { label: "Contenu de l'avis", name: "content", widget: "text" }
 
+      - file: "src/content/gallery.json"
+        label: "Galerie Photos"
+        name: "gallery"
+        fields:
+          - label: "Photos"
+            name: "images"
+            widget: "list"
+            fields:
+              - { label: "Image", name: "image", widget: "image" }
+              - { label: "Description (alt)", name: "alt", widget: "string", required: false }
+
       - file: "src/content/menu-preview.json"
         label: "Aperçu Menu (Page d'accueil)"
         name: "menu_preview"
