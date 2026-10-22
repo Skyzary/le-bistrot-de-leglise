@@ -23,6 +23,27 @@ collections:
               - { label: "Jours", name: "days", widget: "string" }
               - { label: "Heures", name: "time", widget: "string" }
 
+      - file: "src/content/reviews.json"
+        label: "Avis Clients"
+        name: "reviews"
+        fields:
+          - label: "Note / Titre"
+            name: "rating"
+            widget: "string"
+            default: "EXCELLENT"
+          - label: "Nombre d'avis"
+            name: "reviewCountText"
+            widget: "string"
+            default: "841 avis vérifiés"
+          - label: "Liste des avis"
+            name: "items"
+            widget: "list"
+            fields:
+              - { label: "Nom de l'auteur", name: "name", widget: "string" }
+              - { label: "Date ou Source", name: "date", widget: "string", default: "Publié sur Google" }
+              - { label: "Initiale de l'avatar (ex: M)", name: "initials", widget: "string", required: false }
+              - { label: "Contenu de l'avis", name: "content", widget: "text" }
+
       - file: "src/content/menu-preview.json"
         label: "Aperçu Menu (Page d'accueil)"
         name: "menu_preview"

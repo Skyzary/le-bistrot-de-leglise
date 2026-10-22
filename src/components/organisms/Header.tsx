@@ -56,12 +56,34 @@ export const Header = () => {
   const isNousTrouver = pathname === '/' && activeSection === 'nous-trouver';
   const isReservation = pathname === '/' && activeSection === 'reservation';
 
+  const brandClickCountRef = useRef(0);
+  const brandClickTimerRef = useRef<NodeJS.Timeout | null>(null);
+
+  const handleBrandClick = (e: React.MouseEvent) => {
+    brandClickCountRef.current += 1;
+
+    if (brandClickTimerRef.current) {
+      clearTimeout(brandClickTimerRef.current);
+    }
+
+    if (brandClickCountRef.current >= 5) {
+      e.preventDefault();
+      brandClickCountRef.current = 0;
+      window.location.href = '/admin/';
+      return;
+    }
+
+    brandClickTimerRef.current = setTimeout(() => {
+      brandClickCountRef.current = 0;
+    }, 2000);
+  };
+
   return (
     <header className={styles.header}>
       <div className={styles.container}>
         
         {/* Left: Branding */}
-        <Link href="/" className={styles.brand}>
+        <Link href="/" className={styles.brand} onClick={handleBrandClick}>
           <Image 
             src="/logo.jpg" 
             alt="Logo Le Bistrot de l'Église" 

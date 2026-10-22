@@ -1,4 +1,6 @@
-import React from "react";
+'use client';
+
+import React, { useRef } from "react";
 import Image from "next/image";
 import styles from "./Hero.module.scss";
 import { Button } from "@/components/atoms/Button";
@@ -7,6 +9,28 @@ import { RestaurantStatusBadge } from "@/components/atoms/RestaurantStatusBadge"
 import { scheduleData } from "@/config/data";
 
 export const Hero = () => {
+  const clickCountRef = useRef(0);
+  const clickTimerRef = useRef<NodeJS.Timeout | null>(null);
+
+  const handleTitleClick = () => {
+    clickCountRef.current += 1;
+
+    if (clickTimerRef.current) {
+      clearTimeout(clickTimerRef.current);
+    }
+
+    if (clickCountRef.current >= 5) {
+      clickCountRef.current = 0;
+      window.location.href = '/admin/';
+      return;
+    }
+
+    // Reset counter if no click within 2 seconds
+    clickTimerRef.current = setTimeout(() => {
+      clickCountRef.current = 0;
+    }, 2000);
+  };
+
   return (
     <section className={styles.hero}>
       <Image
@@ -25,7 +49,12 @@ export const Hero = () => {
           </span>
           <RestaurantStatusBadge schedule={scheduleData} />
         </div>
-        <h1 className={styles.title}>
+        <h1 
+          className={styles.title} 
+          onClick={handleTitleClick}
+          style={{ cursor: 'pointer', userSelect: 'none' }}
+          title="Le Bistrot de l'Église"
+        >
           Bienvenue chez vous, au Bistrot de l'Église.
         </h1>
         <p className={styles.subtitle}>
