@@ -1,6 +1,24 @@
 {
   "categories": [
     {
+      "category": "Formule du jour",
+      "desc": "Midi uniquement (Lundi au vendredi)",
+      "items": [
+        {
+          "name": "Plat du jour",
+          "price": "11.90 €"
+        },
+        {
+          "name": "Entrée Plat ou Plat Dessert",
+          "price": "15.90 €"
+        },
+        {
+          "name": "Entrée Plat Dessert",
+          "price": "18.90 €"
+        }
+      ]
+    },
+    {
       "category": "Midi uniquement (Lundi au vendredi)",
       "items": [
         {
