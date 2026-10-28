@@ -61,3 +61,6 @@ dev.log
 # OpenNext & Cloudflare
 .open-next
 .wrangler
+
+# Local Netlify folder
+.netlify
