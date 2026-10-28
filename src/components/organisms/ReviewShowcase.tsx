@@ -2,31 +2,16 @@ import React from 'react';
 import styles from './ReviewShowcase.module.scss';
 import { ReviewCard } from '@/components/molecules/ReviewCard';
 import { Star, ArrowRight } from 'lucide-react';
+import { reviewsData } from '@/config/data';
 
 export const ReviewShowcase = () => {
-  const reviews = [
-    {
-      id: '1',
-      name: 'Nico de Ribas',
-      date: 'Publié sur Google',
-      content: 'Sur la route de la feria de Béziers nous cherchions un resto facile pour se garer... Nous avons découvert une pépite ! Des employés décontractés avec une banane d\'enfer mais surtout un menu au-dessus de toute espérance. On s\'est régalé !',
-      initials: 'N',
-    },
-    {
-      id: '2',
-      name: 'Marie Jose Pouget',
-      date: 'Publié sur Google',
-      content: 'Super adresse ! Les plats sont copieux et excellents avec des produits de qualité. Ambiance chaleureuse et service aux petits soins. Nous sommes sortis repus, je vous le recommande chaleureusement !',
-      initials: 'M',
-    },
-    {
-      id: '3',
-      name: 'Sonia Leguillerm',
-      date: 'Publié sur Google',
-      content: 'Franchement c\'était délicieux, les serveurs étaient très agréables. Le service fut rapide et la nourriture excellente. Je conseille fortement cette adresse aux prix très abordables !',
-      initials: 'S',
-    },
-  ];
+  const reviews = reviewsData.items.map((item, index) => ({
+    id: item.id || String(index + 1),
+    name: item.name,
+    date: item.date,
+    content: item.content,
+    initials: item.initials || item.name.charAt(0).toUpperCase(),
+  }));
 
   return (
     <section className={styles.section}>
@@ -37,7 +22,7 @@ export const ReviewShowcase = () => {
           </div>
           <div className={styles.ratingInfo}>
             <div className={styles.ratingTitle}>
-              EXCELLENT
+              {reviewsData.rating || 'EXCELLENT'}
               <div className={styles.stars}>
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} size={16} fill="currentColor" />
@@ -45,7 +30,7 @@ export const ReviewShowcase = () => {
               </div>
             </div>
             <div className={styles.ratingSubtitle}>
-              Basé sur <strong>841 avis vérifiés</strong> sur Google
+              Basé sur <strong>{reviewsData.reviewCountText || '841 avis vérifiés'}</strong> sur Google
             </div>
           </div>
         </div>

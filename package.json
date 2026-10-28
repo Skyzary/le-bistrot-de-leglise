@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "test": "playwright test",
-    "test:unit": "NO_SERVER=1 playwright test tests/unit-features.spec.ts"
+    "test:unit": "NO_SERVER=1 playwright test tests/unit-features.spec.ts tests/restaurantStatus.spec.ts"
   },
   "dependencies": {
     "framer-motion": "^13.4.4",

@@ -8,25 +8,7 @@ import { WinePairingModal } from '@/components/molecules/WinePairingModal';
 import { ChefRouletteModal } from '@/components/molecules/ChefRouletteModal';
 import { getWinePairingForDish, WinePairing } from '@/data/winePairings';
 import { triggerHaptic } from '@/utils/haptics';
-
-const menuSections = [
-  {
-    title: 'Les plats de saison',
-    items: [
-      { name: 'Parmentier de canard, patate douce', price: '19.50 €' },
-      { name: 'Joue de bœuf au cidre de pommes', price: '19.50 €', desc: 'Et gratin de pommes de terre' },
-      { name: 'Côte de porc aveyronnaise', price: '19.50 €', desc: 'Sauce miel-moutarde' }
-    ]
-  },
-  {
-    title: 'Nos incontournables',
-    items: [
-      { name: 'Magret de canard 300/350g', price: '23.90 €' },
-      { name: 'Bourride de poisson et ses filets', price: '25.00 €', desc: 'Gratinés de rouille maison' },
-      { name: 'Le BISTROT\'S Burger', price: '21.00 €', desc: 'Viandard + 2 tranches St Nectaire' }
-    ]
-  }
-];
+import { menuSectionsPreview as menuSections } from '@/config/data';
 
 export const MenuOverview = () => {
   const [selectedPairing, setSelectedPairing] = useState<WinePairing | null>(null);

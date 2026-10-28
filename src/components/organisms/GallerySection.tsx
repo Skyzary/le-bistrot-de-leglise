@@ -6,51 +6,22 @@ import styles from './GallerySection.module.scss';
 import { Camera, ArrowRight, Maximize2 } from 'lucide-react';
 import { DishStoryModal, GalleryItem } from '@/components/molecules/DishStoryModal';
 import { triggerHaptic } from '@/utils/haptics';
+import { galleryData } from '@/config/data';
 
-const GALLERY_ITEMS: GalleryItem[] = [
-  {
-    src: '/images/gallery/photo_1.jpg',
-    title: 'Cuisine du Marché & Fraîcheur',
-    desc: 'Créations de saison élaborées chaque matin avec les producteurs locaux.',
-    tag: 'Fait Maison',
-  },
-  {
-    src: '/images/gallery/photo_2.jpg',
-    title: 'Viandes Sélectionnées & Braisées',
-    desc: 'Cuissons lentes et viandes de caractère marinées aux herbes de la garrigue.',
-    tag: 'Spécialité',
-  },
-  {
-    src: '/images/gallery/photo_3.jpg',
-    title: 'Ambiance Bistrot & Chaleur',
-    desc: 'Un cadre convivial entre pierres d\'époque et lumières tamisées.',
-    tag: 'Le Lieu',
-  },
-  {
-    src: '/images/gallery/photo_4.jpg',
-    title: 'Planches Terroir & Partage',
-    desc: 'Charcuteries aveyronnaises et fromages affinés à déguster autour d\'un verre.',
-    tag: 'À Partager',
-  },
-  {
-    src: '/images/gallery/photo_6.jpg',
-    title: 'L\'Esprit du Village',
-    desc: 'Le rendez-vous chaleureux au cœur de la place de l\'Église de Fabrègues.',
-    tag: 'Fabrègues',
-  },
-  {
-    src: '/images/gallery/photo_7.jpg',
-    title: 'Desserts & Gourmandises',
-    desc: 'Douceurs artisanales revisitées par notre chef pâtissier.',
-    tag: 'Gourmandise',
-  },
-  {
-    src: '/images/gallery/photo_8.jpg',
-    title: 'Sélection de Vins d\'Occitanie',
-    desc: 'Accords mets et vins soigneusement choisis auprès de vignerons passionnés.',
-    tag: 'La Cave',
-  },
-];
+interface RawGalleryItem {
+  image: string;
+  alt?: string;
+  title?: string;
+  desc?: string;
+  tag?: string;
+}
+
+const GALLERY_ITEMS: GalleryItem[] = (galleryData as RawGalleryItem[]).map((item, idx) => ({
+  src: item.image,
+  title: item.title || item.alt || `Instant Gourmand ${idx + 1}`,
+  desc: item.desc || item.alt || 'Cuisine bistronomique et produits frais de saison.',
+  tag: item.tag || 'Le Bistrot',
+}));
 
 export const GallerySection = () => {
   const [selectedPhotoIndex, setSelectedPhotoIndex] = useState<number | null>(null);

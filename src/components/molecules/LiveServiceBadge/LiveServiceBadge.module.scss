@@ -16,6 +16,7 @@
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
   letter-spacing: 0.02em;
   white-space: nowrap;
+  transition: all 0.25s ease;
 }
 
 .compact {
@@ -37,15 +38,42 @@
   flex-shrink: 0;
 }
 
+.loadingDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: $color-primary;
+  opacity: 0.6;
+  flex-shrink: 0;
+}
+
 .urgent {
   border-color: rgba(230, 175, 46, 0.5);
   background-color: rgba(45, 34, 24, 0.9);
 }
 
 .urgentPulse {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
   background-color: $color-secondary;
   box-shadow: 0 0 8px $color-secondary;
   animation: pulseGold 1.8s infinite ease-in-out;
+  flex-shrink: 0;
+}
+
+.closed {
+  border-color: rgba(239, 68, 68, 0.3);
+  background-color: rgba(34, 26, 26, 0.88);
+}
+
+.closedDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #ef4444;
+  box-shadow: 0 0 6px rgba(239, 68, 68, 0.6);
+  flex-shrink: 0;
 }
 
 @keyframes pulseGreen {
@@ -77,4 +105,3 @@
     opacity: 0.8;
   }
 }
-

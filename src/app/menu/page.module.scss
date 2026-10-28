@@ -254,6 +254,7 @@
 .itemPrice {
   color: $color-secondary;
   font-weight: bold;
+  white-space: nowrap;
 }
 
 .itemDesc {

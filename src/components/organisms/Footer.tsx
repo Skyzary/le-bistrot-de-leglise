@@ -3,6 +3,7 @@ import Link from 'next/link';
 import styles from './Footer.module.scss';
 import { MapPin } from 'lucide-react';
 import { FaInstagram, FaFacebook } from 'react-icons/fa';
+import { scheduleData } from '@/config/data';
 
 export const Footer = () => {
   return (
@@ -38,18 +39,14 @@ export const Footer = () => {
 
           <div className={styles.infoCol}>
             <span className={styles.label}>Horaires d'Ouverture</span>
-            <div className={styles.row}>
-              <span>Lundi – Jeudi</span>
-              <span className={styles.time}>08h00 - 00h00</span>
-            </div>
-            <div className={styles.row}>
-              <span>Vendredi – Samedi</span>
-              <span className={styles.time}>08h00 - 01h00</span>
-            </div>
-            <div className={styles.row}>
-              <span>Dimanche</span>
-              <span className={styles.time}>09h00 - 16h00</span>
-            </div>
+            {scheduleData.map((item, idx) => (
+              <div key={idx} className={styles.row}>
+                <span>{item.days}</span>
+                <span className={/ferm[ée]|closed/i.test(item.time) ? styles.closed : styles.time}>
+                  {item.time}
+                </span>
+              </div>
+            ))}
           </div>
         </div>
 
@@ -59,10 +56,11 @@ export const Footer = () => {
             <span className={styles.dot}>•</span>
             <Link href="/politique-de-confidentialite">Politique de Confidentialité</Link>
             <span className={styles.dot}>•</span>
-            <Link href="/cookies">Cookies</Link>
-            <span className={styles.dot}>•</span>
-            <span>© {new Date().getFullYear()} Le Bistrot de l'Église</span>
+            <Link href="/cookies">Gestion des Cookies</Link>
           </div>
+          <p className={styles.copyright}>
+            © {new Date().getFullYear()} Le Bistrot de l'Église. Tous droits réservés.
+          </p>
         </div>
       </div>
     </footer>

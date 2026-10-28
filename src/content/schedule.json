@@ -1,0 +1,16 @@
+{
+  "items": [
+    {
+      "days": "Lundi – Jeudi",
+      "time": "08h00 - 00h00"
+    },
+    {
+      "days": "Vendredi – Samedi",
+      "time": "08h00 - 01h00"
+    },
+    {
+      "days": "Dimanche",
+      "time": "09h00 - 16h00"
+    }
+  ]
+}
