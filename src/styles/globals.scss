@@ -35,24 +35,15 @@ html.lenis body {
   -webkit-tap-highlight-color: transparent;
 }
 
+html {
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: auto !important;
+  overflow-x: clip;
+}
+
 html.lenis,
 html.lenis.lenis-smooth {
   scroll-behavior: auto !important;
-}
-
-@media (max-width: 768px) {
-  html.lenis,
-  html.lenis.lenis-smooth {
-    scroll-behavior: smooth !important;
-  }
-}
-
-html:not(.lenis) {
-  scroll-behavior: smooth;
-}
-
-html {
-  -webkit-overflow-scrolling: touch;
 }
 
 /* Hide default browser scrollbar while preserving full scroll functionality */
@@ -63,7 +54,6 @@ body::-webkit-scrollbar {
   height: 0;
 }
 
-html,
 body {
   max-width: 100vw;
   overflow-x: hidden;

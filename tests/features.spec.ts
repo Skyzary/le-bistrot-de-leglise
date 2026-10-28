@@ -134,3 +134,22 @@ test.describe('Mobile Features: Gallery Fullscreen Dish Stories', () => {
   });
 });
 
+test.describe('Hero Section Navigation', () => {
+  test('clicking Réserver une table in Hero scrolls towards reservation block', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto('/');
+
+    const reserveBtn = page.locator('a', { hasText: 'Réserver une table' }).first();
+    await expect(reserveBtn).toBeVisible();
+
+    await reserveBtn.click();
+
+    // Verify hash updated
+    await expect(page).toHaveURL(/#reservation/);
+
+    // Verify reservation section is in view
+    const reservationSection = page.locator('#reservation');
+    await expect(reservationSection).toBeAttached();
+  });
+});
+

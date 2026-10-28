@@ -1,6 +1,9 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
 import styles from './Button.module.scss';
+import { smoothScrollTo } from '@/components/atoms/SmoothScroll';
 
 type ButtonBaseProps = {
   variant?: 'primary' | 'secondary' | 'icon';
@@ -19,19 +22,43 @@ export type ButtonAsLinkProps = ButtonBaseProps & React.AnchorHTMLAttributes<HTM
 
 export type ButtonProps = ButtonAsButtonProps | ButtonAsLinkProps;
 
-export const Button = ({ variant = 'primary', fullWidth = false, children, className, href, ...props }: ButtonProps) => {
+export const Button = (props: ButtonProps) => {
+  const { variant = 'primary', fullWidth = false, children, className } = props;
   const classes = [styles.button, styles[`button--${variant}`], fullWidth ? styles['button--full'] : '', className].filter(Boolean).join(' ');
-  
-  if (href) {
+
+  if ('href' in props && props.href) {
+    const { href, onClick, ...restLinkProps } = props;
+
+    const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+      if (onClick) {
+        onClick(e);
+      }
+
+      if (href.startsWith('#') || href.startsWith('/#')) {
+        const id = href.replace(/^\/?#/, '');
+        if (id) {
+          const targetEl = document.getElementById(id);
+          if (targetEl) {
+            e.preventDefault();
+            smoothScrollTo(targetEl, -70);
+            if (window.location.hash !== '#' + id) {
+              window.history.pushState(null, '', '#' + id);
+            }
+          }
+        }
+      }
+    };
+
     return (
-      <Link href={href} className={classes} {...(props as React.AnchorHTMLAttributes<HTMLAnchorElement>)}>
+      <Link href={href} onClick={handleLinkClick} className={classes} {...restLinkProps}>
         {children}
       </Link>
     );
   }
 
+  const { href: _h, ...buttonProps } = props as ButtonAsButtonProps;
   return (
-    <button className={classes} {...(props as React.ButtonHTMLAttributes<HTMLButtonElement>)}>
+    <button className={classes} {...buttonProps}>
       {children}
     </button>
   );
