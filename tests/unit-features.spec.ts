@@ -8,25 +8,25 @@ test.describe('Unit Tests: Sommelier & Wine Pairings', () => {
   test('should return correct wine pairing for Magret de canard', () => {
     const pairing = getWinePairingForDish('Magret de canard 300/350g');
     expect(pairing).not.toBeNull();
-    expect(pairing?.wineName).toBe('Cuvée Lou Loup');
-    expect(pairing?.appellation).toBe('AOP Pic Saint-Loup');
+    expect(pairing?.wineName).toBe('Rouge - IGP OC Typiquement Carignan');
+    expect(pairing?.appellation).toBe('IGP Pays d’Oc');
     expect(pairing?.wineType).toBe('Rouge');
-    expect(pairing?.priceGlass).toBe('6.50 €');
+    expect(pairing?.priceGlass).toBe('4.00 €');
   });
 
   test('should return correct wine pairing for Bourride de poisson', () => {
     const pairing = getWinePairingForDish('Bourride de poisson et ses filets');
     expect(pairing).not.toBeNull();
-    expect(pairing?.wineName).toBe('Domaine de Belle Mare');
-    expect(pairing?.appellation).toBe('AOP Picpoul de Pinet');
+    expect(pairing?.wineName).toBe('Blanc - IGP OC Chardonnay / Viognier');
+    expect(pairing?.appellation).toBe('IGP Pays d’Oc');
     expect(pairing?.wineType).toBe('Blanc');
   });
 
   test('should return correct wine pairing for Burger with Saint-Nectaire', () => {
     const pairing = getWinePairingForDish("Le BISTROT'S Burger (Saint-Nectaire)");
     expect(pairing).not.toBeNull();
-    expect(pairing?.wineName).toBe('Cuvée Saint-Clément');
-    expect(pairing?.appellation).toBe('AOP Grés de Montpellier');
+    expect(pairing?.wineName).toBe('Rouge - IGP OC Typiquement Carignan');
+    expect(pairing?.appellation).toBe('IGP Pays d’Oc');
   });
 
   test('should return null for dish without dedicated pairing', () => {
