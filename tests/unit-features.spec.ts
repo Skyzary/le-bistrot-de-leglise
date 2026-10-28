@@ -95,3 +95,4 @@ test.describe('Unit Tests: Haptics Engine', () => {
     expect(() => triggerHaptic('selection')).not.toThrow();
   });
 });
+

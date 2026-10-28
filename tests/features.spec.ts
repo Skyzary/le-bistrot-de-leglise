@@ -133,3 +133,4 @@ test.describe('Mobile Features: Gallery Fullscreen Dish Stories', () => {
     await expect(bookTableBtn).toBeHidden();
   });
 });
+
