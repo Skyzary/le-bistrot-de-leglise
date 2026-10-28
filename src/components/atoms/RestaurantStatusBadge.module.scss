@@ -30,3 +30,11 @@
     background-color: #ef4444; /* Red */
   }
 }
+
+.tagLoading {
+  @extend .tagOpen;
+
+  &::before {
+    background-color: #d4a373; /* Neutral Gold */
+  }
+}

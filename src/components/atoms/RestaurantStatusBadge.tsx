@@ -9,19 +9,28 @@ interface RestaurantStatusBadgeProps {
 }
 
 export const RestaurantStatusBadge: React.FC<RestaurantStatusBadgeProps> = ({ schedule }) => {
-  const [isOpen, setIsOpen] = useState<boolean>(() => isRestaurantOpen(new Date(), schedule));
+  const [mounted, setMounted] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    // Ensure accurate client-side evaluation immediately after mount
+    setMounted(true);
     setIsOpen(isRestaurantOpen(new Date(), schedule));
 
-    // Update status every minute
+    // Update status every 30 seconds
     const interval = setInterval(() => {
       setIsOpen(isRestaurantOpen(new Date(), schedule));
-    }, 60000);
+    }, 30000);
 
     return () => clearInterval(interval);
   }, [schedule]);
+
+  if (!mounted) {
+    return (
+      <span className={styles.tagLoading} suppressHydrationWarning>
+        Horaires du Bistrot
+      </span>
+    );
+  }
 
   return (
     <span
