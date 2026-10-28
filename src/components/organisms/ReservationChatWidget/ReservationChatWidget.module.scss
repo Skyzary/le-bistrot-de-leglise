@@ -1,0 +1,683 @@
+@use '@/styles/vars.scss' as *;
+
+.widgetRoot {
+  position: fixed;
+  z-index: 999;
+  font-family: $font-body;
+  pointer-events: none;
+}
+
+/* Floating Trigger Button */
+.triggerBtn {
+  pointer-events: auto;
+  position: fixed;
+  right: 20px;
+  bottom: 84px; /* Default for mobile with QuickActionMenu (64px + 20px) */
+  z-index: 1000;
+  width: 54px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, $color-surface-elevated 0%, #2a2522 100%);
+  color: $color-secondary;
+  border: 1.5px solid rgba($color-primary, 0.4);
+  border-radius: 50%;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45), 0 2px 8px rgba($color-secondary, 0.15);
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  outline: none;
+
+  &:hover {
+    border-color: $color-secondary;
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.55), 0 4px 12px rgba($color-secondary, 0.25);
+    color: lighten($color-secondary, 10%);
+  }
+
+  &:active {
+    transform: translateY(0) scale(0.98);
+  }
+
+  @media (min-width: 768px) {
+    bottom: 24px;
+    right: 24px;
+    width: 58px;
+    height: 58px;
+  }
+}
+
+.triggerIcon {
+  color: $color-secondary;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.onlineBadgeDot {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 12px;
+  height: 12px;
+  background-color: #22c55e;
+  border-radius: 50%;
+  border: 2.5px solid $color-surface-elevated;
+  box-shadow: 0 0 6px rgba(34, 197, 94, 0.85);
+}
+
+/* Chat Backdrop / Modal */
+.backdrop {
+  pointer-events: auto;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 1001;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+
+  @media (min-width: 768px) {
+    align-items: flex-end;
+    justify-content: flex-end;
+    padding: 24px;
+    background: transparent;
+    pointer-events: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
+/* Chat Window Container */
+.chatWindow {
+  pointer-events: auto;
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  height: 85vh;
+  max-height: 640px;
+  background-color: rgba(22, 20, 19, 0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border: 1px solid rgba(212, 163, 115, 0.22);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(212, 163, 115, 0.12);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  @media (min-width: 768px) {
+    width: 380px;
+    height: 540px;
+    border-radius: $border-radius-md;
+    border: 1px solid rgba(212, 163, 115, 0.28);
+    bottom: 0;
+    right: 0;
+  }
+}
+
+/* Header */
+.chatHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  background: rgba(28, 25, 23, 0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(212, 163, 115, 0.18);
+  flex-shrink: 0;
+}
+
+.conciergeProfile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatarContainer {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: visible;
+  flex-shrink: 0;
+}
+
+.avatarImage {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1.5px solid $color-primary;
+}
+
+.avatarBadgeDot {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 10px;
+  height: 10px;
+  background-color: #22c55e;
+  border-radius: 50%;
+  border: 2px solid $color-surface-elevated;
+  box-shadow: 0 0 6px rgba(34, 197, 94, 0.9);
+}
+
+.conciergeInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.conciergeTitle {
+  font-family: $font-headline;
+  font-size: 16px;
+  font-weight: 600;
+  color: $color-parchment;
+  line-height: 1.2;
+}
+
+.conciergeStatus {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: rgba($color-parchment, 0.7);
+}
+
+.pulseDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #22c55e;
+  box-shadow: 0 0 6px #22c55e;
+  animation: pulse 2s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.3);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.9);
+    opacity: 0.8;
+  }
+}
+
+.closeBtn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba($color-parchment, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.12);
+    color: $color-parchment;
+  }
+}
+
+/* Chat Messages Scroll Container */
+.messagesList {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  scroll-behavior: smooth;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgba($color-primary, 0.2);
+    border-radius: 4px;
+  }
+}
+
+/* Message Rows & Bubbles */
+.botMessageRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  max-width: 90%;
+  align-self: flex-start;
+}
+
+.botMiniAvatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid $color-primary;
+  margin-top: 4px;
+  flex-shrink: 0;
+}
+
+.botBubble {
+  background: $color-surface-flat;
+  color: $color-parchment;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px 14px 14px 3px;
+  padding: 10px 14px;
+  font-size: 13.5px;
+  line-height: 1.45;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  word-break: break-word;
+}
+
+.userMessageRow {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  max-width: 85%;
+  align-self: flex-end;
+}
+
+.userBubble {
+  background: linear-gradient(135deg, $color-primary 0%, #c4915f 100%);
+  color: $color-ink;
+  font-weight: 500;
+  border-radius: 14px 14px 3px 14px;
+  padding: 9px 14px;
+  font-size: 13.5px;
+  line-height: 1.4;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  word-break: break-word;
+}
+
+/* Typing Indicator */
+.typingBubble {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 14px;
+  background: $color-surface-flat;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px 14px 14px 3px;
+  width: fit-content;
+}
+
+.typingDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: $color-primary;
+  opacity: 0.4;
+  animation: typing 1.2s infinite ease-in-out;
+
+  &:nth-child(1) {
+    animation-delay: 0s;
+  }
+  &:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  &:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+}
+
+@keyframes typing {
+  0%, 100% {
+    transform: translateY(0);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translateY(-4px);
+    opacity: 1;
+  }
+}
+
+/* Interactive Controls Area at Bottom */
+.controlsArea {
+  padding: 12px 14px;
+  background: rgba(22, 20, 19, 0.96);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid rgba(212, 163, 115, 0.18);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+/* Chip Buttons */
+.chipsRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chipBtn {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba($color-primary, 0.25);
+  color: $color-parchment;
+  padding: 8px 14px;
+  border-radius: $border-radius-pill;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: rgba($color-primary, 0.15);
+    border-color: $color-primary;
+    color: $color-secondary;
+  }
+
+  &:active {
+    transform: scale(0.97);
+  }
+}
+
+/* Guest Chips (round) */
+.guestChipsRow {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.guestChipBtn {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba($color-primary, 0.25);
+  color: $color-parchment;
+  height: 40px;
+  border-radius: $border-radius-sm;
+  font-size: 14px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    background: rgba($color-primary, 0.18);
+    border-color: $color-secondary;
+    color: $color-secondary;
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+/* Time Slots Grid */
+.slotsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+}
+
+.timeSlotBtn {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba($color-primary, 0.25);
+  color: $color-parchment;
+  padding: 8px 6px;
+  border-radius: $border-radius-sm;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    background: rgba($color-secondary, 0.2);
+    border-color: $color-secondary;
+    color: $color-secondary;
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+/* Location Options */
+.locationRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.locationBtn {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba($color-primary, 0.25);
+  color: $color-parchment;
+  padding: 10px;
+  border-radius: $border-radius-sm;
+  font-size: 13.5px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    background: rgba($color-primary, 0.2);
+    border-color: $color-secondary;
+    color: $color-secondary;
+  }
+}
+
+/* Form Inputs for Name / Contacts */
+.stepForm {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.inputGroup {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.inputIcon {
+  position: absolute;
+  left: 10px;
+  color: $color-primary;
+  pointer-events: none;
+}
+
+.chatInput {
+  width: 100%;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba($color-primary, 0.3);
+  border-radius: $border-radius-sm;
+  padding: 0 10px 0 34px;
+  color: $color-parchment;
+  font-family: inherit;
+  font-size: 13.5px;
+  outline: none;
+  transition: border-color 0.2s;
+
+  &:focus {
+    border-color: $color-secondary;
+    background: rgba(255, 255, 255, 0.09);
+  }
+
+  &::placeholder {
+    color: rgba($color-parchment, 0.45);
+  }
+}
+
+.chatTextarea {
+  width: 100%;
+  height: 56px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba($color-primary, 0.3);
+  border-radius: $border-radius-sm;
+  padding: 8px 10px 8px 34px;
+  color: $color-parchment;
+  font-family: inherit;
+  font-size: 13px;
+  resize: none;
+  outline: none;
+  transition: border-color 0.2s;
+
+  &:focus {
+    border-color: $color-secondary;
+    background: rgba(255, 255, 255, 0.09);
+  }
+
+  &::placeholder {
+    color: rgba($color-parchment, 0.45);
+  }
+}
+
+.submitBtn {
+  background: linear-gradient(135deg, $color-secondary 0%, #caa028 100%);
+  color: $color-ink;
+  border: none;
+  border-radius: $border-radius-sm;
+  padding: 10px 14px;
+  font-size: 14px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.1s;
+  box-shadow: 0 4px 12px rgba($color-secondary, 0.25);
+
+  &:hover:not(:disabled) {
+    opacity: 0.95;
+    transform: translateY(-1px);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.sendRow {
+  display: flex;
+  gap: 8px;
+}
+
+.sendBtn {
+  background: $color-secondary;
+  border: none;
+  border-radius: $border-radius-sm;
+  color: $color-ink;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: opacity 0.2s;
+
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+/* Custom Date/Time input popover */
+.customInputRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.dateInput {
+  flex: 1;
+  height: 38px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba($color-primary, 0.3);
+  border-radius: $border-radius-sm;
+  padding: 0 10px;
+  color: $color-parchment;
+  font-family: inherit;
+  font-size: 13px;
+  outline: none;
+
+  &::-webkit-calendar-picker-indicator {
+    filter: invert(0.8) sepia(1) saturate(3) hue-rotate(340deg);
+    cursor: pointer;
+  }
+}
+
+/* Error message inside widget */
+.errorMessage {
+  font-size: 12px;
+  color: #ef4444;
+  text-align: center;
+  margin-top: 4px;
+}
+
+/* Success Card */
+.successCard {
+  background: rgba($color-primary, 0.12);
+  border: 1px solid rgba($color-primary, 0.3);
+  border-radius: $border-radius-sm;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+  color: $color-parchment;
+  text-align: center;
+
+  strong {
+    color: $color-secondary;
+  }
+}
+
+.restartBtn {
+  background: transparent;
+  border: 1px dashed rgba($color-primary, 0.4);
+  color: $color-primary;
+  border-radius: $border-radius-sm;
+  padding: 8px;
+  font-size: 12px;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: all 0.2s;
+
+  &:hover {
+    background: rgba($color-primary, 0.1);
+    color: $color-secondary;
+    border-color: $color-secondary;
+  }
+}
+
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

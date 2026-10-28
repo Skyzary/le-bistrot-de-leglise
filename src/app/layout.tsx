@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Playfair_Display, Plus_Jakarta_Sans } from 'next/font/google';
 import '@/styles/globals.scss';
+import { ReservationChatWidget } from '@/components/organisms/ReservationChatWidget';
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
@@ -23,7 +24,7 @@ export const metadata: Metadata = {
     siteName: 'Le Bistrot de l\'Église',
     locale: 'fr_FR',
     type: 'website',
-  },
+    },
   robots: {
     index: true,
     follow: true,
@@ -42,6 +43,7 @@ export default function RootLayout({
     <html lang="fr">
       <body className={`${playfair.variable} ${jakarta.variable}`}>
         {children}
+        <ReservationChatWidget />
       </body>
     </html>
   );
