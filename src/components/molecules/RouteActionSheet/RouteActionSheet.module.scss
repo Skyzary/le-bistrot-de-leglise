@@ -126,18 +126,22 @@
   border: 1px solid rgba(255, 255, 255, 0.06);
 
   &.apple {
-    background: linear-gradient(135deg, #1c1c1e, #2c2c2e);
-    color: #fff;
+    background: linear-gradient(145deg, #2a2a2d 0%, #111113 100%);
+    color: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.16);
+    border: 1px solid rgba(255, 255, 255, 0.15);
   }
 
   &.google {
-    background: linear-gradient(135deg, rgba(66, 133, 244, 0.2), rgba(52, 168, 83, 0.2));
+    background: linear-gradient(135deg, rgba(66, 133, 244, 0.22), rgba(52, 168, 83, 0.18));
     color: #4285f4;
+    border: 1px solid rgba(66, 133, 244, 0.25);
   }
 
   &.waze {
-    background: linear-gradient(135deg, rgba(51, 204, 255, 0.2), rgba(0, 153, 255, 0.2));
+    background: linear-gradient(135deg, rgba(51, 204, 255, 0.22), rgba(0, 153, 255, 0.18));
     color: #33ccff;
+    border: 1px solid rgba(51, 204, 255, 0.25);
   }
 
   &.phone {
