@@ -95,6 +95,16 @@
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
   position: relative;
   aspect-ratio: 4/5;
+  cursor: pointer;
+  background: #1e1b18;
+  border: none;
+  padding: 0;
+  text-align: left;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  
+  &:active {
+    transform: scale(0.98);
+  }
   
   @media (min-width: 768px) {
     flex: 0 0 40%;
@@ -109,9 +119,53 @@
     height: 100%;
     object-fit: cover;
     transition: transform 0.5s ease;
-    
-    &:hover {
-      transform: scale(1.05);
-    }
   }
+
+  &:hover img {
+    transform: scale(1.05);
+  }
+}
+
+.slideOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 60%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 16px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.slideTag {
+  align-self: flex-start;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  color: $color-primary;
+  margin-bottom: 4px;
+}
+
+.slideTitle {
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.expandBadge {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
 }

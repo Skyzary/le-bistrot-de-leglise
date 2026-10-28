@@ -1,0 +1,79 @@
+@use '@/styles/vars.scss' as *;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  margin-top: 14px;
+}
+
+.label {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: $color-primary;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.buttonRow {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+  }
+}
+
+.calendarBtn {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  min-height: 44px; // Mobile touch target
+
+  &:active {
+    transform: scale(0.97);
+  }
+}
+
+.appleBtn {
+  background: rgba(36, 32, 29, 0.9);
+  border: 1px solid rgba(212, 163, 115, 0.35);
+  color: $color-parchment;
+
+  &:hover {
+    background: rgba(48, 42, 38, 0.95);
+    border-color: $color-primary;
+  }
+}
+
+.googleBtn {
+  background: rgba(36, 32, 29, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: $color-parchment;
+
+  &:hover {
+    background: rgba(48, 42, 38, 0.95);
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+}
+
+.appleIcon {
+  font-size: 16px;
+  line-height: 1;
+}
+

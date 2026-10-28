@@ -36,23 +36,40 @@
 
 .tags {
   display: flex;
-  gap: $space-sm;
   align-items: center;
+  justify-content: center;
+  gap: 10px;
   margin-bottom: $space-sm;
+  flex-wrap: wrap;
+
+  @media (max-width: 520px) {
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+  }
 }
 
 .tag {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  background-color: rgba(34, 31, 29, 0.8);
+  gap: 6px;
+  background-color: rgba(34, 31, 29, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(212, 163, 115, 0.3);
   padding: 6px 14px;
   border-radius: $border-radius-pill;
   font-size: 12px;
-  text-transform: uppercase;
-  color: $color-primary;
-  letter-spacing: 0.1em;
-  font-weight: 600;
+  font-weight: 500;
+  color: $color-parchment;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+  letter-spacing: 0.02em;
+  white-space: nowrap; // Never break onto multiple lines
+
+  svg {
+    color: $color-primary;
+    flex-shrink: 0;
+  }
 }
 
 .tagOpen {

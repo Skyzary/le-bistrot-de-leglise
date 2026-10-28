@@ -1,0 +1,309 @@
+@import '@/styles/vars.scss';
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.94);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  user-select: none;
+}
+
+.storyContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  max-width: 480px;
+  max-height: 920px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  touch-action: pan-x;
+}
+
+/* Story Progress Bars */
+.progressBars {
+  position: absolute;
+  top: max(16px, env(safe-area-inset-top));
+  left: 16px;
+  right: 16px;
+  display: flex;
+  gap: 6px;
+  z-index: 10;
+}
+
+.progressBarTrack {
+  flex: 1;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 2px;
+  overflow: hidden;
+  transition: all 0.2s ease;
+
+  &.active {
+    background: $color-primary;
+    box-shadow: 0 0 8px rgba(212, 163, 115, 0.8);
+  }
+
+  &.completed {
+    background: rgba(255, 255, 255, 0.7);
+  }
+}
+
+/* Header */
+.storyHeader {
+  position: absolute;
+  top: calc(max(16px, env(safe-area-inset-top)) + 14px);
+  left: 16px;
+  right: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 10;
+}
+
+.authorInfo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.authorAvatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1.5px solid $color-primary;
+  overflow: hidden;
+  position: relative;
+  background: #1e1b18;
+}
+
+.authorMeta {
+  display: flex;
+  flex-direction: column;
+}
+
+.authorName {
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  line-height: 1.2;
+}
+
+.authorSubtitle {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.closeButton {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:active {
+    transform: scale(0.92);
+    background: rgba(255, 255, 255, 0.25);
+  }
+}
+
+/* Main Image Area */
+.imageWrapper {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.image {
+  object-fit: cover;
+  object-position: center;
+}
+
+.gradientOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.65) 0%,
+    transparent 20%,
+    transparent 55%,
+    rgba(10, 8, 6, 0.85) 80%,
+    rgba(10, 8, 6, 0.98) 100%
+  );
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Touch Tap Zones for Story Navigation */
+.tapZones {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  z-index: 5;
+}
+
+.tapPrev {
+  width: 35%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.tapNext {
+  width: 65%;
+  height: 100%;
+  cursor: pointer;
+}
+
+/* Desktop Arrow Controls */
+.navArrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 15;
+  transition: all 0.2s;
+
+  &:hover {
+    background: rgba(212, 163, 115, 0.3);
+    border-color: $color-primary;
+  }
+
+  &.prev {
+    left: 12px;
+  }
+
+  &.next {
+    right: 12px;
+  }
+
+  @media (max-width: 600px) {
+    display: none; // On phones, tap zones are used
+  }
+}
+
+/* Story Bottom Sheet / Caption */
+.storyFooter {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  padding: 24px 20px calc(24px + env(safe-area-inset-bottom));
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.tagBadge {
+  align-self: flex-start;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: rgba(212, 163, 115, 0.2);
+  border: 1px solid rgba(212, 163, 115, 0.5);
+  color: $color-primary;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.captionTitle {
+  font-family: $font-headline;
+  font-size: 22px;
+  font-weight: 600;
+  color: #fff;
+  margin: 0;
+  line-height: 1.25;
+}
+
+.captionDesc {
+  font-size: 14px;
+  color: rgba(249, 246, 240, 0.75);
+  margin: 0;
+  line-height: 1.45;
+}
+
+.footerActions {
+  display: flex;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.bookButton {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: $color-primary;
+  color: #121212;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 13px 20px;
+  border-radius: 12px;
+  text-decoration: none;
+  box-shadow: 0 4px 16px rgba(212, 163, 115, 0.35);
+  transition: all 0.2s;
+  cursor: pointer;
+  border: none;
+
+  &:active {
+    transform: scale(0.97);
+    filter: brightness(0.95);
+  }
+}
+
+.shareButton {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:active {
+    transform: scale(0.92);
+    background: rgba(255, 255, 255, 0.2);
+  }
+}
+
+.swipeDismissHint {
+  align-self: center;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.4);
+  margin-top: 4px;
+}

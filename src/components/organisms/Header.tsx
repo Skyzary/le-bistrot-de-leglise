@@ -19,7 +19,8 @@ export const Header = () => {
     const handleScroll = () => {
       if (isScrollingRef.current) return; // Skip if we are programmatically scrolling
       
-      const sections = ['reservation', 'nous-trouver', 'philosophie'];
+      // Order from bottom to top of page
+      const sections = ['reservation', 'nous-trouver', 'menu-overview', 'philosophie'];
       if (window.scrollY < 100) {
         setActiveSection('');
         return;
@@ -51,7 +52,8 @@ export const Header = () => {
     }, 1000); // 1 second pause while smooth scrolling finishes
   };
 
-  const isMenu = pathname === '/menu';
+  const isMenuPage = pathname === '/menu';
+  const isMenu = isMenuPage || (pathname === '/' && activeSection === 'menu-overview');
   const isPhilosophie = pathname === '/' && (activeSection === '' || activeSection === 'philosophie');
   const isNousTrouver = pathname === '/' && activeSection === 'nous-trouver';
   const isReservation = pathname === '/' && activeSection === 'reservation';
@@ -78,10 +80,10 @@ export const Header = () => {
 
         {/* Center/Left Navigation for Desktop */}
         <nav className={styles.desktopNav}>
-          <Link href="/#philosophie" onClick={() => handleNavClick('philosophie')} className={`${styles.navLink} ${isPhilosophie && !isMenu ? styles.active : ''}`}>Philosophie</Link>
-          <Link href="/menu" onClick={() => handleNavClick('menu')} className={`${styles.navLink} ${isMenu ? styles.active : ''}`}>La Carte</Link>
-          <Link href="/#nous-trouver" onClick={() => handleNavClick('nous-trouver')} className={`${styles.navLink} ${isNousTrouver && !isMenu ? styles.active : ''}`}>Nous Trouver</Link>
-          <Link href="/#reservation" onClick={() => handleNavClick('reservation')} className={`${styles.navLink} ${isReservation && !isMenu ? styles.active : ''}`}>Réserver</Link>
+          <Link href="/#philosophie" onClick={() => handleNavClick('philosophie')} className={`${styles.navLink} ${isPhilosophie && !isMenuPage ? styles.active : ''}`}>Philosophie</Link>
+          <Link href="/menu" onClick={() => handleNavClick('menu-overview')} className={`${styles.navLink} ${isMenu ? styles.active : ''}`}>La Carte</Link>
+          <Link href="/#nous-trouver" onClick={() => handleNavClick('nous-trouver')} className={`${styles.navLink} ${isNousTrouver && !isMenuPage ? styles.active : ''}`}>Nous Trouver</Link>
+          <Link href="/#reservation" onClick={() => handleNavClick('reservation')} className={`${styles.navLink} ${isReservation && !isMenuPage ? styles.active : ''}`}>Réserver</Link>
         </nav>
 
         {/* Right: Actions */}

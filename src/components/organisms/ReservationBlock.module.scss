@@ -44,8 +44,8 @@
 }
 
 .callBtn {
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   border-radius: $border-radius-pill;
   background-color: $color-surface-flat;
   display: flex;
@@ -82,9 +82,9 @@
   gap: 8px;
   
   label {
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 500;
-    color: rgba(249, 246, 240, 0.7);
+    color: rgba(249, 246, 240, 0.85);
   }
 }
 
@@ -110,7 +110,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 4px;
+  padding: 8px;
+  min-width: 44px;
+  min-height: 44px;
   
   &:hover {
     color: $color-secondary;
@@ -142,6 +144,52 @@
     filter: invert(0.8) sepia(1) saturate(3) hue-rotate(340deg);
     cursor: pointer;
   }
+}
+
+.datePickerTrigger {
+  height: 44px;
+  background-color: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: $border-radius-sm;
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid rgba(212, 163, 115, 0.2);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+  color: $color-parchment;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+    border-color: $color-primary;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: $color-secondary;
+  }
+}
+
+.inputIconInline {
+  color: $color-primary;
+  flex-shrink: 0;
+}
+
+.calendarPopover {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  z-index: 50;
+  width: 100%;
+  min-width: 320px;
 }
 
 .slotsGrid {
@@ -225,7 +273,7 @@
   }
   
   &::placeholder {
-    color: rgba(249, 246, 240, 0.5);
+    color: rgba(249, 246, 240, 0.72);
   }
 }
 
@@ -250,15 +298,49 @@
   }
   
   &::placeholder {
-    color: rgba(249, 246, 240, 0.5);
+    color: rgba(249, 246, 240, 0.72);
   }
 }
 
 .footerNote {
-  font-size: 11px;
-  color: rgba(249, 246, 240, 0.5);
+  font-size: 12px;
+  color: rgba(249, 246, 240, 0.75);
   text-align: center;
   margin-top: 4px;
+}
+
+.successState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: $space-md;
+  padding: $space-xl $space-md;
+  background: rgba(212, 163, 115, 0.08);
+  border: 1px solid rgba(212, 163, 115, 0.25);
+  border-radius: $border-radius-sm;
+}
+
+.successIcon {
+  color: #22c55e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.successTitle {
+  font-family: $font-headline;
+  font-size: 22px;
+  color: $color-parchment;
+  margin: 0;
+}
+
+.successDesc {
+  font-size: 14px;
+  line-height: 1.5;
+  color: rgba(249, 246, 240, 0.85);
+  max-width: 500px;
+  margin: 0;
 }
 
 .spin {

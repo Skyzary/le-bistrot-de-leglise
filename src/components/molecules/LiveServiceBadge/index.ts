@@ -1,0 +1,2 @@
+export { LiveServiceBadge } from './LiveServiceBadge';
+

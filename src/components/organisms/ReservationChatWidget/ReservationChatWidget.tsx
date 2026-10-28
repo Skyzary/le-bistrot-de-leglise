@@ -17,9 +17,15 @@ import {
   CheckCircle2, 
   Loader2, 
   RotateCcw,
-  Sparkles
+  Sparkles,
+  ChevronLeft
 } from 'lucide-react';
 import styles from './ReservationChatWidget.module.scss';
+import { CustomCalendar } from '@/components/molecules/CustomCalendar';
+import { CustomTimePicker } from '@/components/molecules/CustomTimePicker';
+import { AddToCalendarBtn } from '@/components/molecules/AddToCalendarBtn';
+import { ShareReservationInvite } from '@/components/molecules/ShareReservationInvite';
+import { triggerHaptic } from '@/utils/haptics';
 
 type Step = 
   | 'date'
@@ -122,6 +128,15 @@ export const ReservationChatWidget: React.FC = () => {
     }
   }, [messages, isTyping, isOpen]);
 
+  useEffect(() => {
+    if (showCustomDate || showCustomTime) {
+      const timer = setTimeout(() => {
+        scrollToBottom();
+      }, 70);
+      return () => clearTimeout(timer);
+    }
+  }, [showCustomDate, showCustomTime]);
+
   // Helper to add bot message with delay
   const pushBotMessage = (text: string, nextStep?: Step) => {
     setIsTyping(true);
@@ -139,6 +154,7 @@ export const ReservationChatWidget: React.FC = () => {
 
   // Step 1: Date selected
   const handleSelectDate = (dateVal: string, displayLabel: string) => {
+    triggerHaptic('selection');
     setReservation(prev => ({ ...prev, date: dateVal }));
     setMessages(prev => [
       ...prev,
@@ -150,6 +166,7 @@ export const ReservationChatWidget: React.FC = () => {
 
   // Step 2: Guests selected
   const handleSelectGuests = (num: number) => {
+    triggerHaptic('light');
     setReservation(prev => ({ ...prev, guests: num }));
     setMessages(prev => [
       ...prev,
@@ -160,6 +177,7 @@ export const ReservationChatWidget: React.FC = () => {
 
   // Step 3: Time selected
   const handleSelectTime = (timeVal: string) => {
+    triggerHaptic('selection');
     setReservation(prev => ({ ...prev, time: timeVal }));
     setMessages(prev => [
       ...prev,
@@ -171,6 +189,7 @@ export const ReservationChatWidget: React.FC = () => {
 
   // Step 4: Location selected
   const handleSelectLocation = (loc: 'inside' | 'terrace') => {
+    triggerHaptic('light');
     setReservation(prev => ({ ...prev, location: loc }));
     const locText = loc === 'inside' ? 'En salle' : 'En terrasse';
     setMessages(prev => [
@@ -183,8 +202,12 @@ export const ReservationChatWidget: React.FC = () => {
   // Step 5a: Name submitted
   const handleSubmitName = (e: React.FormEvent) => {
     e.preventDefault();
+    setErrorMessage(null);
     const trimmed = inputName.trim();
-    if (!trimmed) return;
+    if (!trimmed) {
+      setErrorMessage('Veuillez renseigner votre nom pour continuer.');
+      return;
+    }
 
     setReservation(prev => ({ ...prev, name: trimmed }));
     setMessages(prev => [
@@ -195,6 +218,34 @@ export const ReservationChatWidget: React.FC = () => {
       `Merci ${trimmed} ! Votre numéro de téléphone et email pour la confirmation ?`,
       'contact'
     );
+  };
+
+  const handleGoBack = () => {
+    if (isTyping || step === 'date' || step === 'submitting' || step === 'success') return;
+    triggerHaptic('light');
+    setErrorMessage(null);
+
+    const prevStepMap: Record<Step, Step | null> = {
+      date: null,
+      guests: 'date',
+      time: 'guests',
+      location: 'time',
+      name: 'location',
+      contact: 'name',
+      submitting: null,
+      success: null,
+    };
+
+    const targetStep = prevStepMap[step];
+    if (targetStep) {
+      setMessages(prev => {
+        if (prev.length >= 3) {
+          return prev.slice(0, prev.length - 2);
+        }
+        return [INITIAL_BOT_MESSAGE];
+      });
+      setStep(targetStep);
+    }
   };
 
   // Step 5b & 6: Submit final reservation
@@ -252,6 +303,7 @@ export const ReservationChatWidget: React.FC = () => {
       setIsTyping(false);
 
       if (res.ok && data.success) {
+        triggerHaptic('success');
         setStep('success');
         setMessages(prev => [
           ...prev,
@@ -262,15 +314,29 @@ export const ReservationChatWidget: React.FC = () => {
           }
         ]);
       } else {
+        triggerHaptic('heavy');
         setStep('contact');
         setErrorMessage(data.error || "Une erreur est survenue lors de l'envoi. Veuillez réessayer.");
       }
     } catch {
+      triggerHaptic('heavy');
       setIsTyping(false);
       setStep('contact');
       setErrorMessage('Erreur réseau. Vérifiez votre connexion et réessayez.');
     }
   };
+
+  useEffect(() => {
+    const handleCustomEvent = (e: Event) => {
+      const customEvent = e as CustomEvent<string>;
+      if (customEvent.detail) {
+        setInputRequests(customEvent.detail);
+        setReservation((prev) => ({ ...prev, requests: customEvent.detail }));
+      }
+    };
+    window.addEventListener('set-reservation-requests', handleCustomEvent);
+    return () => window.removeEventListener('set-reservation-requests', handleCustomEvent);
+  }, []);
 
   const handleReset = () => {
     setReservation({
@@ -306,7 +372,8 @@ export const ReservationChatWidget: React.FC = () => {
         transition={{ duration: 0.25, ease: 'easeOut' }}
         aria-label="Réserver avec l'Assistant Le Bistrot"
       >
-        <MessageSquare size={24} className={styles.triggerIcon} />
+        <MessageSquare size={22} className={styles.triggerIcon} />
+        <span className={styles.triggerLabel}>Réserver une table</span>
         <span className={styles.onlineBadgeDot} />
       </motion.button>
 
@@ -398,6 +465,27 @@ export const ReservationChatWidget: React.FC = () => {
 
               {/* Step Controls Area */}
               <div className={styles.controlsArea}>
+                {step !== 'date' && step !== 'submitting' && step !== 'success' && !isTyping && (
+                  <div className={styles.controlsHeader}>
+                    <button
+                      type="button"
+                      className={styles.backBtn}
+                      onClick={handleGoBack}
+                      aria-label="Retour à l'étape précédente"
+                    >
+                      <ChevronLeft size={16} />
+                      Retour
+                    </button>
+                    <span className={styles.stepIndicator}>
+                      {step === 'guests' && 'Étape 2/5 • Couverts'}
+                      {step === 'time' && 'Étape 3/5 • Heure'}
+                      {step === 'location' && 'Étape 4/5 • Emplacement'}
+                      {step === 'name' && 'Étape 5/5 • Nom'}
+                      {step === 'contact' && 'Finalisation • Contact'}
+                    </span>
+                  </div>
+                )}
+
                 {/* STEP 1: Date chips */}
                 {step === 'date' && !isTyping && (
                   <div className={styles.stepForm}>
@@ -420,6 +508,7 @@ export const ReservationChatWidget: React.FC = () => {
                         type="button"
                         className={styles.chipBtn}
                         onClick={() => setShowCustomDate(prev => !prev)}
+                        aria-label="Choisir une date personnalisée"
                       >
                         <Calendar size={14} />
                         Choisir une date
@@ -427,21 +516,16 @@ export const ReservationChatWidget: React.FC = () => {
                     </div>
 
                     {showCustomDate && (
-                      <div className={styles.customInputRow}>
-                        <input
-                          type="date"
+                      <div className={styles.customCalendarContainer}>
+                        <CustomCalendar
                           value={customDate}
-                          min={getTodayFormatted()}
-                          onChange={(e) => setCustomDate(e.target.value)}
-                          className={styles.dateInput}
+                          onChange={(dateIso, label) => {
+                            setCustomDate(dateIso);
+                            handleSelectDate(dateIso, label);
+                          }}
+                          onClose={() => setShowCustomDate(false)}
+                          inline
                         />
-                        <button
-                          type="button"
-                          className={styles.sendBtn}
-                          onClick={() => handleSelectDate(customDate, formatDateLabel(customDate))}
-                        >
-                          Valider
-                        </button>
                       </div>
                     )}
                   </div>
@@ -489,20 +573,16 @@ export const ReservationChatWidget: React.FC = () => {
                     </div>
 
                     {showCustomTime && (
-                      <div className={styles.customInputRow}>
-                        <input
-                          type="time"
+                      <div className={styles.customCalendarContainer}>
+                        <CustomTimePicker
                           value={customTime}
-                          onChange={(e) => setCustomTime(e.target.value)}
-                          className={styles.dateInput}
+                          onChange={(selectedTime) => {
+                            setCustomTime(selectedTime);
+                            handleSelectTime(selectedTime);
+                          }}
+                          onClose={() => setShowCustomTime(false)}
+                          inline
                         />
-                        <button
-                          type="button"
-                          className={styles.sendBtn}
-                          onClick={() => handleSelectTime(customTime)}
-                        >
-                          Valider
-                        </button>
                       </div>
                     )}
                   </div>
@@ -530,23 +610,30 @@ export const ReservationChatWidget: React.FC = () => {
 
                 {/* STEP 5a: Name Input */}
                 {step === 'name' && !isTyping && (
-                  <form onSubmit={handleSubmitName} className={styles.sendRow}>
-                    <div className={styles.inputGroup} style={{ flex: 1 }}>
-                      <User size={16} className={styles.inputIcon} />
-                      <input
-                        type="text"
-                        placeholder="Votre nom complet..."
-                        value={inputName}
-                        onChange={(e) => setInputName(e.target.value)}
-                        className={styles.chatInput}
-                        autoFocus
-                        required
-                      />
-                    </div>
-                    <button type="submit" className={styles.sendBtn} aria-label="Envoyer le nom">
-                      <Send size={15} />
-                    </button>
-                  </form>
+                  <div className={styles.stepForm}>
+                    <form onSubmit={handleSubmitName} className={styles.sendRow}>
+                      <div className={styles.inputGroup} style={{ flex: 1 }}>
+                        <User size={16} className={styles.inputIcon} />
+                        <input
+                          type="text"
+                          placeholder="Votre nom complet..."
+                          aria-label="Votre nom complet"
+                          value={inputName}
+                          onChange={(e) => {
+                            setInputName(e.target.value);
+                            if (errorMessage) setErrorMessage(null);
+                          }}
+                          className={styles.chatInput}
+                          autoFocus
+                          required
+                        />
+                      </div>
+                      <button type="submit" className={styles.sendBtn} aria-label="Envoyer le nom">
+                        <Send size={15} />
+                      </button>
+                    </form>
+                    {errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
+                  </div>
                 )}
 
                 {/* STEP 5b: Phone, Email & Optional Requests */}
@@ -557,6 +644,7 @@ export const ReservationChatWidget: React.FC = () => {
                       <input
                         type="tel"
                         placeholder="Téléphone (ex: 06 12 34 56 78)"
+                        aria-label="Numéro de téléphone"
                         value={inputPhone}
                         onChange={(e) => setInputPhone(e.target.value)}
                         className={styles.chatInput}
@@ -570,6 +658,7 @@ export const ReservationChatWidget: React.FC = () => {
                       <input
                         type="email"
                         placeholder="Adresse email"
+                        aria-label="Adresse email"
                         value={inputEmail}
                         onChange={(e) => setInputEmail(e.target.value)}
                         className={styles.chatInput}
@@ -580,6 +669,7 @@ export const ReservationChatWidget: React.FC = () => {
                     <div className={styles.inputGroup}>
                       <textarea
                         placeholder="Remarques (allergies, chaise bébé, etc. - optionnel)"
+                        aria-label="Remarques ou demandes particulières"
                         value={inputRequests}
                         onChange={(e) => setInputRequests(e.target.value)}
                         className={styles.chatTextarea}
@@ -614,10 +704,25 @@ export const ReservationChatWidget: React.FC = () => {
                       Le <strong>{reservation.date}</strong> à <strong>{reservation.time}</strong> (
                       {reservation.location === 'inside' ? 'En salle' : 'En terrasse'})
                     </div>
+                    <ShareReservationInvite
+                      date={reservation.date}
+                      time={reservation.time}
+                      guests={reservation.guests}
+                      name={reservation.name}
+                      location={reservation.location}
+                    />
+                    <AddToCalendarBtn
+                      date={reservation.date}
+                      time={reservation.time}
+                      guests={reservation.guests}
+                      name={reservation.name}
+                      location={reservation.location}
+                    />
                     <button
                       type="button"
                       className={styles.restartBtn}
                       onClick={handleReset}
+                      style={{ marginTop: '12px' }}
                     >
                       <RotateCcw size={13} style={{ marginRight: 4, verticalAlign: 'middle' }} />
                       Nouvelle réservation

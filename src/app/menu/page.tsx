@@ -4,9 +4,13 @@ import styles from './page.module.scss';
 import { Header } from '@/components/organisms/Header';
 import { Footer } from '@/components/organisms/Footer';
 import { QuickActionMenu } from '@/components/organisms/QuickActionMenu';
-import { ChevronLeft, Search } from 'lucide-react';
+import { ChevronLeft, Search, Wine, Dices } from 'lucide-react';
 import Link from 'next/link';
 import { ScrollReveal } from '@/components/atoms/ScrollReveal';
+import { WinePairingModal } from '@/components/molecules/WinePairingModal';
+import { ChefRouletteModal } from '@/components/molecules/ChefRouletteModal';
+import { getWinePairingForDish, WinePairing } from '@/data/winePairings';
+import { triggerHaptic } from '@/utils/haptics';
 
 const menuData = [
   {
@@ -238,6 +242,8 @@ const menuData = [
 export default function MenuPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState('Toutes');
+  const [selectedPairing, setSelectedPairing] = useState<WinePairing | null>(null);
+  const [isRouletteOpen, setIsRouletteOpen] = useState(false);
 
   const categories = ['Toutes', ...menuData.map(c => c.category)];
 
@@ -266,6 +272,19 @@ export default function MenuPage() {
         </Link>
         <h1 className={styles.title}>La Carte</h1>
         <p className={styles.subtitle}>Découvrez notre sélection de plats faits maison</p>
+        <div>
+          <button
+            type="button"
+            className={styles.rouletteBannerBtn}
+            onClick={() => {
+              triggerHaptic('medium');
+              setIsRouletteOpen(true);
+            }}
+          >
+            <Dices size={17} />
+            <span>Indécis ? La Roulette du Chef</span>
+          </button>
+        </div>
       </div>
 
       <div className={styles.stickyControls}>
@@ -304,16 +323,33 @@ export default function MenuPage() {
                 {section!.desc && <p className={styles.categoryDesc}>{section!.desc}</p>}
                 
                 <div className={styles.itemsList}>
-                  {section!.items.map((item, itemIdx) => (
-                    <div key={itemIdx} className={styles.menuItem}>
-                      <div className={styles.itemHeader}>
-                        <span className={styles.itemName}>{item.name}</span>
-                        <span className={styles.itemDots}></span>
-                        <span className={styles.itemPrice}>{item.price}</span>
+                  {section!.items.map((item, itemIdx) => {
+                    const pairing = getWinePairingForDish(item.name);
+                    return (
+                      <div key={itemIdx} className={styles.menuItem}>
+                        <div className={styles.itemHeader}>
+                          <span className={styles.itemName}>{item.name}</span>
+                          <span className={styles.itemDots}></span>
+                          <span className={styles.itemPrice}>{item.price}</span>
+                        </div>
+                        {item.desc && <p className={styles.itemDesc}>{item.desc}</p>}
+                        {pairing && (
+                          <button
+                            type="button"
+                            className={styles.sommelierBtn}
+                            onClick={() => {
+                              triggerHaptic('selection');
+                              setSelectedPairing(pairing);
+                            }}
+                            aria-label={`Accord vin pour ${item.name}`}
+                          >
+                            <Wine size={12} />
+                            <span>Accord sommelier : {pairing.wineName} ({pairing.appellation})</span>
+                          </button>
+                        )}
                       </div>
-                      {item.desc && <p className={styles.itemDesc}>{item.desc}</p>}
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </section>
             </ScrollReveal>
@@ -325,6 +361,16 @@ export default function MenuPage() {
           </div>
         )}
       </div>
+
+      <WinePairingModal
+        pairing={selectedPairing}
+        onClose={() => setSelectedPairing(null)}
+      />
+
+      <ChefRouletteModal
+        isOpen={isRouletteOpen}
+        onClose={() => setIsRouletteOpen(false)}
+      />
 
       <Footer />
       <QuickActionMenu />
