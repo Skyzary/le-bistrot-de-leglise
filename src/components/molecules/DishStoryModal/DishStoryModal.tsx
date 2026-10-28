@@ -117,6 +117,7 @@ export const DishStoryModal: React.FC<DishStoryModalProps> = ({
       >
         <motion.div
           className={styles.storyContainer}
+          data-lenis-prevent
           initial={{ scale: 0.94, opacity: 0, y: 20 }}
           animate={{ scale: 1, opacity: 1, y: 0 }}
           exit={{ scale: 0.92, opacity: 0, y: 40 }}

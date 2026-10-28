@@ -112,6 +112,7 @@ export const ChefRouletteModal: React.FC<ChefRouletteModalProps> = ({
       >
         <motion.div
           className={styles.modal}
+          data-lenis-prevent
           initial={{ y: '100%', opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: '100%', opacity: 0 }}

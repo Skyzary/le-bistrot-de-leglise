@@ -32,23 +32,20 @@ export const SmoothScroll: React.FC<SmoothScrollProps> = ({ children }) => {
           gestureOrientation: 'vertical',
           smoothWheel: true,
           wheelMultiplier: 1.0,
-          // Mobile touch smooth scroll
+          // Mobile touch smooth scroll & auto RAF
           syncTouch: true,
-          syncTouchLerp: 0.08,
+          syncTouchLerp: 0.085,
           touchMultiplier: 1.25,
-          touchInertiaExponent: 1.8,
+          touchInertiaExponent: 1.75,
+          autoRaf: true,
+          autoToggle: true,
+          overscroll: true,
           infinite: false,
           respectReducedMotion: true,
         });
 
         lenisRef.current = lenis;
         (window as unknown as { __lenis?: typeof lenis }).__lenis = lenis;
-
-        function raf(time: number) {
-          lenis.raf(time);
-          rafId = requestAnimationFrame(raf);
-        }
-        rafId = requestAnimationFrame(raf);
 
         // Smoothly handle internal anchor link clicks (#reservation, #menu-overview, etc.)
         const handleAnchorClick = (e: MouseEvent) => {
@@ -90,7 +87,6 @@ export const SmoothScroll: React.FC<SmoothScrollProps> = ({ children }) => {
 
     return () => {
       isCancelled = true;
-      if (rafId) cancelAnimationFrame(rafId);
       if (cleanupAnchor) cleanupAnchor();
       if (lenisRef.current) {
         lenisRef.current.destroy();

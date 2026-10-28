@@ -52,6 +52,7 @@ export const RouteActionSheet: React.FC<RouteActionSheetProps> = ({
         >
           <motion.div
             className={styles.sheet}
+            data-lenis-prevent
             initial={{ y: '100%' }}
             animate={{ y: 0 }}
             exit={{ y: '100%' }}

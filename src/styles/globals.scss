@@ -35,8 +35,16 @@ html.lenis body {
   -webkit-tap-highlight-color: transparent;
 }
 
-html {
+html.lenis,
+html.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+html:not(.lenis) {
   scroll-behavior: smooth;
+}
+
+html {
   -webkit-overflow-scrolling: touch;
 }
 
