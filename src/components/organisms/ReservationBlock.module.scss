@@ -101,6 +101,7 @@
   }
 }
 
+/* Couverts input group */
 .inputGroup {
   height: 44px;
   background-color: rgba(255, 255, 255, 0.05);
@@ -113,7 +114,6 @@
   justify-content: space-between;
   border: 1px solid rgba(212, 163, 115, 0.18);
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
-  position: relative;
   transition: border-color 0.2s ease;
 
   &:focus-within {
@@ -152,38 +152,62 @@
   color: $color-parchment;
 }
 
-.inputIconInline {
-  color: $color-primary;
-  flex-shrink: 0;
-  margin-right: 10px;
-  pointer-events: none;
-  z-index: 2;
-}
-
-.dateInput {
-  background: transparent;
-  border: none;
+/* Custom Calendar and TimePicker Trigger Buttons */
+.pickerTriggerBtn {
+  height: 44px;
+  background-color: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: $border-radius-sm;
+  padding: 0 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid rgba(212, 163, 115, 0.18);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
   color: $color-parchment;
   font-family: inherit;
   font-size: 14px;
   font-weight: 600;
-  width: 100%;
-  outline: none;
-  color-scheme: dark;
   cursor: pointer;
+  width: 100%;
+  text-align: left;
+  transition: all 0.2s ease;
 
-  &::-webkit-calendar-picker-indicator {
-    filter: invert(0.8) sepia(1) saturate(3) hue-rotate(340deg);
-    cursor: pointer;
-    opacity: 0.85;
-    transition: opacity 0.2s;
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+    border-color: $color-primary;
+  }
 
-    &:hover {
-      opacity: 1;
-    }
+  &:focus {
+    outline: none;
+    border-color: $color-secondary;
+    box-shadow: 0 0 0 2px rgba(212, 163, 115, 0.2);
   }
 }
 
+.pickerValue {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.inputIconInline {
+  color: $color-primary;
+  flex-shrink: 0;
+  pointer-events: none;
+}
+
+.chevronIcon {
+  color: rgba(212, 163, 115, 0.7);
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+/* Field Grid for Inputs */
 .fieldGrid {
   display: grid;
   grid-template-columns: 1fr;
@@ -414,6 +438,62 @@
 
 .spin {
   animation: spin 1s linear infinite;
+}
+
+/* Modal Dialog Overlay for Custom Calendar and Custom TimePicker */
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  background-color: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  animation: fadeInOverlay 0.2s ease-out;
+
+  @media (max-width: 600px) {
+    align-items: flex-end;
+    padding: 0 0 env(safe-area-inset-bottom) 0;
+  }
+}
+
+.modalContent {
+  width: 100%;
+  max-width: 380px;
+  animation: slideUpModal 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+
+  @media (max-width: 600px) {
+    max-width: 100%;
+    
+    > div {
+      border-bottom-left-radius: 0 !important;
+      border-bottom-right-radius: 0 !important;
+      max-width: 100% !important;
+    }
+  }
+}
+
+@keyframes fadeInOverlay {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUpModal {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 @keyframes spin {

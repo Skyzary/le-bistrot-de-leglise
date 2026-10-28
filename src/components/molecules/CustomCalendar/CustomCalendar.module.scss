@@ -2,7 +2,9 @@
 
 .calendarCard {
   width: 100%;
-  max-width: 350px;
+  max-width: 380px;
+  margin: 0 auto;
+  box-sizing: border-box;
   background: rgba(26, 24, 22, 0.98);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);

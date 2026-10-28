@@ -16,9 +16,27 @@ import {
   Mail,
   MessageSquare,
   Sparkles,
+  ChevronDown,
 } from 'lucide-react';
+import { CustomCalendar } from '@/components/molecules/CustomCalendar';
+import { CustomTimePicker } from '@/components/molecules/CustomTimePicker';
 import { AddToCalendarBtn } from '@/components/molecules/AddToCalendarBtn';
 import { ShareReservationInvite } from '@/components/molecules/ShareReservationInvite';
+
+const formatDateDisplay = (isoStr: string) => {
+  try {
+    const [y, m, d] = isoStr.split('-').map(Number);
+    const date = new Date(y, m - 1, d);
+    return date.toLocaleDateString('fr-FR', {
+      weekday: 'short',
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric',
+    });
+  } catch {
+    return isoStr;
+  }
+};
 
 export const ReservationBlock = () => {
   const [guests, setGuests] = useState(2);
@@ -30,6 +48,10 @@ export const ReservationBlock = () => {
   const [location, setLocation] = useState('inside');
   const [confirmedName, setConfirmedName] = useState('');
   const [requests, setRequests] = useState('');
+
+  // Modals for Custom Calendar and Custom TimePicker
+  const [showCalendar, setShowCalendar] = useState(false);
+  const [showTimePicker, setShowTimePicker] = useState(false);
 
   useEffect(() => {
     try {
@@ -53,6 +75,20 @@ export const ReservationBlock = () => {
     return () => window.removeEventListener('set-reservation-requests', handleCustomEvent);
   }, []);
 
+  // Close modals on Escape key
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setShowCalendar(false);
+        setShowTimePicker(false);
+      }
+    };
+    if (showCalendar || showTimePicker) {
+      window.addEventListener('keydown', handleKeyDown);
+    }
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [showCalendar, showTimePicker]);
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
@@ -63,6 +99,8 @@ export const ReservationBlock = () => {
     if (nameVal) setConfirmedName(nameVal);
     formData.append('guests', guests.toString());
     formData.append('location', location);
+    formData.append('date', date);
+    formData.append('time', time);
 
     try {
       const res = await fetch('/api/send-reservation', {
@@ -139,6 +177,7 @@ export const ReservationBlock = () => {
         ) : (
           <form className={styles.form} onSubmit={handleSubmit}>
             <div className={styles.grid}>
+              {/* Couverts */}
               <div className={styles.field}>
                 <label id="guests-label">Couverts</label>
                 <div className={styles.inputGroup} role="group" aria-labelledby="guests-label">
@@ -150,7 +189,9 @@ export const ReservationBlock = () => {
                   >
                     <Minus size={18} />
                   </button>
-                  <span className={styles.value}>{guests} {guests > 1 ? 'couverts' : 'couvert'}</span>
+                  <span className={styles.value}>
+                    {guests} {guests > 1 ? 'couverts' : 'couvert'}
+                  </span>
                   <button
                     type="button"
                     onClick={() => adjustGuests(1)}
@@ -162,36 +203,48 @@ export const ReservationBlock = () => {
                 </div>
               </div>
 
+              {/* Date with Custom Calendar Picker */}
               <div className={styles.field}>
-                <label htmlFor="date-input">Date</label>
-                <div className={styles.inputGroup}>
-                  <Calendar size={18} className={styles.inputIconInline} />
-                  <input
-                    id="date-input"
-                    name="date"
-                    type="date"
-                    value={date}
-                    onChange={(e) => setDate(e.target.value)}
-                    className={styles.dateInput}
-                    required
-                  />
-                </div>
+                <label id="date-label">Date</label>
+                <button
+                  type="button"
+                  id="date-input"
+                  className={styles.pickerTriggerBtn}
+                  onClick={() => setShowCalendar(true)}
+                  aria-haspopup="dialog"
+                  aria-expanded={showCalendar}
+                  aria-labelledby="date-label"
+                >
+                  <div className={styles.pickerValue}>
+                    <Calendar size={18} className={styles.inputIconInline} />
+                    <span>{formatDateDisplay(date)}</span>
+                  </div>
+                  <ChevronDown size={14} className={styles.chevronIcon} />
+                </button>
+                <input type="hidden" name="date" value={date} />
               </div>
 
+              {/* Heure with Custom Time Picker */}
               <div className={styles.field}>
-                <label htmlFor="time-input">Heure</label>
-                <div className={styles.inputGroup}>
-                  <Clock size={18} className={styles.inputIconInline} />
-                  <input
-                    id="time-input"
-                    name="time"
-                    type="time"
-                    value={time}
-                    onChange={(e) => setTime(e.target.value)}
-                    className={styles.dateInput}
-                    required
-                  />
-                </div>
+                <label id="time-label">Heure</label>
+                <button
+                  type="button"
+                  id="time-input"
+                  className={styles.pickerTriggerBtn}
+                  onClick={() => setShowTimePicker(true)}
+                  aria-haspopup="dialog"
+                  aria-expanded={showTimePicker}
+                  aria-labelledby="time-label"
+                >
+                  <div className={styles.pickerValue}>
+                    <Clock size={18} className={styles.inputIconInline} />
+                    <span>
+                      {time} {parseInt(time.split(':')[0], 10) < 17 ? '(Midi)' : '(Soir)'}
+                    </span>
+                  </div>
+                  <ChevronDown size={14} className={styles.chevronIcon} />
+                </button>
+                <input type="hidden" name="time" value={time} />
               </div>
             </div>
 
@@ -294,6 +347,50 @@ export const ReservationBlock = () => {
           </form>
         )}
       </div>
+
+      {/* Modal Dialog for Custom Calendar */}
+      {showCalendar && (
+        <div
+          className={styles.modalOverlay}
+          onClick={() => setShowCalendar(false)}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Choisir une date de réservation"
+        >
+          <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+            <CustomCalendar
+              value={date}
+              onChange={(dateIso) => {
+                setDate(dateIso);
+                setShowCalendar(false);
+              }}
+              onClose={() => setShowCalendar(false)}
+            />
+          </div>
+        </div>
+      )}
+
+      {/* Modal Dialog for Custom Time Picker */}
+      {showTimePicker && (
+        <div
+          className={styles.modalOverlay}
+          onClick={() => setShowTimePicker(false)}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Choisir une heure de réservation"
+        >
+          <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+            <CustomTimePicker
+              value={time}
+              onChange={(selectedTime) => {
+                setTime(selectedTime);
+                setShowTimePicker(false);
+              }}
+              onClose={() => setShowTimePicker(false)}
+            />
+          </div>
+        </div>
+      )}
     </section>
   );
 };
