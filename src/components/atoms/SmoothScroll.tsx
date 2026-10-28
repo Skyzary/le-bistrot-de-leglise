@@ -25,18 +25,16 @@ export const SmoothScroll: React.FC<SmoothScrollProps> = ({ children }) => {
         if (isCancelled) return;
 
         const lenis = new Lenis({
-          duration: 1.2,
-          // Apple-style exponential deceleration
+          duration: 1.15,
+          // Apple-style exponential deceleration curve
           easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
           orientation: 'vertical',
           gestureOrientation: 'vertical',
           smoothWheel: true,
-          wheelMultiplier: 1.0,
-          // Mobile touch smooth scroll & auto RAF
-          syncTouch: true,
-          syncTouchLerp: 0.085,
-          touchMultiplier: 1.25,
-          touchInertiaExponent: 1.75,
+          wheelMultiplier: 0.95,
+          // Disable touch hijacking on mobile to prevent stutter/lag;
+          // lets native 120Hz Apple/Android GPU compositor handle finger swipe with 0 latency
+          syncTouch: false,
           autoRaf: true,
           autoToggle: true,
           overscroll: true,
