@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import styles from './ReservationBlock.module.scss';
-import { Button } from '@/components/atoms/Button';
+import React, { useState, useEffect } from "react";
+import styles from "./ReservationBlock.module.scss";
+import { Button } from "@/components/atoms/Button";
 import {
   Phone,
   Calendar,
@@ -17,21 +17,21 @@ import {
   MessageSquare,
   Sparkles,
   ChevronDown,
-} from 'lucide-react';
-import { CustomCalendar } from '@/components/molecules/CustomCalendar';
-import { CustomTimePicker } from '@/components/molecules/CustomTimePicker';
-import { AddToCalendarBtn } from '@/components/molecules/AddToCalendarBtn';
-import { ShareReservationInvite } from '@/components/molecules/ShareReservationInvite';
+} from "lucide-react";
+import { CustomCalendar } from "@/components/molecules/CustomCalendar";
+import { CustomTimePicker } from "@/components/molecules/CustomTimePicker";
+import { AddToCalendarBtn } from "@/components/molecules/AddToCalendarBtn";
+import { ShareReservationInvite } from "@/components/molecules/ShareReservationInvite";
 
 const formatDateDisplay = (isoStr: string) => {
   try {
-    const [y, m, d] = isoStr.split('-').map(Number);
+    const [y, m, d] = isoStr.split("-").map(Number);
     const date = new Date(y, m - 1, d);
-    return date.toLocaleDateString('fr-FR', {
-      weekday: 'short',
-      day: 'numeric',
-      month: 'short',
-      year: 'numeric',
+    return date.toLocaleDateString("fr-FR", {
+      weekday: "short",
+      day: "numeric",
+      month: "short",
+      year: "numeric",
     });
   } catch {
     return isoStr;
@@ -43,11 +43,11 @@ export const ReservationBlock = () => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [time, setTime] = useState('19:45');
-  const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
-  const [location, setLocation] = useState('inside');
-  const [confirmedName, setConfirmedName] = useState('');
-  const [requests, setRequests] = useState('');
+  const [time, setTime] = useState("19:45");
+  const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
+  const [location, setLocation] = useState("inside");
+  const [confirmedName, setConfirmedName] = useState("");
+  const [requests, setRequests] = useState("");
 
   // Modals for Custom Calendar and Custom TimePicker
   const [showCalendar, setShowCalendar] = useState(false);
@@ -55,10 +55,10 @@ export const ReservationBlock = () => {
 
   useEffect(() => {
     try {
-      const saved = sessionStorage.getItem('bistrot_reservation_requests');
+      const saved = sessionStorage.getItem("bistrot_reservation_requests");
       if (saved) {
         setRequests(saved);
-        sessionStorage.removeItem('bistrot_reservation_requests');
+        sessionStorage.removeItem("bistrot_reservation_requests");
       }
     } catch {
       // storage error
@@ -71,22 +71,23 @@ export const ReservationBlock = () => {
       }
     };
 
-    window.addEventListener('set-reservation-requests', handleCustomEvent);
-    return () => window.removeEventListener('set-reservation-requests', handleCustomEvent);
+    window.addEventListener("set-reservation-requests", handleCustomEvent);
+    return () =>
+      window.removeEventListener("set-reservation-requests", handleCustomEvent);
   }, []);
 
   // Close modals on Escape key
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
+      if (e.key === "Escape") {
         setShowCalendar(false);
         setShowTimePicker(false);
       }
     };
     if (showCalendar || showTimePicker) {
-      window.addEventListener('keydown', handleKeyDown);
+      window.addEventListener("keydown", handleKeyDown);
     }
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, [showCalendar, showTimePicker]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -95,16 +96,16 @@ export const ReservationBlock = () => {
     setError(null);
 
     const formData = new FormData(e.currentTarget);
-    const nameVal = formData.get('name') as string;
+    const nameVal = formData.get("name") as string;
     if (nameVal) setConfirmedName(nameVal);
-    formData.append('guests', guests.toString());
-    formData.append('location', location);
-    formData.append('date', date);
-    formData.append('time', time);
+    formData.append("guests", guests.toString());
+    formData.append("location", location);
+    formData.append("date", date);
+    formData.append("time", time);
 
     try {
-      const res = await fetch('/api/send-reservation', {
-        method: 'POST',
+      const res = await fetch("/api/send-reservation", {
+        method: "POST",
         body: formData,
       });
       const result = await res.json();
@@ -115,7 +116,7 @@ export const ReservationBlock = () => {
         setError(result.error || "Erreur lors de l'envoi");
       }
     } catch {
-      setError('Erreur inattendue');
+      setError("Erreur inattendue");
     } finally {
       setLoading(false);
     }
@@ -133,7 +134,11 @@ export const ReservationBlock = () => {
             <span className={styles.tag}>Réservation Simple</span>
             <h2 className={styles.title}>Réserver une table</h2>
           </div>
-          <a href="tel:0434117585" className={styles.callBtn} aria-label="Téléphoner">
+          <a
+            href="tel:0434117585"
+            className={styles.callBtn}
+            aria-label="Téléphoner"
+          >
             <Phone size={20} />
           </a>
         </div>
@@ -143,9 +148,13 @@ export const ReservationBlock = () => {
             <div className={styles.successIcon}>
               <CheckCircle size={44} />
             </div>
-            <h3 className={styles.successTitle}>Demande envoyée avec succès !</h3>
+            <h3 className={styles.successTitle}>
+              Demande envoyée avec succès !
+            </h3>
             <p className={styles.successDesc}>
-              Merci pour votre réservation. Notre équipe prépare votre table et vous confirme la réservation dans quelques instants par SMS ou par téléphone.
+              Merci pour votre réservation. Notre équipe prépare votre table et
+              vous confirme la réservation dans quelques instants par SMS ou par
+              téléphone.
             </p>
             <ShareReservationInvite
               date={date}
@@ -161,7 +170,7 @@ export const ReservationBlock = () => {
               name={confirmedName}
               location={location}
             />
-            <div style={{ marginTop: '16px' }}>
+            <div style={{ marginTop: "16px" }}>
               <Button
                 type="button"
                 variant="secondary"
@@ -180,7 +189,11 @@ export const ReservationBlock = () => {
               {/* Couverts */}
               <div className={styles.field}>
                 <label id="guests-label">Couverts</label>
-                <div className={styles.inputGroup} role="group" aria-labelledby="guests-label">
+                <div
+                  className={styles.inputGroup}
+                  role="group"
+                  aria-labelledby="guests-label"
+                >
                   <button
                     type="button"
                     onClick={() => adjustGuests(-1)}
@@ -190,7 +203,7 @@ export const ReservationBlock = () => {
                     <Minus size={18} />
                   </button>
                   <span className={styles.value}>
-                    {guests} {guests > 1 ? 'couverts' : 'couvert'}
+                    {guests} {guests > 1 ? "couverts" : "couvert"}
                   </span>
                   <button
                     type="button"
@@ -239,7 +252,10 @@ export const ReservationBlock = () => {
                   <div className={styles.pickerValue}>
                     <Clock size={18} className={styles.inputIconInline} />
                     <span>
-                      {time} {parseInt(time.split(':')[0], 10) < 17 ? '(Midi)' : '(Soir)'}
+                      {time}{" "}
+                      {parseInt(time.split(":")[0], 10) < 17
+                        ? "(Midi)"
+                        : "(Soir)"}
                     </span>
                   </div>
                   <ChevronDown size={14} className={styles.chevronIcon} />
@@ -273,7 +289,10 @@ export const ReservationBlock = () => {
                 />
               </div>
 
-              <div className={styles.inputWrapper} style={{ gridColumn: '1 / -1' }}>
+              <div
+                className={styles.inputWrapper}
+                style={{ gridColumn: "1 / -1" }}
+              >
                 <Mail size={18} className={styles.inputIcon} />
                 <input
                   type="email"
@@ -285,20 +304,24 @@ export const ReservationBlock = () => {
                 />
               </div>
 
-              <div className={styles.field} style={{ gridColumn: '1 / -1' }}>
+              <div className={styles.field} style={{ gridColumn: "1 / -1" }}>
                 <label>Emplacement souhaité</label>
                 <div className={styles.locationGrid}>
                   <button
                     type="button"
-                    className={location === 'inside' ? styles.slotActive : styles.slot}
-                    onClick={() => setLocation('inside')}
+                    className={
+                      location === "inside" ? styles.slotActive : styles.slot
+                    }
+                    onClick={() => setLocation("inside")}
                   >
                     En salle
                   </button>
                   <button
                     type="button"
-                    className={location === 'terrace' ? styles.slotActive : styles.slot}
-                    onClick={() => setLocation('terrace')}
+                    className={
+                      location === "terrace" ? styles.slotActive : styles.slot
+                    }
+                    onClick={() => setLocation("terrace")}
                   >
                     En terrasse
                   </button>
@@ -313,7 +336,7 @@ export const ReservationBlock = () => {
                     </span>
                     <button
                       type="button"
-                      onClick={() => setRequests('')}
+                      onClick={() => setRequests("")}
                       className={styles.autoFillClearBtn}
                     >
                       Effacer
@@ -336,9 +359,18 @@ export const ReservationBlock = () => {
 
             {error && <p className={styles.errorMsg}>{error}</p>}
 
-            <Button type="submit" variant="primary" fullWidth disabled={loading}>
-              {loading ? <Loader2 size={18} className={styles.spin} /> : <CheckCircle size={18} />}
-              {loading ? 'Envoi en cours...' : 'Confirmer ma demande de table'}
+            <Button
+              type="submit"
+              variant="primary"
+              fullWidth
+              disabled={loading}
+            >
+              {loading ? (
+                <Loader2 size={18} className={styles.spin} />
+              ) : (
+                <CheckCircle size={18} />
+              )}
+              {loading ? "Envoi en cours..." : "Confirmer ma demande de table"}
             </Button>
 
             <p className={styles.footerNote}>
@@ -357,7 +389,10 @@ export const ReservationBlock = () => {
           aria-modal="true"
           aria-label="Choisir une date de réservation"
         >
-          <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+          <div
+            className={styles.modalContent}
+            onClick={(e) => e.stopPropagation()}
+          >
             <CustomCalendar
               value={date}
               onChange={(dateIso) => {
@@ -379,7 +414,10 @@ export const ReservationBlock = () => {
           aria-modal="true"
           aria-label="Choisir une heure de réservation"
         >
-          <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+          <div
+            className={styles.modalContent}
+            onClick={(e) => e.stopPropagation()}
+          >
             <CustomTimePicker
               value={time}
               onChange={(selectedTime) => {

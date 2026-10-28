@@ -10,7 +10,7 @@ test.describe('Mobile Features: Live Status & Route Sheet', () => {
     const locationTag = page.locator('span', { hasText: "Place de l'Église • Fabrègues" });
     await expect(locationTag).toBeVisible();
 
-    const liveBadge = page.locator('span', { hasText: /(Service|Bar ouvert|Café|Fermé|Ouvert)/ });
+    const liveBadge = page.locator('span', { hasText: /(Service|Bar ouvert|Café|Fermé|Ouvert)/ }).first();
     await expect(liveBadge).toBeVisible();
   });
 
@@ -59,7 +59,7 @@ test.describe('Mobile Features: La Roulette du Chef', () => {
     await expect(page.locator('span', { hasText: 'Entrée' })).toBeVisible();
     await expect(page.locator('span', { hasText: 'Plat de Résistance' })).toBeVisible();
     await expect(page.locator('span', { hasText: 'Accord Vin (Verre)' })).toBeVisible();
-    await expect(page.locator('span', { hasText: 'Dessert' })).toBeVisible();
+    await expect(page.getByText('Dessert', { exact: true })).toBeVisible();
 
     // Click spin button
     const spinBtn = page.locator('button', { hasText: 'Faire tourner la roulette !' });
@@ -121,7 +121,7 @@ test.describe('Mobile Features: Gallery Fullscreen Dish Stories', () => {
     await firstSlide.click();
 
     // Check Story viewer is displayed
-    const authorHeader = page.locator('span', { hasText: "Le Bistrot de l'Église" });
+    const authorHeader = page.locator('span', { hasText: "Le Bistrot de l'Église" }).first();
     await expect(authorHeader).toBeVisible();
 
     const bookTableBtn = page.locator('button', { hasText: 'Réserver pour goûter' });
