@@ -1,12 +1,17 @@
 'use client';
 import React, { useState, useCallback } from 'react';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import { usePathname, useRouter } from 'next/navigation';
 import styles from './QuickActionMenu.module.scss';
 import { Home, BookOpen, MapPin, CalendarRange } from 'lucide-react';
 import { triggerHaptic } from '@/utils/haptics';
-import { RouteActionSheet } from '@/components/molecules/RouteActionSheet';
 import { useActiveSection } from '@/utils/useActiveSection';
+
+const RouteActionSheet = dynamic(
+  () => import('@/components/molecules/RouteActionSheet').then((mod) => mod.RouteActionSheet),
+  { ssr: false }
+);
 
 export const QuickActionMenu = () => {
   const pathname = usePathname();

@@ -1,18 +1,27 @@
 import type { Metadata } from 'next';
 import { Playfair_Display, Plus_Jakarta_Sans } from 'next/font/google';
+import dynamic from 'next/dynamic';
 import '@/styles/globals.scss';
-import { ReservationChatWidget } from '@/components/organisms/ReservationChatWidget';
 import { SmoothScroll } from '@/components/atoms/SmoothScroll';
-import { ScrollProgressBar } from '@/components/atoms/ScrollProgressBar';
+
+const ReservationChatWidget = dynamic(
+  () => import('@/components/organisms/ReservationChatWidget').then((mod) => mod.ReservationChatWidget)
+);
+
+const ScrollProgressBar = dynamic(
+  () => import('@/components/atoms/ScrollProgressBar').then((mod) => mod.ScrollProgressBar)
+);
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
   variable: '--font-playfair',
+  display: 'swap',
 });
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ['latin'],
   variable: '--font-jakarta',
+  display: 'swap',
 });
 
 export const metadata: Metadata = {

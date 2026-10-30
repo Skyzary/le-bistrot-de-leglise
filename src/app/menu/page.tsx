@@ -1,5 +1,6 @@
 'use client';
 import React, { useState, useMemo, useCallback } from 'react';
+import dynamic from 'next/dynamic';
 import styles from './page.module.scss';
 import { Header } from '@/components/organisms/Header';
 import { Footer } from '@/components/organisms/Footer';
@@ -7,11 +8,19 @@ import { QuickActionMenu } from '@/components/organisms/QuickActionMenu';
 import { ChevronLeft, Search, Wine, Dices } from 'lucide-react';
 import Link from 'next/link';
 import { ScrollReveal } from '@/components/atoms/ScrollReveal';
-import { WinePairingModal } from '@/components/molecules/WinePairingModal';
-import { ChefRouletteModal } from '@/components/molecules/ChefRouletteModal';
 import { getWinePairingForDish, WinePairing } from '@/data/winePairings';
 import { triggerHaptic } from '@/utils/haptics';
 import { fullMenuData as menuData } from '@/config/data';
+
+const WinePairingModal = dynamic(
+  () => import('@/components/molecules/WinePairingModal').then((mod) => mod.WinePairingModal),
+  { ssr: false }
+);
+
+const ChefRouletteModal = dynamic(
+  () => import('@/components/molecules/ChefRouletteModal').then((mod) => mod.ChefRouletteModal),
+  { ssr: false }
+);
 
 const CATEGORIES = ['Toutes', ...menuData.map((c) => c.category)];
 

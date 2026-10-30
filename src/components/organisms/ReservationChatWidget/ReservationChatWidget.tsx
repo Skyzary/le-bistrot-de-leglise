@@ -20,13 +20,27 @@ import {
   Sparkles,
   ChevronLeft
 } from 'lucide-react';
+import dynamic from 'next/dynamic';
 import styles from './ReservationChatWidget.module.scss';
-import { CustomCalendar } from '@/components/molecules/CustomCalendar';
-import { CustomTimePicker } from '@/components/molecules/CustomTimePicker';
-import { AddToCalendarBtn } from '@/components/molecules/AddToCalendarBtn';
-import { ShareReservationInvite } from '@/components/molecules/ShareReservationInvite';
 import { triggerHaptic } from '@/utils/haptics';
 import { useScrollLock } from '@/utils/scrollLock';
+
+const CustomCalendar = dynamic(
+  () => import('@/components/molecules/CustomCalendar').then((mod) => mod.CustomCalendar),
+  { ssr: false }
+);
+const CustomTimePicker = dynamic(
+  () => import('@/components/molecules/CustomTimePicker').then((mod) => mod.CustomTimePicker),
+  { ssr: false }
+);
+const AddToCalendarBtn = dynamic(
+  () => import('@/components/molecules/AddToCalendarBtn').then((mod) => mod.AddToCalendarBtn),
+  { ssr: false }
+);
+const ShareReservationInvite = dynamic(
+  () => import('@/components/molecules/ShareReservationInvite').then((mod) => mod.ShareReservationInvite),
+  { ssr: false }
+);
 
 type Step = 
   | 'date'

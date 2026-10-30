@@ -2,11 +2,17 @@
 
 import React, { useState, useCallback } from 'react';
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
 import styles from './GallerySection.module.scss';
 import { Camera, ArrowRight, Maximize2 } from 'lucide-react';
-import { DishStoryModal, GalleryItem } from '@/components/molecules/DishStoryModal';
+import type { GalleryItem } from '@/components/molecules/DishStoryModal';
 import { triggerHaptic } from '@/utils/haptics';
 import { galleryData } from '@/config/data';
+
+const DishStoryModal = dynamic(
+  () => import('@/components/molecules/DishStoryModal').then((mod) => mod.DishStoryModal),
+  { ssr: false }
+);
 
 interface RawGalleryItem {
   image: string;

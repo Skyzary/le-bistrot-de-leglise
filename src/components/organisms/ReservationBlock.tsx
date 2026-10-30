@@ -18,11 +18,20 @@ import {
   Sparkles,
   ChevronDown,
 } from "lucide-react";
-import { CustomCalendar } from "@/components/molecules/CustomCalendar";
-import { CustomTimePicker } from "@/components/molecules/CustomTimePicker";
+import dynamic from "next/dynamic";
 import { AddToCalendarBtn } from "@/components/molecules/AddToCalendarBtn";
 import { ShareReservationInvite } from "@/components/molecules/ShareReservationInvite";
 import { useScrollLock } from "@/utils/scrollLock";
+
+const CustomCalendar = dynamic(
+  () => import("@/components/molecules/CustomCalendar").then((mod) => mod.CustomCalendar),
+  { ssr: false }
+);
+
+const CustomTimePicker = dynamic(
+  () => import("@/components/molecules/CustomTimePicker").then((mod) => mod.CustomTimePicker),
+  { ssr: false }
+);
 
 const formatDateDisplay = (isoStr: string) => {
   try {

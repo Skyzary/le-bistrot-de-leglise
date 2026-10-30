@@ -28,8 +28,10 @@ export const Hero = () => {
           alt="Le Bistrot de l'Église Intérieur" 
           fill
           priority
+          fetchPriority="high"
+          quality={75}
           className={styles.bgImage}
-          sizes="100vw"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 1920px"
         />
       </motion.div>
       <div className={styles.overlay}></div>

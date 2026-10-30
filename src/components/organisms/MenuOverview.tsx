@@ -1,14 +1,23 @@
 'use client';
 
 import React, { useState, useCallback } from 'react';
+import dynamic from 'next/dynamic';
 import styles from './MenuOverview.module.scss';
 import { Button } from '@/components/atoms/Button';
 import { Wine, Dices } from 'lucide-react';
-import { WinePairingModal } from '@/components/molecules/WinePairingModal';
-import { ChefRouletteModal } from '@/components/molecules/ChefRouletteModal';
 import { getWinePairingForDish, WinePairing } from '@/data/winePairings';
 import { triggerHaptic } from '@/utils/haptics';
 import { menuSectionsPreview as menuSections } from '@/config/data';
+
+const WinePairingModal = dynamic(
+  () => import('@/components/molecules/WinePairingModal').then((mod) => mod.WinePairingModal),
+  { ssr: false }
+);
+
+const ChefRouletteModal = dynamic(
+  () => import('@/components/molecules/ChefRouletteModal').then((mod) => mod.ChefRouletteModal),
+  { ssr: false }
+);
 
 const MENU_SECTIONS_WITH_PAIRINGS = menuSections.map((section) => ({
   ...section,
