@@ -52,6 +52,11 @@ export const SmoothScroll: React.FC<SmoothScrollProps> = ({ children }) => {
   } | null>(null);
 
   useEffect(() => {
+    // Disable Lenis on touch devices — mobile has native 120Hz GPU compositor
+    if (typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches) {
+      return;
+    }
+
     let isCancelled = false;
 
     const initLenis = async () => {

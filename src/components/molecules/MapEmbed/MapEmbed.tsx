@@ -58,3 +58,4 @@ export const MapEmbed: React.FC<MapEmbedProps> = ({ src, title }) => {
     </div>
   );
 };
+

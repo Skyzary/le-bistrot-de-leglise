@@ -15,9 +15,9 @@ export const Hero = () => {
           fill
           priority
           fetchPriority="high"
-          quality={70}
+          quality={65}
           className={styles.bgImage}
-          sizes="(max-width: 640px) 100vw, (max-width: 1200px) 100vw, 1920px"
+          sizes="(max-width: 640px) 75vw, (max-width: 1200px) 90vw, 1920px"
         />
       </div>
       <div className={styles.overlay}></div>

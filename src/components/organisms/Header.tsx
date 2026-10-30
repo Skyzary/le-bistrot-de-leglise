@@ -44,10 +44,10 @@ export const Header = () => {
 
         {/* Center/Left Navigation for Desktop */}
         <nav className={styles.desktopNav}>
-          <Link href="/#philosophie" onClick={() => handleNavClick('philosophie')} className={`${styles.navLink} ${isPhilosophie && !isMenuPage ? styles.active : ''}`}>Philosophie</Link>
-          <Link href="/menu" onClick={() => handleNavClick('menu-overview')} className={`${styles.navLink} ${isMenu ? styles.active : ''}`}>La Carte</Link>
-          <Link href="/#nous-trouver" onClick={() => handleNavClick('nous-trouver')} className={`${styles.navLink} ${isNousTrouver && !isMenuPage ? styles.active : ''}`}>Nous Trouver</Link>
-          <Link href="/#reservation" onClick={() => handleNavClick('reservation')} className={`${styles.navLink} ${isReservation && !isMenuPage ? styles.active : ''}`}>Réserver</Link>
+          <Link href="/#philosophie" prefetch={false} onClick={() => handleNavClick('philosophie')} className={`${styles.navLink} ${isPhilosophie && !isMenuPage ? styles.active : ''}`}>Philosophie</Link>
+          <Link href="/menu" prefetch={false} onClick={() => handleNavClick('menu-overview')} className={`${styles.navLink} ${isMenu ? styles.active : ''}`}>La Carte</Link>
+          <Link href="/#nous-trouver" prefetch={false} onClick={() => handleNavClick('nous-trouver')} className={`${styles.navLink} ${isNousTrouver && !isMenuPage ? styles.active : ''}`}>Nous Trouver</Link>
+          <Link href="/#reservation" prefetch={false} onClick={() => handleNavClick('reservation')} className={`${styles.navLink} ${isReservation && !isMenuPage ? styles.active : ''}`}>Réserver</Link>
         </nav>
 
         {/* Right: Actions */}

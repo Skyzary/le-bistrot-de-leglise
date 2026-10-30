@@ -31,13 +31,19 @@ const ShareReservationInvite = dynamic(
 import { useScrollLock } from "@/utils/scrollLock";
 
 const CustomCalendar = dynamic(
-  () => import("@/components/molecules/CustomCalendar").then((mod) => mod.CustomCalendar),
-  { ssr: false }
+  () =>
+    import("@/components/molecules/CustomCalendar").then(
+      (mod) => mod.CustomCalendar,
+    ),
+  { ssr: false },
 );
 
 const CustomTimePicker = dynamic(
-  () => import("@/components/molecules/CustomTimePicker").then((mod) => mod.CustomTimePicker),
-  { ssr: false }
+  () =>
+    import("@/components/molecules/CustomTimePicker").then(
+      (mod) => mod.CustomTimePicker,
+    ),
+  { ssr: false },
 );
 
 const formatDateDisplay = (isoStr: string) => {
@@ -61,7 +67,9 @@ export const ReservationBlock = () => {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [time, setTime] = useState("19:45");
-  const [date, setDate] = useState(() => new Date().toISOString().split("T")[0]);
+  const [date, setDate] = useState(
+    () => new Date().toISOString().split("T")[0],
+  );
   const [location, setLocation] = useState("inside");
   const [confirmedName, setConfirmedName] = useState("");
   const [requests, setRequests] = useState("");

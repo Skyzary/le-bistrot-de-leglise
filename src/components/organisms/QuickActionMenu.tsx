@@ -56,6 +56,7 @@ export const QuickActionMenu = () => {
       <nav className={styles.bottomNav}>
         <Link 
           href="/#philosophie" 
+          prefetch={false}
           onClick={() => handleNavClick('philosophie')} 
           className={`${styles.navItem} ${isHome && !isMenuPage ? styles.active : ''}`}
         >
@@ -65,6 +66,7 @@ export const QuickActionMenu = () => {
         
         <Link 
           href="/menu" 
+          prefetch={false}
           onClick={() => handleNavClick('menu-overview')} 
           className={`${styles.navItem} ${isMenu ? styles.active : ''}`}
         >
@@ -84,6 +86,7 @@ export const QuickActionMenu = () => {
         
         <Link 
           href="/#reservation" 
+          prefetch={false}
           onClick={() => handleNavClick('reservation')} 
           className={`${styles.navItem} ${isReservation && !isMenuPage ? styles.active : ''}`}
         >

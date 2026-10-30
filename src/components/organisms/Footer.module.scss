@@ -5,6 +5,8 @@
   margin-top: $space-2xl;
   background-color: $color-surface-elevated;
   padding: $space-xl $space-md calc($space-xl + 80px) $space-md;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 400px;
   
   @media (min-width: 768px) {
     padding-bottom: $space-xl;

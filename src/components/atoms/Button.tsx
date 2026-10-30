@@ -50,7 +50,7 @@ export const Button = (props: ButtonProps) => {
     };
 
     return (
-      <Link href={href} onClick={handleLinkClick} className={classes} {...restLinkProps}>
+      <Link href={href} onClick={handleLinkClick} className={classes} prefetch={false} {...restLinkProps}>
         {children}
       </Link>
     );

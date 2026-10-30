@@ -68,7 +68,9 @@ export const GallerySection = () => {
                 src={item.src} 
                 alt={item.title} 
                 fill 
-                sizes="(max-width: 768px) 80vw, 400px"
+                quality={65}
+                loading="lazy"
+                sizes="(max-width: 768px) 70vw, 360px"
                 style={{ objectFit: 'cover' }} 
               />
               <div className={styles.slideOverlay}>

@@ -3,6 +3,8 @@
 .section {
   padding: $space-2xl 0; // top/bottom padding, zero horizontal so slider bleeds to edges
   background-color: transparent;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 500px;
 }
 
 .header {
