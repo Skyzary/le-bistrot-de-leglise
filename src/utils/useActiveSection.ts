@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { usePathname } from 'next/navigation';
 
-const SECTIONS = ['reservation', 'nous-trouver', 'evenements', 'menu-overview', 'philosophie'];
+const SECTIONS = ['reservation', 'nous-trouver', 'menu-overview', 'evenements', 'philosophie'];
 
 /**
  * High-performance active section tracker.

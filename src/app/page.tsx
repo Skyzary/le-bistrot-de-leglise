@@ -19,9 +19,9 @@ export default function Home() {
       <Hero />
       <ReviewShowcase />
       <ScrollReveal><Philosophy /></ScrollReveal>
+      <ScrollReveal><EventsSection /></ScrollReveal>
       <ScrollReveal><MenuOverview /></ScrollReveal>
       <ScrollReveal><GallerySection /></ScrollReveal>
-      <ScrollReveal><EventsSection /></ScrollReveal>
       <ScrollReveal><TourismDiscovery /></ScrollReveal>
       <ScrollReveal><ReservationBlock /></ScrollReveal>
       <Footer />

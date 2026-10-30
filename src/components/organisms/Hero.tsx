@@ -2,10 +2,12 @@ import React from 'react';
 import Image from 'next/image';
 import styles from './Hero.module.scss';
 import { Button } from '@/components/atoms/Button';
-import { MapPin } from 'lucide-react';
+import { MapPin, Sparkles, ArrowRight } from 'lucide-react';
 import { LiveServiceBadge } from '@/components/molecules/LiveServiceBadge';
+import { eventsData } from '@/config/data';
 
 export const Hero = () => {
+  const featuredEvent = eventsData && eventsData.length > 0 ? eventsData[0] : null;
   return (
     <section className={styles.hero}>
       <div className={styles.imageWrapper}>
@@ -36,6 +38,15 @@ export const Hero = () => {
           <Button variant="primary" href="#reservation">Réserver une table</Button>
           <Button variant="secondary" href="#menu-overview">La Carte</Button>
         </div>
+        {featuredEvent && (
+          <a href="#evenements" className={styles.eventTeaser}>
+            <Sparkles size={14} className={styles.eventTeaserIcon} />
+            <span className={styles.eventTeaserText}>
+              <strong>{featuredEvent.date} :</strong> {featuredEvent.title}
+            </span>
+            <ArrowRight size={14} className={styles.eventTeaserArrow} />
+          </a>
+        )}
       </div>
     </section>
   );

@@ -9,12 +9,69 @@ export interface CalendarEvent {
 
 /**
  * Parses date + time strings into Date objects.
+ * Supports both ISO format (YYYY-MM-DD, HH:MM) and French natural strings
+ * (e.g., "Vendredi", "Samedi", "19h30", "Samedi soir", "Pour le déjeuner").
  */
 function parseEventDates(dateStr: string, timeStr: string, durationHours = 2) {
   try {
-    const [year, month, day] = dateStr.split('-').map(Number);
-    const [hour, min] = timeStr.split(':').map(Number);
-    const startDate = new Date(year, month - 1, day, hour || 19, min || 30);
+    let year: number;
+    let month: number;
+    let day: number;
+
+    if (/^\d{4}-\d{2}-\d{2}$/.test(dateStr.trim())) {
+      [year, month, day] = dateStr.trim().split('-').map(Number);
+    } else {
+      const now = new Date();
+      const lowerDate = dateStr.toLowerCase();
+      const weekdays: Record<string, number> = {
+        dimanche: 0,
+        lundi: 1,
+        mardi: 2,
+        mercredi: 3,
+        jeudi: 4,
+        vendredi: 5,
+        samedi: 6,
+      };
+
+      const targetDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      let matchedWeekday: number | null = null;
+      for (const [name, idx] of Object.entries(weekdays)) {
+        if (lowerDate.includes(name)) {
+          matchedWeekday = idx;
+          break;
+        }
+      }
+
+      if (matchedWeekday !== null) {
+        const diff = (matchedWeekday - targetDate.getDay() + 7) % 7;
+        targetDate.setDate(targetDate.getDate() + diff);
+      }
+
+      year = targetDate.getFullYear();
+      month = targetDate.getMonth() + 1;
+      day = targetDate.getDate();
+    }
+
+    let hour = 19;
+    let min = 30;
+    const cleanTime = timeStr.trim().toLowerCase();
+    const timeMatch = cleanTime.match(/(\d{1,2})\s*[:h]\s*(\d{2})?/);
+
+    if (timeMatch) {
+      hour = parseInt(timeMatch[1], 10);
+      min = timeMatch[2] ? parseInt(timeMatch[2], 10) : 0;
+    } else if (cleanTime.includes('déjeuner') || cleanTime.includes('dejeuner') || cleanTime.includes('midi')) {
+      hour = 12;
+      min = 0;
+    } else if (cleanTime.includes('soir')) {
+      hour = 19;
+      min = 30;
+    }
+
+    const startDate = new Date(year, month - 1, day, hour, min);
+    if (isNaN(startDate.getTime())) {
+      throw new Error('Invalid date');
+    }
     const endDate = new Date(startDate.getTime() + durationHours * 60 * 60 * 1000);
     return { startDate, endDate };
   } catch {
