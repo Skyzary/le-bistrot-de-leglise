@@ -6,6 +6,7 @@ import { X, Sparkles, Dices, Utensils, Salad, Beef, Wine, Cake, RotateCw } from 
 import styles from './ChefRouletteModal.module.scss';
 import { getRandomChefCombo, ChefCombo } from '@/data/chefCombos';
 import { triggerHaptic } from '@/utils/haptics';
+import { useScrollLock } from '@/utils/scrollLock';
 
 interface ChefRouletteModalProps {
   isOpen: boolean;
@@ -21,6 +22,8 @@ export const ChefRouletteModal: React.FC<ChefRouletteModalProps> = ({
   const [combo, setCombo] = useState<ChefCombo>(getRandomChefCombo);
   const [isSpinning, setIsSpinning] = useState(false);
   const spinIntervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  useScrollLock(isOpen);
 
   useEffect(() => {
     if (isOpen) {
@@ -109,6 +112,9 @@ export const ChefRouletteModal: React.FC<ChefRouletteModalProps> = ({
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         onClick={onClose}
+        onTouchMove={(e) => {
+          if (e.target === e.currentTarget) e.preventDefault();
+        }}
       >
         <motion.div
           className={styles.modal}

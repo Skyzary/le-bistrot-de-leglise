@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, ChevronLeft, ChevronRight, Utensils, Share2, Check } from 'lucide-react';
 import styles from './DishStoryModal.module.scss';
 import { triggerHaptic } from '@/utils/haptics';
+import { useScrollLock } from '@/utils/scrollLock';
 
 export interface GalleryItem {
   src: string;
@@ -29,6 +30,8 @@ export const DishStoryModal: React.FC<DishStoryModalProps> = ({
 }) => {
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
   const [copied, setCopied] = useState(false);
+
+  useScrollLock(isOpen);
 
   useEffect(() => {
     setCurrentIndex(initialIndex);
@@ -114,6 +117,9 @@ export const DishStoryModal: React.FC<DishStoryModalProps> = ({
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         onClick={onClose}
+        onTouchMove={(e) => {
+          if (e.target === e.currentTarget) e.preventDefault();
+        }}
       >
         <motion.div
           className={styles.storyContainer}

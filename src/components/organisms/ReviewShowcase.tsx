@@ -4,15 +4,15 @@ import { ReviewCard } from '@/components/molecules/ReviewCard';
 import { Star, ArrowRight } from 'lucide-react';
 import { reviewsData } from '@/config/data';
 
-export const ReviewShowcase = () => {
-  const reviews = reviewsData.items.map((item, index) => ({
-    id: item.id || String(index + 1),
-    name: item.name,
-    date: item.date,
-    content: item.content,
-    initials: item.initials || item.name.charAt(0).toUpperCase(),
-  }));
+const REVIEWS = reviewsData.items.map((item, index) => ({
+  id: item.id || String(index + 1),
+  name: item.name,
+  date: item.date,
+  content: item.content,
+  initials: item.initials || item.name.charAt(0).toUpperCase(),
+}));
 
+export const ReviewShowcase = () => {
   return (
     <section className={styles.section}>
       <div className={styles.container}>
@@ -36,7 +36,7 @@ export const ReviewShowcase = () => {
         </div>
         
         <div className={styles.carousel}>
-          {reviews.map((review) => (
+          {REVIEWS.map((review) => (
             <ReviewCard key={review.id} {...review} />
           ))}
         </div>

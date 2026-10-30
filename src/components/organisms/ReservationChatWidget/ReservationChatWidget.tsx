@@ -26,6 +26,7 @@ import { CustomTimePicker } from '@/components/molecules/CustomTimePicker';
 import { AddToCalendarBtn } from '@/components/molecules/AddToCalendarBtn';
 import { ShareReservationInvite } from '@/components/molecules/ShareReservationInvite';
 import { triggerHaptic } from '@/utils/haptics';
+import { useScrollLock } from '@/utils/scrollLock';
 
 type Step = 
   | 'date'
@@ -103,7 +104,7 @@ export const ReservationChatWidget: React.FC = () => {
   });
 
   // Local inputs
-  const [customDate, setCustomDate] = useState<string>(getTodayFormatted());
+  const [customDate, setCustomDate] = useState<string>(getTodayFormatted);
   const [showCustomDate, setShowCustomDate] = useState(false);
   const [customTime, setCustomTime] = useState<string>('20:00');
   const [showCustomTime, setShowCustomTime] = useState(false);
@@ -116,6 +117,21 @@ export const ReservationChatWidget: React.FC = () => {
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [, startTransition] = useTransition();
+
+  // Lock background scroll when chat is open
+  useScrollLock(isOpen);
+
+  // Close chat on Escape key
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setIsOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen]);
 
   // Scroll to bottom on new messages or typing
   const scrollToBottom = () => {
@@ -380,9 +396,18 @@ export const ReservationChatWidget: React.FC = () => {
       {/* Floating Chat Modal */}
       <AnimatePresence>
         {isOpen && (
-          <div className={styles.backdrop} onClick={() => setIsOpen(false)}>
+          <div 
+            className={styles.backdrop} 
+            onClick={() => setIsOpen(false)}
+            onTouchMove={(e) => {
+              if (e.target === e.currentTarget) {
+                e.preventDefault();
+              }
+            }}
+          >
             <motion.div
               className={styles.chatWindow}
+              data-lenis-prevent
               onClick={(e) => e.stopPropagation()}
               initial={{ opacity: 0, y: 40, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -421,7 +446,7 @@ export const ReservationChatWidget: React.FC = () => {
               </div>
 
               {/* Chat Message Stream */}
-              <div className={styles.messagesList}>
+              <div className={styles.messagesList} data-lenis-prevent>
                 {messages.map((msg) => (
                   <React.Fragment key={msg.id}>
                     {msg.sender === 'bot' ? (

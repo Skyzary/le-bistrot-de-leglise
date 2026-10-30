@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import Image from 'next/image';
 import styles from './GallerySection.module.scss';
 import { Camera, ArrowRight, Maximize2 } from 'lucide-react';
@@ -26,10 +26,14 @@ const GALLERY_ITEMS: GalleryItem[] = (galleryData as RawGalleryItem[]).map((item
 export const GallerySection = () => {
   const [selectedPhotoIndex, setSelectedPhotoIndex] = useState<number | null>(null);
 
-  const handleOpenPhoto = (index: number) => {
+  const handleOpenPhoto = useCallback((index: number) => {
     triggerHaptic('selection');
     setSelectedPhotoIndex(index);
-  };
+  }, []);
+
+  const handleClosePhoto = useCallback(() => {
+    setSelectedPhotoIndex(null);
+  }, []);
 
   return (
     <section className={styles.section} id="galerie">
@@ -84,7 +88,7 @@ export const GallerySection = () => {
         isOpen={selectedPhotoIndex !== null}
         initialIndex={selectedPhotoIndex ?? 0}
         items={GALLERY_ITEMS}
-        onClose={() => setSelectedPhotoIndex(null)}
+        onClose={handleClosePhoto}
       />
     </section>
   );

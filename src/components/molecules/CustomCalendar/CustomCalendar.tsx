@@ -171,7 +171,7 @@ export const CustomCalendar: React.FC<CustomCalendarProps> = ({
   };
 
   return (
-    <div className={`${styles.calendarCard} ${inline ? styles.inline : ''}`}>
+    <div className={`${styles.calendarCard} ${inline ? styles.inline : ''}`} data-lenis-prevent>
       {/* Quick Preset Buttons */}
       <div className={styles.presetsRow}>
         <button

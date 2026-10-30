@@ -7,6 +7,7 @@ import { FaApple } from 'react-icons/fa6';
 import { SiGooglemaps, SiWaze } from 'react-icons/si';
 import styles from './RouteActionSheet.module.scss';
 import { triggerHaptic } from '@/utils/haptics';
+import { useScrollLock } from '@/utils/scrollLock';
 
 interface RouteActionSheetProps {
   isOpen: boolean;
@@ -19,6 +20,8 @@ export const RouteActionSheet: React.FC<RouteActionSheetProps> = ({
   onClose,
   onViewOnSite,
 }) => {
+  useScrollLock(isOpen);
+
   useEffect(() => {
     if (isOpen) {
       document.body.setAttribute('data-route-sheet-open', 'true');
@@ -49,6 +52,9 @@ export const RouteActionSheet: React.FC<RouteActionSheetProps> = ({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={onClose}
+          onTouchMove={(e) => {
+            if (e.target === e.currentTarget) e.preventDefault();
+          }}
         >
           <motion.div
             className={styles.sheet}

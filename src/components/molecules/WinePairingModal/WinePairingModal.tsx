@@ -6,6 +6,7 @@ import { X, Wine, Sparkles, Utensils, Check } from 'lucide-react';
 import styles from './WinePairingModal.module.scss';
 import { WinePairing } from '@/data/winePairings';
 import { triggerHaptic } from '@/utils/haptics';
+import { useScrollLock } from '@/utils/scrollLock';
 
 interface WinePairingModalProps {
   pairing: WinePairing | null;
@@ -19,6 +20,8 @@ export const WinePairingModal: React.FC<WinePairingModalProps> = ({
   onReserve,
 }) => {
   const isOpen = pairing !== null;
+
+  useScrollLock(isOpen);
 
   useEffect(() => {
     if (isOpen) {
@@ -86,6 +89,9 @@ export const WinePairingModal: React.FC<WinePairingModalProps> = ({
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         onClick={onClose}
+        onTouchMove={(e) => {
+          if (e.target === e.currentTarget) e.preventDefault();
+        }}
       >
         <motion.div
           className={styles.modal}

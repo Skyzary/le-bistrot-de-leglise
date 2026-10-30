@@ -1,58 +1,22 @@
 'use client';
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useCallback } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import styles from './QuickActionMenu.module.scss';
 import { Home, BookOpen, MapPin, CalendarRange } from 'lucide-react';
 import { triggerHaptic } from '@/utils/haptics';
 import { RouteActionSheet } from '@/components/molecules/RouteActionSheet';
+import { useActiveSection } from '@/utils/useActiveSection';
 
 export const QuickActionMenu = () => {
   const pathname = usePathname();
   const router = useRouter();
-  const [activeSection, setActiveSection] = useState<string>('');
+  const { activeSection, setActiveSection } = useActiveSection();
   const [isRouteSheetOpen, setIsRouteSheetOpen] = useState(false);
-  const isScrollingRef = useRef(false);
-
-  useEffect(() => {
-    if (pathname !== '/') return;
-
-    const handleScroll = () => {
-      if (isScrollingRef.current) return;
-      // Order is important: bottom-most section first
-      const sections = ['reservation', 'nous-trouver', 'menu-overview', 'philosophie'];
-      
-      if (window.scrollY < 100) {
-        setActiveSection('');
-        return;
-      }
-      
-      for (const id of sections) {
-        const element = document.getElementById(id);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          // If section is above the middle of viewport
-          if (rect.top <= window.innerHeight / 2.5) {
-            setActiveSection(id);
-            return;
-          }
-        }
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll(); // initial check
-
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [pathname]);
 
   const handleNavClick = (sectionId: string) => {
     triggerHaptic('light');
-    setActiveSection(sectionId);
-    isScrollingRef.current = true;
-    setTimeout(() => {
-      isScrollingRef.current = false;
-    }, 1000);
+    setActiveSection(sectionId, 1000);
   };
 
   const handleRouteClick = (e: React.MouseEvent) => {
@@ -61,7 +25,11 @@ export const QuickActionMenu = () => {
     setIsRouteSheetOpen(true);
   };
 
-  const handleViewOnSite = () => {
+  const handleCloseRouteSheet = useCallback(() => {
+    setIsRouteSheetOpen(false);
+  }, []);
+
+  const handleViewOnSite = useCallback(() => {
     if (pathname !== '/') {
       router.push('/#nous-trouver');
     } else {
@@ -70,7 +38,7 @@ export const QuickActionMenu = () => {
         el.scrollIntoView({ behavior: 'smooth' });
       }
     }
-  };
+  }, [pathname, router]);
 
   const isMenuPage = pathname === '/menu';
   const isMenu = isMenuPage || (pathname === '/' && activeSection === 'menu-overview');
@@ -121,7 +89,7 @@ export const QuickActionMenu = () => {
 
       <RouteActionSheet
         isOpen={isRouteSheetOpen}
-        onClose={() => setIsRouteSheetOpen(false)}
+        onClose={handleCloseRouteSheet}
         onViewOnSite={handleViewOnSite}
       />
     </>

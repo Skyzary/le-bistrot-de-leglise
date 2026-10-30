@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import styles from "./ReservationBlock.module.scss";
 import { Button } from "@/components/atoms/Button";
 import {
@@ -22,6 +22,7 @@ import { CustomCalendar } from "@/components/molecules/CustomCalendar";
 import { CustomTimePicker } from "@/components/molecules/CustomTimePicker";
 import { AddToCalendarBtn } from "@/components/molecules/AddToCalendarBtn";
 import { ShareReservationInvite } from "@/components/molecules/ShareReservationInvite";
+import { useScrollLock } from "@/utils/scrollLock";
 
 const formatDateDisplay = (isoStr: string) => {
   try {
@@ -44,7 +45,7 @@ export const ReservationBlock = () => {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [time, setTime] = useState("19:45");
-  const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
+  const [date, setDate] = useState(() => new Date().toISOString().split("T")[0]);
   const [location, setLocation] = useState("inside");
   const [confirmedName, setConfirmedName] = useState("");
   const [requests, setRequests] = useState("");
@@ -52,6 +53,27 @@ export const ReservationBlock = () => {
   // Modals for Custom Calendar and Custom TimePicker
   const [showCalendar, setShowCalendar] = useState(false);
   const [showTimePicker, setShowTimePicker] = useState(false);
+
+  // Lock background scroll when calendar or time picker modal is open
+  useScrollLock(showCalendar || showTimePicker);
+
+  const handleSelectDate = useCallback((dateIso: string) => {
+    setDate(dateIso);
+    setShowCalendar(false);
+  }, []);
+
+  const handleCloseCalendar = useCallback(() => {
+    setShowCalendar(false);
+  }, []);
+
+  const handleSelectTime = useCallback((selectedTime: string) => {
+    setTime(selectedTime);
+    setShowTimePicker(false);
+  }, []);
+
+  const handleCloseTimePicker = useCallback(() => {
+    setShowTimePicker(false);
+  }, []);
 
   useEffect(() => {
     try {
@@ -384,22 +406,23 @@ export const ReservationBlock = () => {
       {showCalendar && (
         <div
           className={styles.modalOverlay}
-          onClick={() => setShowCalendar(false)}
+          onClick={handleCloseCalendar}
+          onTouchMove={(e) => {
+            if (e.target === e.currentTarget) e.preventDefault();
+          }}
           role="dialog"
           aria-modal="true"
           aria-label="Choisir une date de réservation"
         >
           <div
             className={styles.modalContent}
+            data-lenis-prevent
             onClick={(e) => e.stopPropagation()}
           >
             <CustomCalendar
               value={date}
-              onChange={(dateIso) => {
-                setDate(dateIso);
-                setShowCalendar(false);
-              }}
-              onClose={() => setShowCalendar(false)}
+              onChange={handleSelectDate}
+              onClose={handleCloseCalendar}
             />
           </div>
         </div>
@@ -409,22 +432,23 @@ export const ReservationBlock = () => {
       {showTimePicker && (
         <div
           className={styles.modalOverlay}
-          onClick={() => setShowTimePicker(false)}
+          onClick={handleCloseTimePicker}
+          onTouchMove={(e) => {
+            if (e.target === e.currentTarget) e.preventDefault();
+          }}
           role="dialog"
           aria-modal="true"
           aria-label="Choisir une heure de réservation"
         >
           <div
             className={styles.modalContent}
+            data-lenis-prevent
             onClick={(e) => e.stopPropagation()}
           >
             <CustomTimePicker
               value={time}
-              onChange={(selectedTime) => {
-                setTime(selectedTime);
-                setShowTimePicker(false);
-              }}
-              onClose={() => setShowTimePicker(false)}
+              onChange={handleSelectTime}
+              onClose={handleCloseTimePicker}
             />
           </div>
         </div>

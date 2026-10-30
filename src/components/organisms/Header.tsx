@@ -3,53 +3,17 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { useState, useEffect, useRef } from 'react';
 import styles from './Header.module.scss';
 import { Phone, MapPin } from 'lucide-react';
 import { FaInstagram, FaFacebook } from 'react-icons/fa';
+import { useActiveSection } from '@/utils/useActiveSection';
 
 export const Header = () => {
   const pathname = usePathname();
-  const [activeSection, setActiveSection] = useState<string>('');
-  const isScrollingRef = useRef(false);
-
-  useEffect(() => {
-    if (pathname !== '/') return;
-
-    const handleScroll = () => {
-      if (isScrollingRef.current) return; // Skip if we are programmatically scrolling
-      
-      // Order from bottom to top of page
-      const sections = ['reservation', 'nous-trouver', 'menu-overview', 'philosophie'];
-      if (window.scrollY < 100) {
-        setActiveSection('');
-        return;
-      }
-      
-      for (const id of sections) {
-        const element = document.getElementById(id);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          if (rect.top <= window.innerHeight / 2.5) {
-            setActiveSection(id);
-            return;
-          }
-        }
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [pathname]);
+  const { activeSection, setActiveSection } = useActiveSection();
 
   const handleNavClick = (sectionId: string) => {
-    setActiveSection(sectionId);
-    isScrollingRef.current = true;
-    setTimeout(() => {
-      isScrollingRef.current = false;
-    }, 1000); // 1 second pause while smooth scrolling finishes
+    setActiveSection(sectionId, 1000);
   };
 
   const isMenuPage = pathname === '/menu';

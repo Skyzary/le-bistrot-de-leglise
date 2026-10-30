@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import styles from './MenuOverview.module.scss';
 import { Button } from '@/components/atoms/Button';
 import { Wine, Dices } from 'lucide-react';
@@ -10,14 +10,35 @@ import { getWinePairingForDish, WinePairing } from '@/data/winePairings';
 import { triggerHaptic } from '@/utils/haptics';
 import { menuSectionsPreview as menuSections } from '@/config/data';
 
+const MENU_SECTIONS_WITH_PAIRINGS = menuSections.map((section) => ({
+  ...section,
+  items: section.items.map((item) => ({
+    ...item,
+    pairing: getWinePairingForDish(item.name),
+  })),
+}));
+
 export const MenuOverview = () => {
   const [selectedPairing, setSelectedPairing] = useState<WinePairing | null>(null);
   const [isRouletteOpen, setIsRouletteOpen] = useState(false);
 
-  const handleOpenPairing = (pairing: WinePairing) => {
+  const handleOpenPairing = useCallback((pairing: WinePairing) => {
     triggerHaptic('selection');
     setSelectedPairing(pairing);
-  };
+  }, []);
+
+  const handleClosePairing = useCallback(() => {
+    setSelectedPairing(null);
+  }, []);
+
+  const handleOpenRoulette = useCallback(() => {
+    triggerHaptic('medium');
+    setIsRouletteOpen(true);
+  }, []);
+
+  const handleCloseRoulette = useCallback(() => {
+    setIsRouletteOpen(false);
+  }, []);
 
   return (
     <section className={styles.section} id="menu-overview">
@@ -29,34 +50,31 @@ export const MenuOverview = () => {
         </div>
         
         <div className={styles.menuGrid}>
-          {menuSections.map((section, idx) => (
+          {MENU_SECTIONS_WITH_PAIRINGS.map((section, idx) => (
             <div key={idx} className={styles.menuColumn}>
               <h3 className={styles.sectionTitle}>{section.title}</h3>
               <div className={styles.itemsList}>
-                {section.items.map((item, itemIdx) => {
-                  const pairing = getWinePairingForDish(item.name);
-                  return (
-                    <div key={itemIdx} className={styles.menuItem}>
-                      <div className={styles.itemHeader}>
-                        <span className={styles.itemName}>{item.name}</span>
-                        <span className={styles.itemDots}></span>
-                        <span className={styles.itemPrice}>{item.price}</span>
-                      </div>
-                      {item.desc && <p className={styles.itemDesc}>{item.desc}</p>}
-                      {pairing && (
-                        <button
-                          type="button"
-                          className={styles.sommelierBtn}
-                          onClick={() => handleOpenPairing(pairing)}
-                          aria-label={`Accord vin pour ${item.name}`}
-                        >
-                          <Wine size={12} />
-                          <span>Accord sommelier : {pairing.wineName} ({pairing.appellation})</span>
-                        </button>
-                      )}
+                {section.items.map((item, itemIdx) => (
+                  <div key={itemIdx} className={styles.menuItem}>
+                    <div className={styles.itemHeader}>
+                      <span className={styles.itemName}>{item.name}</span>
+                      <span className={styles.itemDots}></span>
+                      <span className={styles.itemPrice}>{item.price}</span>
                     </div>
-                  );
-                })}
+                    {item.desc && <p className={styles.itemDesc}>{item.desc}</p>}
+                    {item.pairing && (
+                      <button
+                        type="button"
+                        className={styles.sommelierBtn}
+                        onClick={() => handleOpenPairing(item.pairing!)}
+                        aria-label={`Accord vin pour ${item.name}`}
+                      >
+                        <Wine size={12} />
+                        <span>Accord sommelier : {item.pairing.wineName} ({item.pairing.appellation})</span>
+                      </button>
+                    )}
+                  </div>
+                ))}
               </div>
             </div>
           ))}
@@ -66,10 +84,7 @@ export const MenuOverview = () => {
           <button
             type="button"
             className={styles.rouletteTriggerBtn}
-            onClick={() => {
-              triggerHaptic('medium');
-              setIsRouletteOpen(true);
-            }}
+            onClick={handleOpenRoulette}
           >
             <Dices size={18} />
             <span>La Roulette du Chef</span>
@@ -80,12 +95,12 @@ export const MenuOverview = () => {
 
       <WinePairingModal
         pairing={selectedPairing}
-        onClose={() => setSelectedPairing(null)}
+        onClose={handleClosePairing}
       />
 
       <ChefRouletteModal
         isOpen={isRouletteOpen}
-        onClose={() => setIsRouletteOpen(false)}
+        onClose={handleCloseRoulette}
       />
     </section>
   );

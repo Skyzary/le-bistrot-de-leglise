@@ -87,10 +87,15 @@ export const LiveServiceBadge: React.FC<LiveServiceBadgeProps> = ({ compact = fa
       }
     }
 
-    setStatus({
-      isOpen: open,
-      text: badgeText,
-      isUrgent: urgent,
+    setStatus((prev) => {
+      if (prev.isOpen === open && prev.text === badgeText && prev.isUrgent === urgent) {
+        return prev;
+      }
+      return {
+        isOpen: open,
+        text: badgeText,
+        isUrgent: urgent,
+      };
     });
   };
 

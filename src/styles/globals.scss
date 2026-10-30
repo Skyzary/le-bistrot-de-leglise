@@ -65,6 +65,14 @@ body {
   scrollbar-width: none;     /* Firefox & Chrome/Safari */
 }
 
+/* Background scroll lock when modals/popups/sheets are active */
+html[data-scroll-locked='true'],
+body[data-scroll-locked='true'] {
+  overflow: hidden !important;
+  overscroll-behavior: contain !important;
+  touch-action: none;
+}
+
 body::before {
   content: '';
   position: fixed;

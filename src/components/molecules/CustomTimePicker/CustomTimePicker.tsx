@@ -52,7 +52,7 @@ export const CustomTimePicker: React.FC<CustomTimePickerProps> = ({
   };
 
   return (
-    <div className={`${styles.timePickerCard} ${inline ? styles.inline : ''}`}>
+    <div className={`${styles.timePickerCard} ${inline ? styles.inline : ''}`} data-lenis-prevent>
       {/* Service Tabs */}
       <div className={styles.tabsRow}>
         <button

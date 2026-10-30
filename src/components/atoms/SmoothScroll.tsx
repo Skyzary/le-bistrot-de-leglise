@@ -82,6 +82,14 @@ export const SmoothScroll: React.FC<SmoothScrollProps> = ({ children }) => {
         lenisRef.current = lenis;
         (window as unknown as { __lenis?: typeof lenis }).__lenis = lenis;
 
+        if (typeof document !== 'undefined' && document.body.getAttribute('data-scroll-locked') === 'true') {
+          try {
+            lenis.stop();
+          } catch {
+            // Safe fallback
+          }
+        }
+
         // Smoothly handle internal anchor link clicks (#reservation, #menu-overview, etc.)
         const handleAnchorClick = (e: MouseEvent) => {
           const target = (e.target as HTMLElement).closest('a');
