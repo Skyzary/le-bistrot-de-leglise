@@ -3,7 +3,7 @@ import { getWinePairingForDish, WINE_PAIRINGS } from '../src/data/winePairings';
 import { getRandomChefCombo, ENTREES, PLATS, DESSERTS } from '../src/data/chefCombos';
 import { getGoogleCalendarUrl, CalendarEvent } from '../src/utils/calendar';
 import { triggerHaptic } from '../src/utils/haptics';
-import { eventsData } from '../src/config/data';
+import { eventsData, themeData } from '../src/config/data';
 
 test.describe('Unit Tests: Sommelier & Wine Pairings', () => {
   test('should return correct wine pairing for Magret de canard', () => {
@@ -108,6 +108,10 @@ test.describe('Unit Tests: Bistro Events Data (Decap CMS)', () => {
       expect(ev.description).toBeTruthy();
       expect(ev.image).toBeTruthy();
     }
+  });
+
+  test('themeData should expose a valid seasonal mode (classic, halloween, or noel)', () => {
+    expect(['classic', 'halloween', 'noel']).toContain(themeData.mode);
   });
 });
 

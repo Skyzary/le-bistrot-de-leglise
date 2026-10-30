@@ -6,10 +6,12 @@ import styles from './Hero.module.scss';
 import { Button } from '@/components/atoms/Button';
 import { MapPin, Sparkles, ArrowRight } from 'lucide-react';
 import { LiveServiceBadge } from '@/components/molecules/LiveServiceBadge';
-import { eventsData } from '@/config/data';
+import { eventsData, themeData } from '@/config/data';
 
 export const Hero = () => {
   const featuredEvent = eventsData && eventsData.length > 0 ? eventsData[0] : null;
+  const isHalloween = themeData.mode === 'halloween';
+  const isNoel = themeData.mode === 'noel';
   const clickCountRef = useRef(0);
   const clickTimerRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -48,9 +50,16 @@ export const Hero = () => {
       <div className={styles.overlay}></div>
       <div className={styles.content}>
         <div className={styles.tags}>
-          <span className={styles.halloweenPill}>
-            🎃 SAMEDI SOIR : SOIRÉE HALLOWEEN • VENEZ DÉGUISÉS ! 🧛‍♂️
-          </span>
+          {isHalloween && (
+            <span className={styles.halloweenPill}>
+              🎃 SAMEDI SOIR : SOIRÉE HALLOWEEN • VENEZ DÉGUISÉS ! 🧛‍♂️
+            </span>
+          )}
+          {isNoel && (
+            <span className={styles.noelPill}>
+              🎄 AMBIANCE DES FÊTES • TABLE CHALEUREUSE AU CŒUR DU VILLAGE ✨
+            </span>
+          )}
           <span className={styles.tag}>
             <MapPin size={14} /> Place de l&apos;Église • Fabrègues
           </span>
@@ -62,14 +71,40 @@ export const Hero = () => {
           style={{ cursor: 'pointer', userSelect: 'none' }}
           title="Le Bistrot de l'Église"
         >
-          Bienvenue chez vous, au Bistrot de l&apos;Église 🎃
+          {isHalloween
+            ? "Bienvenue chez vous, au Bistrot de l'Église 🎃"
+            : isNoel
+              ? "Bienvenue chez vous, au Bistrot de l'Église 🎄"
+              : "Bienvenue chez vous, au Bistrot de l'Église"}
         </h1>
-        <p className={styles.subtitle}>
-          🍬 <strong>Bonbons pour les petits</strong> &amp; 😈 <strong>Shooter du Diablotin pour les adultes !</strong> Cuisine de saison, viandes sélectionnées et ambiance ensorcelante au cœur du village.
-        </p>
+        {isHalloween ? (
+          <p className={styles.subtitle}>
+            🍬 <strong>Bonbons pour les petits</strong> &amp; 😈 <strong>Shooter du Diablotin pour les adultes !</strong> Cuisine de saison, viandes sélectionnées et ambiance ensorcelante au cœur du village.
+          </p>
+        ) : isNoel ? (
+          <p className={styles.subtitle}>
+            ✨ <strong>Une parenthèse chaleureuse et gourmande pour les fêtes :</strong> cuisine maison de saison, viandes sélectionnées et grands vins d&apos;Occitanie au cœur de Fabrègues.
+          </p>
+        ) : (
+          <p className={styles.subtitle}>
+            Une table chaleureuse au cœur du village. Cuisine de saison, viandes sélectionnées et convivialité sincère, midi et soir.
+          </p>
+        )}
         <div className={styles.actions}>
-          <Button variant="primary" href="#reservation">🎃 Réserver pour Halloween</Button>
-          <Button variant="secondary" href="#evenements">🦇 Voir l&apos;affiche</Button>
+          <Button variant="primary" href="#reservation">
+            {isHalloween
+              ? '🎃 Réserver pour Halloween'
+              : isNoel
+                ? '🎄 Réserver une table'
+                : 'Réserver une table'}
+          </Button>
+          <Button variant="secondary" href={isHalloween ? '#evenements' : '#ardoise'}>
+            {isHalloween
+              ? "🦇 Voir l'affiche"
+              : isNoel
+                ? '🥂 Découvrir la carte'
+                : "Découvrir l'ardoise"}
+          </Button>
         </div>
         {featuredEvent && (
           <a href="#evenements" className={styles.eventTeaser}>

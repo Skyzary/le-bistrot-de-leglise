@@ -90,7 +90,7 @@
   font-size: 13.5px;
   font-weight: 700;
   cursor: pointer;
-  box-shadow: 0 4px 14px rgba($color-secondary, 0.25);
+  box-shadow: 0 4px 14px rgba(var(--color-secondary-rgb), 0.25);
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   min-height: 44px;
 
@@ -98,7 +98,7 @@
     &:hover {
       filter: brightness(1.1);
       transform: translateY(-2px);
-      box-shadow: 0 6px 18px rgba($color-secondary, 0.4);
+      box-shadow: 0 6px 18px rgba(var(--color-secondary-rgb), 0.4);
     }
   }
 

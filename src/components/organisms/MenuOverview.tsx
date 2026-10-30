@@ -7,7 +7,7 @@ import { Button } from '@/components/atoms/Button';
 import { Wine, Dices } from 'lucide-react';
 import { getWinePairingForDish, WinePairing } from '@/data/winePairings';
 import { triggerHaptic } from '@/utils/haptics';
-import { menuSectionsPreview as menuSections } from '@/config/data';
+import { menuSectionsPreview as menuSections, themeData } from '@/config/data';
 
 const WinePairingModal = dynamic(
   () => import('@/components/molecules/WinePairingModal').then((mod) => mod.WinePairingModal),
@@ -54,8 +54,20 @@ export const MenuOverview = () => {
       <span id="ardoise" style={{ position: 'relative', top: '-80px', display: 'block', visibility: 'hidden' }} />
       <div className={styles.container}>
         <div className={styles.header}>
-          <h2 className={styles.title}>🎃 La Carte &amp; Délices d&apos;Automne</h2>
-          <p className={styles.subtitle}>Cuisine de saison, viandes sélectionnées, arrivages côtiers &amp; élixirs du Bistrot</p>
+          <h2 className={styles.title}>
+            {themeData.mode === 'halloween'
+              ? "🎃 La Carte & Délices d'Automne"
+              : themeData.mode === 'noel'
+                ? "🎄 La Carte & Saveurs d'Hiver"
+                : 'Aperçu de la Carte'}
+          </h2>
+          <p className={styles.subtitle}>
+            {themeData.mode === 'halloween'
+              ? 'Cuisine de saison, viandes sélectionnées, arrivages côtiers & élixirs du Bistrot'
+              : themeData.mode === 'noel'
+                ? 'Cuisine réconfortante de saison, viandes sélectionnées, arrivages côtiers & cuvées de fêtes'
+                : 'Cuisine de saison, viandes sélectionnées et arrivages côtiers'}
+          </p>
         </div>
         
         <div className={styles.menuGrid}>
@@ -96,7 +108,13 @@ export const MenuOverview = () => {
             onClick={handleOpenRoulette}
           >
             <Dices size={18} />
-            <span>😈 La Roulette du Diablotin</span>
+            <span>
+              {themeData.mode === 'halloween'
+                ? '😈 La Roulette du Diablotin'
+                : themeData.mode === 'noel'
+                  ? '🎁 La Roulette de Noël du Chef'
+                  : 'Indécis ? La Roulette du Chef'}
+            </span>
           </button>
           <Button variant="secondary" href="/menu">Voir la carte complète</Button>
         </div>

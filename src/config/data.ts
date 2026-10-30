@@ -4,6 +4,9 @@ import menuJson from '../content/menu.json';
 import reviewsJson from '../content/reviews.json';
 import galleryJson from '../content/gallery.json';
 import eventsJson from '../content/events.json';
+import themeJson from '../content/theme.json';
+
+export type ThemeMode = 'classic' | 'halloween' | 'noel';
 
 export interface BistrotEvent {
   title: string;
@@ -14,6 +17,9 @@ export interface BistrotEvent {
   image?: string;
 }
 
+export const themeData: { mode: ThemeMode } = {
+  mode: (themeJson.mode as ThemeMode) || 'classic',
+};
 export const scheduleData = scheduleJson.items;
 export const menuSectionsPreview = menuPreviewJson.sections;
 export const fullMenuData = menuJson.categories;

@@ -13,6 +13,20 @@ collections:
   - name: "settings"
     label: "Paramètres"
     files:
+      - file: "src/content/theme.json"
+        label: "Thème Saisonnier (Ambiance du Site)"
+        name: "theme"
+        fields:
+          - label: "Mode d'ambiance du site"
+            name: "mode"
+            widget: "select"
+            default: "halloween"
+            hint: "Choisissez l'ambiance visuelle du site : Classique (toute l'année), Spécial Halloween 🎃 ou Fêtes de Noël 🎄."
+            options:
+              - { label: "Classique (Bistrot Traditionnel)", value: "classic" }
+              - { label: "Spécial Halloween 🎃", value: "halloween" }
+              - { label: "Fêtes de Noël & Hiver 🎄", value: "noel" }
+
       - file: "src/content/schedule.json"
         label: "Horaires d'Ouverture"
         name: "schedule"

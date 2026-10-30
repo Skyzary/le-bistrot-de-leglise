@@ -7,6 +7,7 @@ import styles from './Header.module.scss';
 import { Phone, MapPin } from 'lucide-react';
 import { InstagramIcon, FacebookIcon } from '@/components/atoms/SocialIcons';
 import { useActiveSection } from '@/utils/useActiveSection';
+import { themeData } from '@/config/data';
 
 export const Header = () => {
   const pathname = usePathname();
@@ -60,8 +61,20 @@ export const Header = () => {
             priority
           />
           <div className={styles.brandText}>
-            <span className={styles.title}>🎃 Le Bistrot de l'Église</span>
-            <span className={styles.subtitle}>Fabrègues • Spécial Halloween 🦇</span>
+            <span className={styles.title}>
+              {themeData.mode === 'halloween'
+                ? "🎃 Le Bistrot de l'Église"
+                : themeData.mode === 'noel'
+                  ? "🎄 Le Bistrot de l'Église"
+                  : "Le Bistrot de l'Église"}
+            </span>
+            <span className={styles.subtitle}>
+              {themeData.mode === 'halloween'
+                ? 'Fabrègues • Spécial Halloween 🦇'
+                : themeData.mode === 'noel'
+                  ? 'Fabrègues • Fêtes de Noël ✨'
+                  : 'Fabrègues'}
+            </span>
           </div>
         </Link>
 

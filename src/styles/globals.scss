@@ -1,5 +1,60 @@
 @import './vars';
 
+:root,
+[data-theme='classic'] {
+  --color-canvas: #121212;
+  --color-surface-flat: #1a1817;
+  --color-surface-elevated: #221f1d;
+  --color-parchment: #f9f6f0;
+  --color-ink: #121110;
+  --color-primary: #d4a373;
+  --color-secondary: #e6af2e;
+  --color-tertiary: #a8383b;
+  --color-neutral: #1a1817;
+  --color-stars: #fbbf24;
+  --color-primary-rgb: 212, 163, 115;
+  --color-secondary-rgb: 230, 175, 46;
+  --color-parchment-rgb: 249, 246, 240;
+  --body-glow: radial-gradient(ellipse at 50% 0%, rgba(212, 163, 115, 0.14) 0%, transparent 70%);
+  --hero-glow: radial-gradient(circle at 50% 25%, rgba(212, 163, 115, 0.15) 0%, transparent 65%);
+}
+
+[data-theme='halloween'] {
+  --color-canvas: #0e0911;
+  --color-surface-flat: #150e1a;
+  --color-surface-elevated: #1f1426;
+  --color-parchment: #fdf6f0;
+  --color-ink: #160c1a;
+  --color-primary: #ff7b1c;
+  --color-secondary: #ffb703;
+  --color-tertiary: #b91c1c;
+  --color-neutral: #150e1a;
+  --color-stars: #ff9e00;
+  --color-primary-rgb: 255, 123, 28;
+  --color-secondary-rgb: 255, 183, 3;
+  --color-parchment-rgb: 253, 246, 240;
+  --body-glow: radial-gradient(ellipse at 50% 0%, rgba(255, 107, 26, 0.22) 0%, rgba(185, 28, 28, 0.12) 45%, transparent 75%);
+  --hero-glow: radial-gradient(circle at 50% 25%, rgba(255, 107, 26, 0.25) 0%, rgba(185, 28, 28, 0.22) 45%, transparent 75%);
+}
+
+[data-theme='noel'] {
+  --color-canvas: #09110d;
+  --color-surface-flat: #101c16;
+  --color-surface-elevated: #17271f;
+  --color-parchment: #fcf9f2;
+  --color-ink: #0b1410;
+  --color-primary: #e8c170;
+  --color-secondary: #f5c542;
+  --color-tertiary: #c92a2a;
+  --color-neutral: #101c16;
+  --color-stars: #ffd43b;
+  --color-primary-rgb: 232, 193, 112;
+  --color-secondary-rgb: 245, 197, 66;
+  --color-parchment-rgb: 252, 249, 242;
+  --body-glow: radial-gradient(ellipse at 50% 0%, rgba(201, 42, 42, 0.2) 0%, rgba(22, 101, 52, 0.16) 45%, transparent 75%);
+  --hero-glow: radial-gradient(circle at 50% 25%, rgba(201, 42, 42, 0.24) 0%, rgba(22, 101, 52, 0.22) 45%, transparent 75%);
+}
+
 /* Lenis smooth scroll foundation & mobile touch optimization */
 html.lenis,
 html.lenis body {
@@ -81,13 +136,12 @@ body::before {
   z-index: -1;
   will-change: transform;
   transform: translateZ(0);
-  background-image: 
-    radial-gradient(ellipse at 50% 0%, rgba(255, 107, 26, 0.22) 0%, rgba(185, 28, 28, 0.12) 45%, transparent 75%);
+  background-image: var(--body-glow);
   pointer-events: none;
 
   @media (min-width: 768px) {
     background-image: 
-      radial-gradient(ellipse at 50% 0%, rgba(255, 107, 26, 0.22) 0%, rgba(185, 28, 28, 0.12) 45%, transparent 75%),
+      var(--body-glow),
       url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
   }
 }

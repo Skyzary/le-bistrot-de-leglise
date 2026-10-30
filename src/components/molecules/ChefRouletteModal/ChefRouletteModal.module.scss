@@ -151,9 +151,9 @@
   }
 
   &.spinning {
-    border-color: rgba($color-secondary, 0.6);
+    border-color: rgba(var(--color-secondary-rgb), 0.6);
     background: rgba(45, 38, 32, 0.95);
-    box-shadow: 0 0 16px rgba($color-secondary, 0.2);
+    box-shadow: 0 0 16px rgba(var(--color-secondary-rgb), 0.2);
   }
 }
 
@@ -289,7 +289,7 @@
   border-radius: 12px;
   border: none;
   cursor: pointer;
-  box-shadow: 0 4px 16px rgba($color-secondary, 0.35);
+  box-shadow: 0 4px 16px rgba(var(--color-secondary-rgb), 0.35);
   transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
   min-height: 46px;
 
@@ -297,7 +297,7 @@
     &:hover:not(:disabled) {
       filter: brightness(1.12);
       transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba($color-secondary, 0.55);
+      box-shadow: 0 8px 24px rgba(var(--color-secondary-rgb), 0.55);
     }
   }
 

@@ -3,7 +3,8 @@ import { Playfair_Display, Plus_Jakarta_Sans } from 'next/font/google';
 import dynamic from 'next/dynamic';
 import '@/styles/globals.scss';
 import { SmoothScroll } from '@/components/atoms/SmoothScroll';
-import { HalloweenDecorations } from '@/components/atoms/HalloweenDecorations';
+import { SeasonalDecorations } from '@/components/atoms/SeasonalDecorations';
+import { themeData } from '@/config/data';
 
 const ReservationChatWidget = dynamic(
   () => import('@/components/organisms/ReservationChatWidget').then((mod) => mod.ReservationChatWidget)
@@ -64,13 +65,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="fr">
+    <html lang="fr" data-theme={themeData.mode}>
       <head>
         <Script src="https://identity.netlify.com/v1/netlify-identity-widget.js" strategy="afterInteractive" />
       </head>
       <body className={`${playfair.variable} ${jakarta.variable}`}>
         <ScrollProgressBar />
-        <HalloweenDecorations />
+        <SeasonalDecorations />
         <SmoothScroll>
           {children}
         </SmoothScroll>

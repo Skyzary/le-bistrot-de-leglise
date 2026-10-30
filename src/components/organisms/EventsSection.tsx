@@ -5,7 +5,7 @@ import Image from 'next/image';
 import styles from './EventsSection.module.scss';
 import { Calendar, Clock, Sparkles, ArrowRight, CalendarPlus } from 'lucide-react';
 import { FaApple } from 'react-icons/fa6';
-import { eventsData, BistrotEvent } from '@/config/data';
+import { eventsData, BistrotEvent, themeData } from '@/config/data';
 import { triggerHaptic } from '@/utils/haptics';
 import { downloadIcsFile, getGoogleCalendarUrl, CalendarEvent } from '@/utils/calendar';
 import { smoothScrollTo } from '@/components/atoms/SmoothScroll';
@@ -68,11 +68,27 @@ export const EventsSection = () => {
         <div className={styles.header}>
           <div className={styles.tag}>
             <Sparkles size={18} />
-            <span>🎃 Spécial Halloween &amp; Agenda du Bistrot 🦇</span>
+            <span>
+              {themeData.mode === 'halloween'
+                ? '🎃 Spécial Halloween & Agenda du Bistrot 🦇'
+                : themeData.mode === 'noel'
+                  ? '🎄 Agenda des Fêtes & Rendez-Vous du Bistrot ✨'
+                  : 'Agenda du Bistrot'}
+            </span>
           </div>
-          <h2 className={styles.title}>Les Nuits &amp; Rendez-Vous du Bistrot</h2>
+          <h2 className={styles.title}>
+            {themeData.mode === 'halloween'
+              ? 'Les Nuits & Rendez-Vous du Bistrot'
+              : themeData.mode === 'noel'
+                ? 'Nos Prochains Moments Festifs'
+                : 'Nos Prochains Événements'}
+          </h2>
           <p className={styles.description}>
-            Ce samedi soir, le Bistrot de l&apos;Église se transforme pour Halloween : déguisements, bonbons 🍬 pour les petits et shooter du diablotin 😈 pour les grands !
+            {themeData.mode === 'halloween'
+              ? "Ce samedi soir, le Bistrot de l'Église se transforme pour Halloween : déguisements, bonbons 🍬 pour les petits et shooter du diablotin 😈 pour les grands !"
+              : themeData.mode === 'noel'
+                ? "Soirées conviviales, suggestions festives du Chef et moments chaleureux à partager au Bistrot de l'Église."
+                : 'Soirées à thème, suggestions du jour et moments conviviaux à partager au cœur de Fabrègues.'}
           </p>
         </div>
 

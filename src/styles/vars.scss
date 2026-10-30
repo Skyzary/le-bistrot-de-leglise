@@ -1,14 +1,14 @@
-$color-canvas: #0e0911;
-$color-surface-flat: #150e1a;
-$color-surface-elevated: #1f1426;
-$color-parchment: #fdf6f0;
-$color-ink: #160c1a;
+$color-canvas: var(--color-canvas, #121212);
+$color-surface-flat: var(--color-surface-flat, #1a1817);
+$color-surface-elevated: var(--color-surface-elevated, #221f1d);
+$color-parchment: var(--color-parchment, #f9f6f0);
+$color-ink: var(--color-ink, #121110);
 
-$color-primary: #ff7b1c;
-$color-secondary: #ffb703;
-$color-tertiary: #b91c1c;
-$color-neutral: #150e1a;
-$color-stars: #ff9e00;
+$color-primary: var(--color-primary, #d4a373);
+$color-secondary: var(--color-secondary, #e6af2e);
+$color-tertiary: var(--color-tertiary, #a8383b);
+$color-neutral: var(--color-neutral, #1a1817);
+$color-stars: var(--color-stars, #fbbf24);
 
 $space-xs: 0.25rem;
 $space-sm: 0.5rem;
