@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import styles from './Footer.module.scss';
 import { MapPin } from 'lucide-react';
-import { FaInstagram, FaFacebook } from 'react-icons/fa';
+import { InstagramIcon, FacebookIcon } from '@/components/atoms/SocialIcons';
 import { scheduleData } from '@/config/data';
 
 export const Footer = () => {
@@ -26,10 +26,10 @@ export const Footer = () => {
 
             <div className={styles.socials}>
               <a href="https://www.instagram.com/lebistrotdeleglise/" aria-label="Instagram" className={styles.socialBtn} target="_blank" rel="noopener noreferrer">
-                <FaInstagram size={20} />
+                <InstagramIcon size={20} />
               </a>
               <a href="https://www.facebook.com/profile.php?id=100063775170877" aria-label="Facebook" className={styles.socialBtn} target="_blank" rel="noopener noreferrer">
-                <FaFacebook size={20} />
+                <FacebookIcon size={20} />
               </a>
               <a href="https://maps.app.goo.gl/gwVypQNT65eDC3mZ8" aria-label="Google Maps" className={styles.socialBtn} target="_blank" rel="noopener noreferrer">
                 <MapPin size={20} />

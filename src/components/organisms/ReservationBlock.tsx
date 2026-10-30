@@ -19,8 +19,15 @@ import {
   ChevronDown,
 } from "lucide-react";
 import dynamic from "next/dynamic";
-import { AddToCalendarBtn } from "@/components/molecules/AddToCalendarBtn";
-import { ShareReservationInvite } from "@/components/molecules/ShareReservationInvite";
+const AddToCalendarBtn = dynamic(
+  () => import("@/components/molecules/AddToCalendarBtn").then((mod) => mod.AddToCalendarBtn),
+  { ssr: false }
+);
+
+const ShareReservationInvite = dynamic(
+  () => import("@/components/molecules/ShareReservationInvite").then((mod) => mod.ShareReservationInvite),
+  { ssr: false }
+);
 import { useScrollLock } from "@/utils/scrollLock";
 
 const CustomCalendar = dynamic(

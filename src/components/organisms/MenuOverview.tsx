@@ -102,15 +102,19 @@ export const MenuOverview = () => {
         </div>
       </div>
 
-      <WinePairingModal
-        pairing={selectedPairing}
-        onClose={handleClosePairing}
-      />
+      {selectedPairing && (
+        <WinePairingModal
+          pairing={selectedPairing}
+          onClose={handleClosePairing}
+        />
+      )}
 
-      <ChefRouletteModal
-        isOpen={isRouletteOpen}
-        onClose={handleCloseRoulette}
-      />
+      {isRouletteOpen && (
+        <ChefRouletteModal
+          isOpen={isRouletteOpen}
+          onClose={handleCloseRoulette}
+        />
+      )}
     </section>
   );
 };

@@ -92,11 +92,13 @@ export const QuickActionMenu = () => {
         </Link>
       </nav>
 
-      <RouteActionSheet
-        isOpen={isRouteSheetOpen}
-        onClose={handleCloseRouteSheet}
-        onViewOnSite={handleViewOnSite}
-      />
+      {isRouteSheetOpen && (
+        <RouteActionSheet
+          isOpen={isRouteSheetOpen}
+          onClose={handleCloseRouteSheet}
+          onViewOnSite={handleViewOnSite}
+        />
+      )}
     </>
   );
 };

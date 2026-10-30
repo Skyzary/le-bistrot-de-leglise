@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import styles from './Header.module.scss';
 import { Phone, MapPin } from 'lucide-react';
-import { FaInstagram, FaFacebook } from 'react-icons/fa';
+import { InstagramIcon, FacebookIcon } from '@/components/atoms/SocialIcons';
 import { useActiveSection } from '@/utils/useActiveSection';
 
 export const Header = () => {
@@ -53,10 +53,10 @@ export const Header = () => {
         {/* Right: Actions */}
         <div className={styles.actions}>
           <a href="https://www.instagram.com/lebistrotdeleglise/" className={styles.iconBtn} aria-label="Instagram" target="_blank" rel="noopener noreferrer">
-            <FaInstagram size={18} />
+            <InstagramIcon size={18} />
           </a>
           <a href="https://www.facebook.com/profile.php?id=100063775170877" className={styles.iconBtn} aria-label="Facebook" target="_blank" rel="noopener noreferrer">
-            <FaFacebook size={18} />
+            <FacebookIcon size={18} />
           </a>
           <a href="https://maps.app.goo.gl/gwVypQNT65eDC3mZ8" className={`${styles.iconBtn} ${styles.desktopOnly}`} aria-label="Google Maps" target="_blank" rel="noopener noreferrer">
             <MapPin size={18} />

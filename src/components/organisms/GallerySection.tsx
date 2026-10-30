@@ -90,12 +90,14 @@ export const GallerySection = () => {
         </div>
       </div>
 
-      <DishStoryModal
-        isOpen={selectedPhotoIndex !== null}
-        initialIndex={selectedPhotoIndex ?? 0}
-        items={GALLERY_ITEMS}
-        onClose={handleClosePhoto}
-      />
+      {selectedPhotoIndex !== null && (
+        <DishStoryModal
+          isOpen={true}
+          initialIndex={selectedPhotoIndex}
+          items={GALLERY_ITEMS}
+          onClose={handleClosePhoto}
+        />
+      )}
     </section>
   );
 };

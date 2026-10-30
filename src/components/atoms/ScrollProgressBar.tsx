@@ -1,21 +1,34 @@
 'use client';
 
-import React from 'react';
-import { motion, useScroll, useSpring } from 'framer-motion';
+import React, { useEffect, useState } from 'react';
 
 export const ScrollProgressBar: React.FC = () => {
-  const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, {
-    stiffness: 110,
-    damping: 22,
-    restDelta: 0.001
-  });
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    let ticking = false;
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+          if (totalHeight > 0) {
+            setProgress(Math.min(1, Math.max(0, window.scrollY / totalHeight)));
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
-    <motion.div
+    <div
       style={{
-        scaleX,
-        transformOrigin: '0%',
+        transform: `scaleX(${progress})`,
+        transformOrigin: '0% 50%',
         position: 'fixed',
         top: 0,
         left: 0,
@@ -25,8 +38,8 @@ export const ScrollProgressBar: React.FC = () => {
         boxShadow: '0 0 10px rgba(230, 175, 46, 0.6)',
         zIndex: 10000,
         pointerEvents: 'none',
+        willChange: 'transform',
       }}
     />
   );
 };
-

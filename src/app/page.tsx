@@ -16,7 +16,7 @@ export default function Home() {
     <main className={styles.main}>
       <Header />
       <Hero />
-      <ScrollReveal><ReviewShowcase /></ScrollReveal>
+      <ReviewShowcase />
       <ScrollReveal><Philosophy /></ScrollReveal>
       <ScrollReveal><MenuOverview /></ScrollReveal>
       <ScrollReveal><GallerySection /></ScrollReveal>

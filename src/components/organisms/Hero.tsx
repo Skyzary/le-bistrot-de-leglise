@@ -1,39 +1,25 @@
-'use client';
-
-import React, { useRef } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import styles from './Hero.module.scss';
 import { Button } from '@/components/atoms/Button';
 import { MapPin } from 'lucide-react';
-import { motion, useScroll, useTransform } from 'framer-motion';
 import { LiveServiceBadge } from '@/components/molecules/LiveServiceBadge';
 
 export const Hero = () => {
-  const sectionRef = useRef<HTMLElement>(null);
-
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ['start start', 'end start'],
-  });
-
-  const y = useTransform(scrollYProgress, [0, 1], ['0%', '18%']);
-
   return (
-    <section className={styles.hero} ref={sectionRef}>
-      <motion.div 
-        style={{ y, position: 'absolute', inset: 0, scale: 1.08, zIndex: 0 }}
-      >
+    <section className={styles.hero}>
+      <div className={styles.imageWrapper}>
         <Image 
           src="/images/interior_1.jpg" 
           alt="Le Bistrot de l'Église Intérieur" 
           fill
           priority
           fetchPriority="high"
-          quality={75}
+          quality={70}
           className={styles.bgImage}
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 1920px"
+          sizes="(max-width: 640px) 100vw, (max-width: 1200px) 100vw, 1920px"
         />
-      </motion.div>
+      </div>
       <div className={styles.overlay}></div>
       <div className={styles.content}>
         <div className={styles.tags}>

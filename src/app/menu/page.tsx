@@ -165,15 +165,19 @@ export default function MenuPage() {
         )}
       </div>
 
-      <WinePairingModal
-        pairing={selectedPairing}
-        onClose={handleClosePairing}
-      />
+      {selectedPairing && (
+        <WinePairingModal
+          pairing={selectedPairing}
+          onClose={handleClosePairing}
+        />
+      )}
 
-      <ChefRouletteModal
-        isOpen={isRouletteOpen}
-        onClose={handleCloseRoulette}
-      />
+      {isRouletteOpen && (
+        <ChefRouletteModal
+          isOpen={isRouletteOpen}
+          onClose={handleCloseRoulette}
+        />
+      )}
 
       <Footer />
       <QuickActionMenu />
