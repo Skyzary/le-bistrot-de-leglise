@@ -1,12 +1,14 @@
 'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
+import { createPortal } from 'react-dom';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ChevronLeft, ChevronRight, Utensils, Share2, Check } from 'lucide-react';
 import styles from './DishStoryModal.module.scss';
 import { triggerHaptic } from '@/utils/haptics';
 import { useScrollLock } from '@/utils/scrollLock';
+import { smoothScrollTo } from '@/components/atoms/SmoothScroll';
 
 export interface GalleryItem {
   src: string;
@@ -102,14 +104,13 @@ export const DishStoryModal: React.FC<DishStoryModalProps> = ({
     triggerHaptic('success');
     onClose();
     setTimeout(() => {
-      const el = document.getElementById('reservation');
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth' });
-      }
+      smoothScrollTo('reservation');
     }, 150);
   };
 
-  return (
+  if (typeof document === 'undefined') return null;
+
+  return createPortal(
     <AnimatePresence>
       <motion.div
         className={styles.overlay}
@@ -300,7 +301,8 @@ export const DishStoryModal: React.FC<DishStoryModalProps> = ({
           </motion.div>
         </motion.div>
       </motion.div>
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   );
 };
 

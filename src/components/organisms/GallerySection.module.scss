@@ -3,8 +3,6 @@
 .section {
   padding: $space-2xl 0; // top/bottom padding, zero horizontal so slider bleeds to edges
   background-color: transparent;
-  content-visibility: auto;
-  contain-intrinsic-size: auto 500px;
 }
 
 .header {
@@ -51,8 +49,11 @@
   gap: $space-md;
   padding: 0 $space-xl $space-xl $space-xl; // padding for scrollbar visibility and starting offset
   overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
+  overflow-y: hidden;
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+  touch-action: pan-x pan-y;
   
   /* Custom scrollbar to act as a scroll indicator */
   &::-webkit-scrollbar {
@@ -89,19 +90,24 @@
 }
 
 .slide {
-  flex: 0 0 80%; // 80% width on mobile so next slide peeks
-  max-width: 400px;
+  display: block;
+  flex: 0 0 78%; // 78% width on mobile so next slide peeks
+  flex-shrink: 0;
+  max-width: 380px;
   scroll-snap-align: center;
   border-radius: $border-radius-md;
   overflow: hidden;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
   position: relative;
-  aspect-ratio: 4/5;
+  aspect-ratio: 4 / 5;
+  min-height: 320px;
   cursor: pointer;
   background: #1e1b18;
   border: none;
   padding: 0;
   text-align: left;
+  appearance: none;
+  -webkit-appearance: none;
   transition: transform 0.25s ease, box-shadow 0.25s ease;
   
   &:active {

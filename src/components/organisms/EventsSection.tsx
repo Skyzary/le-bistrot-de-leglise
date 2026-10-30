@@ -8,6 +8,7 @@ import { FaApple } from 'react-icons/fa6';
 import { eventsData, BistrotEvent } from '@/config/data';
 import { triggerHaptic } from '@/utils/haptics';
 import { downloadIcsFile, getGoogleCalendarUrl, CalendarEvent } from '@/utils/calendar';
+import { smoothScrollTo } from '@/components/atoms/SmoothScroll';
 
 const BISTROT_LOCATION = "Le Bistrot de l'Église, 4 place du 11 novembre 1918, 34690 Fabrègues";
 
@@ -37,10 +38,7 @@ export const EventsSection = () => {
         // storage fallback
       }
 
-      const el = document.getElementById('reservation');
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth' });
-      }
+      smoothScrollTo('reservation');
     }
   }, []);
 
@@ -65,7 +63,7 @@ export const EventsSection = () => {
   }
 
   return (
-    <section className={styles.section} id="evenements">
+    <section className={styles.section}>
       <div className={styles.container}>
         <div className={styles.header}>
           <div className={styles.tag}>
@@ -78,7 +76,7 @@ export const EventsSection = () => {
           </p>
         </div>
 
-        <div className={styles.grid}>
+        <div className={styles.grid} id="evenements">
           {eventsData.map((event, idx) => {
             const calEvent = buildCalendarEvent(event);
             const googleUrl = getGoogleCalendarUrl(calEvent);

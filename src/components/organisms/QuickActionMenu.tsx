@@ -8,6 +8,7 @@ import { Home, BookOpen, MapPin, CalendarRange, Sparkles } from 'lucide-react';
 import { triggerHaptic } from '@/utils/haptics';
 import { useActiveSection } from '@/utils/useActiveSection';
 import { eventsData } from '@/config/data';
+import { smoothScrollTo } from '@/components/atoms/SmoothScroll';
 
 const RouteActionSheet = dynamic(
   () => import('@/components/molecules/RouteActionSheet').then((mod) => mod.RouteActionSheet),
@@ -39,10 +40,7 @@ export const QuickActionMenu = () => {
     if (pathname !== '/') {
       router.push('/#nous-trouver');
     } else {
-      const el = document.getElementById('nous-trouver');
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth' });
-      }
+      smoothScrollTo('nous-trouver');
     }
   }, [pathname, router]);
 
@@ -66,16 +64,6 @@ export const QuickActionMenu = () => {
           <Home size={24} className={styles.icon} />
           <span>Accueil</span>
         </Link>
-        
-        <Link 
-          href="/menu" 
-          prefetch={false}
-          onClick={() => handleNavClick('menu-overview')} 
-          className={`${styles.navItem} ${isMenu ? styles.active : ''}`}
-        >
-          <BookOpen size={24} className={styles.icon} />
-          <span>La Carte</span>
-        </Link>
 
         {hasEvents && (
           <Link 
@@ -91,6 +79,16 @@ export const QuickActionMenu = () => {
             <span>Agenda</span>
           </Link>
         )}
+        
+        <Link 
+          href="/menu" 
+          prefetch={false}
+          onClick={() => handleNavClick('menu-overview')} 
+          className={`${styles.navItem} ${isMenu ? styles.active : ''}`}
+        >
+          <BookOpen size={24} className={styles.icon} />
+          <span>La Carte</span>
+        </Link>
         
         <button 
           type="button"
