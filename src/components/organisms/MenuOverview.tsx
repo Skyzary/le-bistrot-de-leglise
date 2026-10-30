@@ -54,8 +54,8 @@ export const MenuOverview = () => {
       <span id="ardoise" style={{ position: 'relative', top: '-80px', display: 'block', visibility: 'hidden' }} />
       <div className={styles.container}>
         <div className={styles.header}>
-          <h2 className={styles.title}>La Carte du Terroir</h2>
-          <p className={styles.subtitle}>Cuisine de saison, viandes sélectionnées & arrivages côtiers</p>
+          <h2 className={styles.title}>🎃 La Carte &amp; Délices d&apos;Automne</h2>
+          <p className={styles.subtitle}>Cuisine de saison, viandes sélectionnées, arrivages côtiers &amp; élixirs du Bistrot</p>
         </div>
         
         <div className={styles.menuGrid}>
@@ -96,7 +96,7 @@ export const MenuOverview = () => {
             onClick={handleOpenRoulette}
           >
             <Dices size={18} />
-            <span>La Roulette du Chef</span>
+            <span>😈 La Roulette du Diablotin</span>
           </button>
           <Button variant="secondary" href="/menu">Voir la carte complète</Button>
         </div>

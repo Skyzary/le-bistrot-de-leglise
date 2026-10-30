@@ -68,11 +68,11 @@ export const EventsSection = () => {
         <div className={styles.header}>
           <div className={styles.tag}>
             <Sparkles size={18} />
-            <span>Agenda du Bistrot</span>
+            <span>🎃 Spécial Halloween &amp; Agenda du Bistrot 🦇</span>
           </div>
-          <h2 className={styles.title}>Événements à Venir</h2>
+          <h2 className={styles.title}>Les Nuits &amp; Rendez-Vous du Bistrot</h2>
           <p className={styles.description}>
-            Soirées musicales, rencontres vigneronnes et menus éphémères : partagez des moments uniques au cœur de Fabrègues.
+            Ce samedi soir, le Bistrot de l&apos;Église se transforme pour Halloween : déguisements, bonbons 🍬 pour les petits et shooter du diablotin 😈 pour les grands !
           </p>
         </div>
 

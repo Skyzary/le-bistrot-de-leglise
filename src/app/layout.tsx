@@ -3,6 +3,7 @@ import { Playfair_Display, Plus_Jakarta_Sans } from 'next/font/google';
 import dynamic from 'next/dynamic';
 import '@/styles/globals.scss';
 import { SmoothScroll } from '@/components/atoms/SmoothScroll';
+import { HalloweenDecorations } from '@/components/atoms/HalloweenDecorations';
 
 const ReservationChatWidget = dynamic(
   () => import('@/components/organisms/ReservationChatWidget').then((mod) => mod.ReservationChatWidget)
@@ -54,6 +55,7 @@ export default function RootLayout({
     <html lang="fr">
       <body className={`${playfair.variable} ${jakarta.variable}`}>
         <ScrollProgressBar />
+        <HalloweenDecorations />
         <SmoothScroll>
           {children}
         </SmoothScroll>

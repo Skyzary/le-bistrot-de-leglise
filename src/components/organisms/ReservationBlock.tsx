@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useCallback } from "react";
+import { createPortal } from "react-dom";
 import styles from "./ReservationBlock.module.scss";
 import { Button } from "@/components/atoms/Button";
 import {
@@ -427,7 +428,7 @@ export const ReservationBlock = () => {
       </div>
 
       {/* Modal Dialog for Custom Calendar */}
-      {showCalendar && (
+      {showCalendar && typeof document !== "undefined" && createPortal(
         <div
           className={styles.modalOverlay}
           onClick={handleCloseCalendar}
@@ -449,11 +450,12 @@ export const ReservationBlock = () => {
               onClose={handleCloseCalendar}
             />
           </div>
-        </div>
+        </div>,
+        document.body
       )}
 
       {/* Modal Dialog for Custom Time Picker */}
-      {showTimePicker && (
+      {showTimePicker && typeof document !== "undefined" && createPortal(
         <div
           className={styles.modalOverlay}
           onClick={handleCloseTimePicker}
@@ -475,7 +477,8 @@ export const ReservationBlock = () => {
               onClose={handleCloseTimePicker}
             />
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </section>
   );

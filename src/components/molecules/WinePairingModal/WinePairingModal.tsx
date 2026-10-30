@@ -1,12 +1,14 @@
 'use client';
 
 import React, { useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Wine, Sparkles, Utensils, Check } from 'lucide-react';
 import styles from './WinePairingModal.module.scss';
 import { WinePairing } from '@/data/winePairings';
 import { triggerHaptic } from '@/utils/haptics';
 import { useScrollLock } from '@/utils/scrollLock';
+import { smoothScrollTo } from '@/components/atoms/SmoothScroll';
 
 interface WinePairingModalProps {
   pairing: WinePairing | null;
@@ -71,17 +73,16 @@ export const WinePairingModal: React.FC<WinePairingModalProps> = ({
           if (window.location.pathname !== '/') {
             window.location.href = '/#reservation';
           } else {
-            const el = document.getElementById('reservation');
-            if (el) {
-              el.scrollIntoView({ behavior: 'smooth' });
-            }
+            smoothScrollTo('reservation');
           }
         }
       }, 150);
     }
   };
 
-  return (
+  if (typeof document === 'undefined') return null;
+
+  return createPortal(
     <AnimatePresence>
       <motion.div
         className={styles.backdrop}
@@ -101,7 +102,7 @@ export const WinePairingModal: React.FC<WinePairingModalProps> = ({
           exit={{ y: '100%', opacity: 0 }}
           transition={{ type: 'spring', damping: 28, stiffness: 320 }}
           drag="y"
-          dragConstraints={{ top: 0 }}
+          dragConstraints={{ top: 0, bottom: 0 }}
           dragElastic={0.2}
           onDragEnd={(_, info) => {
             if (info.offset.y > 100 || info.velocity.y > 300) {
@@ -181,7 +182,8 @@ export const WinePairingModal: React.FC<WinePairingModalProps> = ({
           </div>
         </motion.div>
       </motion.div>
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   );
 };
 

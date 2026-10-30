@@ -43,12 +43,10 @@ export const lockScroll = () => {
       document.body.style.paddingRight = `${scrollbarWidth}px`;
     }
 
-    // 4. Lock scrolling on body and html
-    document.documentElement.style.overflow = 'hidden';
+    // 4. Lock scrolling on body only (locking both html + body breaks fixed positioning and scroll position in mobile WebKit)
     document.body.style.overflow = 'hidden';
     document.body.style.overscrollBehavior = 'contain';
 
-    document.documentElement.setAttribute('data-scroll-locked', 'true');
     document.body.setAttribute('data-scroll-locked', 'true');
 
     // 5. Pause Lenis smooth scrolling if active
@@ -80,7 +78,6 @@ export const unlockScroll = () => {
     document.body.style.paddingRight = originalPaddingRight;
     document.body.style.overscrollBehavior = originalOverscrollBehavior;
 
-    document.documentElement.removeAttribute('data-scroll-locked');
     document.body.removeAttribute('data-scroll-locked');
 
     // Resume Lenis smooth scrolling if active

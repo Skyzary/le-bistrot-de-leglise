@@ -38,8 +38,8 @@ export const Header = () => {
             priority
           />
           <div className={styles.brandText}>
-            <span className={styles.title}>Le Bistrot de l'Église</span>
-            <span className={styles.subtitle}>Fabrègues • Accueil</span>
+            <span className={styles.title}>🎃 Le Bistrot de l'Église</span>
+            <span className={styles.subtitle}>Fabrègues • Spécial Halloween 🦇</span>
           </div>
         </Link>
 

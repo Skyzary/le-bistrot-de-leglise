@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Phone, ChevronRight, MapPin } from 'lucide-react';
 import { FaApple } from 'react-icons/fa6';
@@ -43,7 +44,9 @@ export const RouteActionSheet: React.FC<RouteActionSheetProps> = ({
     triggerHaptic('light');
   };
 
-  return (
+  if (typeof document === 'undefined') return null;
+
+  return createPortal(
     <AnimatePresence>
       {isOpen && (
         <motion.div
@@ -64,7 +67,7 @@ export const RouteActionSheet: React.FC<RouteActionSheetProps> = ({
             exit={{ y: '100%' }}
             transition={{ type: 'spring', damping: 28, stiffness: 320 }}
             drag="y"
-            dragConstraints={{ top: 0 }}
+            dragConstraints={{ top: 0, bottom: 0 }}
             dragElastic={0.2}
             onDragEnd={(_, info) => {
               if (info.offset.y > 100 || info.velocity.y > 300) {
@@ -202,7 +205,8 @@ export const RouteActionSheet: React.FC<RouteActionSheetProps> = ({
           </motion.div>
         </motion.div>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   );
 };
 

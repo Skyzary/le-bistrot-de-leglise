@@ -1,0 +1,407 @@
+@use '@/styles/vars.scss' as *;
+
+.halloweenCanvas {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 95;
+  overflow: hidden;
+}
+
+.bloodMoon {
+  position: absolute;
+  top: -120px;
+  right: -80px;
+  width: 380px;
+  height: 380px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 94, 14, 0.22) 0%,
+    rgba(220, 38, 38, 0.14) 40%,
+    transparent 70%
+  );
+  filter: blur(20px);
+  animation: pulseMoon 6s ease-in-out infinite alternate;
+}
+
+.cobwebLeft {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 150px;
+  height: 150px;
+  opacity: 0.75;
+
+  @media (min-width: 768px) {
+    width: 220px;
+    height: 220px;
+  }
+}
+
+.cobwebRight {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 150px;
+  height: 150px;
+  transform: scaleX(-1);
+  opacity: 0.75;
+
+  @media (min-width: 768px) {
+    width: 220px;
+    height: 220px;
+  }
+}
+
+.hangingSpider {
+  position: absolute;
+  top: 0;
+  left: 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: spiderDrop 7s ease-in-out infinite;
+
+  @media (min-width: 768px) {
+    left: 64px;
+  }
+}
+
+.spiderThread {
+  width: 1px;
+  height: 95px;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.45), rgba(255, 130, 40, 0.6));
+}
+
+.spiderBody {
+  font-size: 20px;
+  line-height: 1;
+  margin-top: -4px;
+  filter: drop-shadow(0 0 8px rgba(255, 107, 26, 0.7));
+}
+
+/* Crawling Spiders with Animated Legs */
+.crawlingSpider {
+  position: absolute;
+  pointer-events: none;
+  z-index: 96;
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.85)) drop-shadow(0 0 6px rgba(255, 107, 26, 0.35));
+}
+
+.spiderSvg {
+  display: block;
+}
+
+.legsGroupA {
+  transform-origin: 18px 18px;
+  animation: spiderLegsWiggle 0.22s ease-in-out infinite alternate;
+}
+
+.legsGroupB {
+  transform-origin: 18px 18px;
+  animation: spiderLegsWiggle 0.22s ease-in-out infinite alternate-reverse;
+}
+
+.crawlDiagonalRight {
+  top: 110vh;
+  left: -40px;
+  animation-name: crawlDiagRightPath;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.crawlDiagonalLeft {
+  top: 105vh;
+  left: 105vw;
+  animation-name: crawlDiagLeftPath;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.crawlUpRightEdge {
+  top: 110vh;
+  right: 6vw;
+  animation-name: crawlUpVerticalPath;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.crawlDownLeftEdge {
+  top: -50px;
+  left: 9vw;
+  animation-name: crawlDownVerticalPath;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.crawlAcrossMiddle {
+  top: 62vh;
+  left: -50px;
+  animation-name: crawlAcrossHorizontalPath;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.flyingBat {
+  position: absolute;
+  left: -60px;
+  opacity: 0.75;
+  filter: drop-shadow(0 0 6px rgba(255, 107, 26, 0.45));
+  animation: batFly linear infinite;
+}
+
+.ember {
+  position: absolute;
+  bottom: -20px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ffb703 0%, #ff5400 70%, transparent 100%);
+  box-shadow: 0 0 12px #ff6b1a, 0 0 24px #dc2626;
+  opacity: 0;
+  animation: emberRise ease-in infinite;
+}
+
+.hauntedMist {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 120px;
+  background: linear-gradient(
+    to top,
+    rgba(22, 10, 28, 0.65) 0%,
+    rgba(255, 84, 0, 0.06) 50%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+/* Interactive Floating Trick-or-Treat Button (Left Bottom) */
+.pumpkinWidget {
+  position: fixed;
+  bottom: 80px;
+  left: 16px;
+  z-index: 120;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  @media (min-width: 768px) {
+    bottom: 24px;
+    left: 24px;
+  }
+}
+
+.pumpkinBtn {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #ff7b00, #b91c1c);
+  border: 2px solid #ffb703;
+  box-shadow: 0 0 20px rgba(255, 107, 26, 0.65), 0 6px 16px rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+  animation: pumpkinBob 3s ease-in-out infinite;
+
+  &:hover {
+    transform: scale(1.12) rotate(-8deg);
+    box-shadow: 0 0 28px rgba(255, 123, 0, 0.95);
+  }
+
+  &:active {
+    transform: scale(0.92);
+  }
+}
+
+.pumpkinEmoji {
+  font-size: 26px;
+  line-height: 1;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+}
+
+.treatToast {
+  max-width: 240px;
+  background: rgba(20, 11, 24, 0.96);
+  border: 1px solid #ff6b1a;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7), 0 0 16px rgba(255, 107, 26, 0.35);
+  color: #fff5eb;
+  padding: 10px 14px;
+  border-radius: 14px;
+  font-size: 12.5px;
+  font-weight: 600;
+  line-height: 1.35;
+  cursor: pointer;
+  animation: popIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes pulseMoon {
+  0% {
+    transform: scale(1);
+    opacity: 0.75;
+  }
+  100% {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+}
+
+@keyframes spiderDrop {
+  0%, 100% {
+    transform: translateY(-35px);
+  }
+  50% {
+    transform: translateY(25px);
+  }
+}
+
+@keyframes batFly {
+  0% {
+    transform: translateX(-10vw) translateY(0) rotate(-5deg);
+  }
+  25% {
+    transform: translateX(25vw) translateY(-25px) rotate(6deg);
+  }
+  50% {
+    transform: translateX(55vw) translateY(15px) rotate(-4deg);
+  }
+  75% {
+    transform: translateX(85vw) translateY(-20px) rotate(5deg);
+  }
+  100% {
+    transform: translateX(115vw) translateY(5px) rotate(-5deg);
+  }
+}
+
+@keyframes emberRise {
+  0% {
+    transform: translateY(0) scale(0.6);
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.85;
+  }
+  75% {
+    opacity: 0.55;
+  }
+  100% {
+    transform: translateY(-85vh) translateX(30px) scale(1.2);
+    opacity: 0;
+  }
+}
+
+@keyframes pumpkinBob {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: translateX(-10px) scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes spiderLegsWiggle {
+  from {
+    transform: rotate(-5deg);
+  }
+  to {
+    transform: rotate(5deg);
+  }
+}
+
+@keyframes crawlDiagRightPath {
+  0% {
+    transform: translate(0, 0) rotate(42deg);
+  }
+  28% {
+    transform: translate(32vw, -34vh) rotate(42deg);
+  }
+  33% {
+    /* Brief pause */
+    transform: translate(32vw, -34vh) rotate(36deg);
+  }
+  68% {
+    transform: translate(74vw, -76vh) rotate(45deg);
+  }
+  73% {
+    transform: translate(74vw, -76vh) rotate(40deg);
+  }
+  100% {
+    transform: translate(115vw, -120vh) rotate(42deg);
+  }
+}
+
+@keyframes crawlDiagLeftPath {
+  0% {
+    transform: translate(0, 0) rotate(-42deg);
+  }
+  35% {
+    transform: translate(-38vw, -40vh) rotate(-42deg);
+  }
+  40% {
+    transform: translate(-38vw, -40vh) rotate(-48deg);
+  }
+  100% {
+    transform: translate(-115vw, -120vh) rotate(-42deg);
+  }
+}
+
+@keyframes crawlUpVerticalPath {
+  0% {
+    transform: translate(0, 0) rotate(-6deg);
+  }
+  40% {
+    transform: translate(-18px, -48vh) rotate(6deg);
+  }
+  46% {
+    transform: translate(-18px, -48vh) rotate(0deg);
+  }
+  100% {
+    transform: translate(12px, -122vh) rotate(-4deg);
+  }
+}
+
+@keyframes crawlDownVerticalPath {
+  0% {
+    transform: translate(0, 0) rotate(180deg);
+  }
+  50% {
+    transform: translate(20px, 54vh) rotate(174deg);
+  }
+  56% {
+    transform: translate(20px, 54vh) rotate(182deg);
+  }
+  100% {
+    transform: translate(-10px, 118vh) rotate(180deg);
+  }
+}
+
+@keyframes crawlAcrossHorizontalPath {
+  0% {
+    transform: translate(0, 0) rotate(82deg);
+  }
+  45% {
+    transform: translate(50vw, -12vh) rotate(78deg);
+  }
+  52% {
+    transform: translate(50vw, -12vh) rotate(85deg);
+  }
+  100% {
+    transform: translate(115vw, -26vh) rotate(82deg);
+  }
+}
+

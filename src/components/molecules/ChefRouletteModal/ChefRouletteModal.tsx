@@ -1,12 +1,14 @@
 'use client';
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Sparkles, Dices, Utensils, Salad, Beef, Wine, Cake, RotateCw } from 'lucide-react';
 import styles from './ChefRouletteModal.module.scss';
 import { getRandomChefCombo, ChefCombo } from '@/data/chefCombos';
 import { triggerHaptic } from '@/utils/haptics';
 import { useScrollLock } from '@/utils/scrollLock';
+import { smoothScrollTo } from '@/components/atoms/SmoothScroll';
 
 interface ChefRouletteModalProps {
   isOpen: boolean;
@@ -94,17 +96,16 @@ export const ChefRouletteModal: React.FC<ChefRouletteModalProps> = ({
           if (window.location.pathname !== '/') {
             window.location.href = '/#reservation';
           } else {
-            const el = document.getElementById('reservation');
-            if (el) {
-              el.scrollIntoView({ behavior: 'smooth' });
-            }
+            smoothScrollTo('reservation');
           }
         }
       }, 150);
     }
   };
 
-  return (
+  if (typeof document === 'undefined') return null;
+
+  return createPortal(
     <AnimatePresence>
       <motion.div
         className={styles.backdrop}
@@ -124,7 +125,7 @@ export const ChefRouletteModal: React.FC<ChefRouletteModalProps> = ({
           exit={{ y: '100%', opacity: 0 }}
           transition={{ type: 'spring', damping: 28, stiffness: 320 }}
           drag="y"
-          dragConstraints={{ top: 0 }}
+          dragConstraints={{ top: 0, bottom: 0 }}
           dragElastic={0.2}
           onDragEnd={(_, info) => {
             if (info.offset.y > 100 || info.velocity.y > 300) {
@@ -278,7 +279,8 @@ export const ChefRouletteModal: React.FC<ChefRouletteModalProps> = ({
           </div>
         </motion.div>
       </motion.div>
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   );
 };
 
