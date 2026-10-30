@@ -116,6 +116,8 @@ export const ReservationChatWidget: React.FC = () => {
   const [inputRequests, setInputRequests] = useState('');
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const messagesListRef = useRef<HTMLDivElement>(null);
+  const controlsAreaRef = useRef<HTMLDivElement>(null);
   const [, startTransition] = useTransition();
 
   // Lock background scroll when chat is open
@@ -133,9 +135,14 @@ export const ReservationChatWidget: React.FC = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isOpen]);
 
-  // Scroll to bottom on new messages or typing
+  // Scroll specifically within message list without triggering viewport scrollIntoView jumps
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    if (messagesListRef.current) {
+      messagesListRef.current.scrollTo({
+        top: messagesListRef.current.scrollHeight,
+        behavior: 'smooth',
+      });
+    }
   };
 
   useEffect(() => {
@@ -146,10 +153,12 @@ export const ReservationChatWidget: React.FC = () => {
 
   useEffect(() => {
     if (showCustomDate || showCustomTime) {
-      const timer = setTimeout(() => {
-        scrollToBottom();
-      }, 70);
-      return () => clearTimeout(timer);
+      if (controlsAreaRef.current) {
+        controlsAreaRef.current.scrollTo({
+          top: controlsAreaRef.current.scrollHeight,
+          behavior: 'smooth',
+        });
+      }
     }
   }, [showCustomDate, showCustomTime]);
 
@@ -446,7 +455,7 @@ export const ReservationChatWidget: React.FC = () => {
               </div>
 
               {/* Chat Message Stream */}
-              <div className={styles.messagesList} data-lenis-prevent>
+              <div className={styles.messagesList} ref={messagesListRef} data-lenis-prevent>
                 {messages.map((msg) => (
                   <React.Fragment key={msg.id}>
                     {msg.sender === 'bot' ? (
@@ -489,7 +498,7 @@ export const ReservationChatWidget: React.FC = () => {
               </div>
 
               {/* Step Controls Area */}
-              <div className={styles.controlsArea}>
+              <div className={styles.controlsArea} ref={controlsAreaRef}>
                 {step !== 'date' && step !== 'submitting' && step !== 'success' && !isTyping && (
                   <div className={styles.controlsHeader}>
                     <button
