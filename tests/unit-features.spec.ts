@@ -3,6 +3,7 @@ import { getWinePairingForDish, WINE_PAIRINGS } from '../src/data/winePairings';
 import { getRandomChefCombo, ENTREES, PLATS, DESSERTS } from '../src/data/chefCombos';
 import { getGoogleCalendarUrl, CalendarEvent } from '../src/utils/calendar';
 import { triggerHaptic } from '../src/utils/haptics';
+import { eventsData } from '../src/config/data';
 
 test.describe('Unit Tests: Sommelier & Wine Pairings', () => {
   test('should return correct wine pairing for Magret de canard', () => {
@@ -93,6 +94,20 @@ test.describe('Unit Tests: Haptics Engine', () => {
     expect(() => triggerHaptic('heavy')).not.toThrow();
     expect(() => triggerHaptic('success')).not.toThrow();
     expect(() => triggerHaptic('selection')).not.toThrow();
+  });
+});
+
+test.describe('Unit Tests: Bistro Events Data (Decap CMS)', () => {
+  test('eventsData should contain valid upcoming event items with title, date, time, description, and image', () => {
+    expect(Array.isArray(eventsData)).toBe(true);
+    expect(eventsData.length).toBeGreaterThan(0);
+    for (const ev of eventsData) {
+      expect(ev.title).toBeTruthy();
+      expect(ev.date).toBeTruthy();
+      expect(ev.time).toBeTruthy();
+      expect(ev.description).toBeTruthy();
+      expect(ev.image).toBeTruthy();
+    }
   });
 });
 

@@ -19,6 +19,7 @@ export const Header = () => {
   const isMenuPage = pathname === '/menu';
   const isMenu = isMenuPage || (pathname === '/' && activeSection === 'menu-overview');
   const isPhilosophie = pathname === '/' && (activeSection === '' || activeSection === 'philosophie');
+  const isEvenements = pathname === '/' && activeSection === 'evenements';
   const isNousTrouver = pathname === '/' && activeSection === 'nous-trouver';
   const isReservation = pathname === '/' && activeSection === 'reservation';
 
@@ -46,6 +47,7 @@ export const Header = () => {
         <nav className={styles.desktopNav}>
           <Link href="/#philosophie" prefetch={false} onClick={() => handleNavClick('philosophie')} className={`${styles.navLink} ${isPhilosophie && !isMenuPage ? styles.active : ''}`}>Philosophie</Link>
           <Link href="/menu" prefetch={false} onClick={() => handleNavClick('menu-overview')} className={`${styles.navLink} ${isMenu ? styles.active : ''}`}>La Carte</Link>
+          <Link href="/#evenements" prefetch={false} onClick={() => handleNavClick('evenements')} className={`${styles.navLink} ${isEvenements && !isMenuPage ? styles.active : ''}`}>Événements</Link>
           <Link href="/#nous-trouver" prefetch={false} onClick={() => handleNavClick('nous-trouver')} className={`${styles.navLink} ${isNousTrouver && !isMenuPage ? styles.active : ''}`}>Nous Trouver</Link>
           <Link href="/#reservation" prefetch={false} onClick={() => handleNavClick('reservation')} className={`${styles.navLink} ${isReservation && !isMenuPage ? styles.active : ''}`}>Réserver</Link>
         </nav>

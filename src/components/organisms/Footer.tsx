@@ -39,18 +39,23 @@ export const Footer = () => {
 
           <div className={styles.infoCol}>
             <span className={styles.label}>Horaires d'Ouverture</span>
-            {scheduleData.map((item, idx) => (
-              <div key={idx} className={styles.row}>
-                <span>{item.days}</span>
-                <span className={/ferm[ée]|closed/i.test(item.time) ? styles.closed : styles.time}>
-                  {item.time}
-                </span>
-              </div>
-            ))}
+            <div className={styles.scheduleList}>
+              {scheduleData.map((item, idx) => (
+                <div key={idx} className={styles.row}>
+                  <span>{item.days}</span>
+                  <span className={/ferm[ée]|closed/i.test(item.time) ? styles.closed : styles.time}>
+                    {item.time}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
         <div className={styles.bottomSection}>
+          <p className={styles.copyright}>
+            © {new Date().getFullYear()} Le Bistrot de l'Église. Tous droits réservés.
+          </p>
           <div className={styles.legal}>
             <Link href="/mentions-legales">Mentions Légales</Link>
             <span className={styles.dot}>•</span>
@@ -58,9 +63,6 @@ export const Footer = () => {
             <span className={styles.dot}>•</span>
             <Link href="/cookies">Gestion des Cookies</Link>
           </div>
-          <p className={styles.copyright}>
-            © {new Date().getFullYear()} Le Bistrot de l'Église. Tous droits réservés.
-          </p>
         </div>
       </div>
     </footer>
