@@ -5,6 +5,7 @@ import { ReviewShowcase } from '@/components/organisms/ReviewShowcase';
 import { Philosophy } from '@/components/organisms/Philosophy';
 import { MenuOverview } from '@/components/organisms/MenuOverview';
 import { GallerySection } from '@/components/organisms/GallerySection';
+import { EventsSection } from '@/components/organisms/EventsSection';
 import { TourismDiscovery } from '@/components/organisms/TourismDiscovery';
 import { ReservationBlock } from '@/components/organisms/ReservationBlock';
 import { QuickActionMenu } from '@/components/organisms/QuickActionMenu';
@@ -16,8 +17,9 @@ export default function Home() {
     <main className={styles.main}>
       <Header />
       <Hero />
-      <ScrollReveal><ReviewShowcase /></ScrollReveal>
+      <ReviewShowcase />
       <ScrollReveal><Philosophy /></ScrollReveal>
+      <ScrollReveal><EventsSection /></ScrollReveal>
       <ScrollReveal><MenuOverview /></ScrollReveal>
       <ScrollReveal><GallerySection /></ScrollReveal>
       <ScrollReveal><TourismDiscovery /></ScrollReveal>

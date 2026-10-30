@@ -1,15 +1,28 @@
 import type { Metadata } from 'next';
 import { Playfair_Display, Plus_Jakarta_Sans } from 'next/font/google';
+import dynamic from 'next/dynamic';
 import '@/styles/globals.scss';
+import { SmoothScroll } from '@/components/atoms/SmoothScroll';
+import { HalloweenDecorations } from '@/components/atoms/HalloweenDecorations';
+
+const ReservationChatWidget = dynamic(
+  () => import('@/components/organisms/ReservationChatWidget').then((mod) => mod.ReservationChatWidget)
+);
+
+const ScrollProgressBar = dynamic(
+  () => import('@/components/atoms/ScrollProgressBar').then((mod) => mod.ScrollProgressBar)
+);
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
   variable: '--font-playfair',
+  display: 'swap',
 });
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ['latin'],
   variable: '--font-jakarta',
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
@@ -23,7 +36,7 @@ export const metadata: Metadata = {
     siteName: 'Le Bistrot de l\'Église',
     locale: 'fr_FR',
     type: 'website',
-  },
+    },
   robots: {
     index: true,
     follow: true,
@@ -56,7 +69,12 @@ export default function RootLayout({
         <Script src="https://identity.netlify.com/v1/netlify-identity-widget.js" strategy="afterInteractive" />
       </head>
       <body className={`${playfair.variable} ${jakarta.variable}`}>
-        {children}
+        <ScrollProgressBar />
+        <HalloweenDecorations />
+        <SmoothScroll>
+          {children}
+        </SmoothScroll>
+        <ReservationChatWidget />
         <Script id="netlify-identity-redirect" strategy="afterInteractive">
           {`
             if (window.netlifyIdentity) {

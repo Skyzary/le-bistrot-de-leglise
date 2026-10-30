@@ -64,15 +64,34 @@ collections:
           - label: "Photos"
             name: "images"
             widget: "list"
-            summary: "{{fields.alt}} ({{fields.image}})"
+            summary: "{{fields.title}} ({{fields.image}})"
             fields:
               - { label: "Image", name: "image", widget: "image" }
+              - { label: "Titre", name: "title", widget: "string", required: false }
+              - { label: "Tag / Badge", name: "tag", widget: "string", required: false }
+              - { label: "Description (histoire)", name: "desc", widget: "text", required: false }
               - {
-                  label: "Description (alt)",
+                  label: "Description accessible (alt)",
                   name: "alt",
                   widget: "string",
                   required: false,
                 }
+
+      - file: "src/content/events.json"
+        label: "Événements à venir"
+        name: "events"
+        fields:
+          - label: "Événements"
+            name: "items"
+            widget: "list"
+            summary: "{{fields.title}} — {{fields.date}} ({{fields.time}})"
+            fields:
+              - { label: "Titre de l'événement", name: "title", widget: "string" }
+              - { label: "Date (ex: Vendredi 14 Novembre)", name: "date", widget: "string" }
+              - { label: "Heure (ex: À partir de 19h30)", name: "time", widget: "string" }
+              - { label: "Tag / Catégorie (optionnel)", name: "tag", widget: "string", required: false }
+              - { label: "Description", name: "description", widget: "text" }
+              - { label: "Affiche / Image", name: "image", widget: "image", required: false }
 
       - file: "src/content/menu-preview.json"
         label: "Aperçu Menu (Page d'accueil)"

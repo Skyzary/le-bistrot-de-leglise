@@ -1,14 +1,15 @@
 'use client';
 
-import React, { useRef } from "react";
-import Image from "next/image";
-import styles from "./Hero.module.scss";
-import { Button } from "@/components/atoms/Button";
-import { MapPin } from "lucide-react";
-import { RestaurantStatusBadge } from "@/components/atoms/RestaurantStatusBadge";
-import { scheduleData } from "@/config/data";
+import React, { useRef } from 'react';
+import Image from 'next/image';
+import styles from './Hero.module.scss';
+import { Button } from '@/components/atoms/Button';
+import { MapPin, Sparkles, ArrowRight } from 'lucide-react';
+import { LiveServiceBadge } from '@/components/molecules/LiveServiceBadge';
+import { eventsData } from '@/config/data';
 
 export const Hero = () => {
+  const featuredEvent = eventsData && eventsData.length > 0 ? eventsData[0] : null;
   const clickCountRef = useRef(0);
   const clickTimerRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -25,7 +26,6 @@ export const Hero = () => {
       return;
     }
 
-    // Reset counter if no click within 2 seconds
     clickTimerRef.current = setTimeout(() => {
       clickCountRef.current = 0;
     }, 2000);
@@ -33,42 +33,53 @@ export const Hero = () => {
 
   return (
     <section className={styles.hero}>
-      <Image
-        src="/images/interior_1.jpg"
-        alt="Le Bistrot de l'Église Intérieur"
-        fill
-        priority
-        className={styles.bgImage}
-        sizes="100vw"
-      />
+      <div className={styles.imageWrapper}>
+        <Image 
+          src="/images/interior_1.jpg" 
+          alt="Le Bistrot de l'Église Intérieur" 
+          fill
+          priority
+          fetchPriority="high"
+          quality={65}
+          className={styles.bgImage}
+          sizes="(max-width: 640px) 75vw, (max-width: 1200px) 90vw, 1920px"
+        />
+      </div>
       <div className={styles.overlay}></div>
       <div className={styles.content}>
         <div className={styles.tags}>
-          <span className={styles.tag}>
-            <MapPin size={14} /> Place de l'Église • Fabrègues
+          <span className={styles.halloweenPill}>
+            🎃 SAMEDI SOIR : SOIRÉE HALLOWEEN • VENEZ DÉGUISÉS ! 🧛‍♂️
           </span>
-          <RestaurantStatusBadge schedule={scheduleData} />
+          <span className={styles.tag}>
+            <MapPin size={14} /> Place de l&apos;Église • Fabrègues
+          </span>
+          <LiveServiceBadge />
         </div>
-        <h1 
-          className={styles.title} 
+        <h1
+          className={styles.title}
           onClick={handleTitleClick}
           style={{ cursor: 'pointer', userSelect: 'none' }}
           title="Le Bistrot de l'Église"
         >
-          Bienvenue chez vous, au Bistrot de l'Église.
+          Bienvenue chez vous, au Bistrot de l&apos;Église 🎃
         </h1>
         <p className={styles.subtitle}>
-          Une cuisine simple avec des produits de saison, viandes sélectionnées
-          et fromages de caractère au cœur du village.
+          🍬 <strong>Bonbons pour les petits</strong> &amp; 😈 <strong>Shooter du Diablotin pour les adultes !</strong> Cuisine de saison, viandes sélectionnées et ambiance ensorcelante au cœur du village.
         </p>
         <div className={styles.actions}>
-          <Button variant="primary" href="#reservation">
-            Réserver une table
-          </Button>
-          <Button variant="secondary" href="#ardoise">
-            L'Ardoise
-          </Button>
+          <Button variant="primary" href="#reservation">🎃 Réserver pour Halloween</Button>
+          <Button variant="secondary" href="#evenements">🦇 Voir l&apos;affiche</Button>
         </div>
+        {featuredEvent && (
+          <a href="#evenements" className={styles.eventTeaser}>
+            <Sparkles size={14} className={styles.eventTeaserIcon} />
+            <span className={styles.eventTeaserText}>
+              <strong>{featuredEvent.date} :</strong> {featuredEvent.title}
+            </span>
+            <ArrowRight size={14} className={styles.eventTeaserArrow} />
+          </a>
+        )}
       </div>
     </section>
   );

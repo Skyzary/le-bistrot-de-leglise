@@ -4,12 +4,11 @@
       "title": "Les plats de saison",
       "items": [
         {
-          "name": "Parmentier de canard",
-          "price": "19.50 €",
-          "desc": "Patate douce"
+          "name": "Parmentier de canard, patate douce",
+          "price": "19.50 €"
         },
         {
-          "name": "Joue de bœuf au cidre",
+          "name": "Joue de bœuf au cidre de pommes",
           "price": "19.50 €",
           "desc": "Et gratin de pommes de terre"
         },
@@ -28,7 +27,7 @@
           "price": "23.90 €"
         },
         {
-          "name": "Bourride de poisson",
+          "name": "Bourride de poisson et ses filets",
           "price": "25.00 €",
           "desc": "Gratinés de rouille maison"
         },

@@ -3,7 +3,7 @@ import { isRestaurantOpen, parseSchedule, ScheduleItem } from '@/utils/restauran
 import scheduleJson from '@/content/schedule.json';
 
 test.describe('Restaurant Open/Closed Status Logic', () => {
-  test.describe('Default schedule from schedule.json', () => {
+  test.describe('Default schedule from schedule.json & Footer', () => {
     // Current schedule.json:
     // Lundi – Jeudi: 08h00 - 00h00
     // Vendredi – Samedi: 08h00 - 01h00

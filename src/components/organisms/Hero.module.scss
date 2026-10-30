@@ -11,6 +11,14 @@
   overflow: hidden;
 }
 
+.imageWrapper {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  transform: scale(1.04);
+}
+
 .bgImage {
   object-fit: cover;
   object-position: center;
@@ -20,7 +28,9 @@
 .overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(18, 18, 18, 1), rgba(18, 18, 18, 0.6), transparent);
+  background:
+    radial-gradient(circle at 50% 25%, rgba(255, 107, 26, 0.25) 0%, rgba(185, 28, 28, 0.22) 45%, transparent 75%),
+    linear-gradient(to top, rgba(14, 9, 17, 1) 0%, rgba(20, 11, 24, 0.72) 55%, rgba(14, 9, 17, 0.45) 100%);
   z-index: 1;
 }
 
@@ -36,23 +46,57 @@
 
 .tags {
   display: flex;
-  gap: $space-sm;
   align-items: center;
+  justify-content: center;
+  gap: 10px;
   margin-bottom: $space-sm;
+  flex-wrap: wrap;
+
+  @media (max-width: 520px) {
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+  }
+}
+
+.halloweenPill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: linear-gradient(135deg, rgba(255, 107, 26, 0.92) 0%, rgba(185, 28, 28, 0.92) 100%);
+  border: 1px solid #ffb703;
+  padding: 7px 16px;
+  border-radius: $border-radius-pill;
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: #fff;
+  box-shadow: 0 0 22px rgba(255, 107, 26, 0.65), 0 4px 14px rgba(0, 0, 0, 0.5);
+  text-transform: uppercase;
 }
 
 .tag {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  background-color: rgba(34, 31, 29, 0.8);
+  gap: 6px;
+  background-color: rgba(34, 31, 29, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(212, 163, 115, 0.3);
   padding: 6px 14px;
   border-radius: $border-radius-pill;
   font-size: 12px;
-  text-transform: uppercase;
-  color: $color-primary;
-  letter-spacing: 0.1em;
-  font-weight: 600;
+  font-weight: 500;
+  color: $color-parchment;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+  letter-spacing: 0.02em;
+  white-space: nowrap; // Never break onto multiple lines
+
+  svg {
+    color: $color-primary;
+    flex-shrink: 0;
+  }
 }
 
 .tagOpen {
@@ -116,4 +160,56 @@
     justify-content: center;
     width: auto;
   }
+}
+
+.eventTeaser {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: $space-xs;
+  padding: 8px 16px;
+  border-radius: $border-radius-pill;
+  background: rgba(34, 31, 29, 0.88);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(230, 175, 46, 0.45);
+  color: $color-parchment;
+  font-size: 13px;
+  text-decoration: none;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+  transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+  max-width: 100%;
+
+  strong {
+    color: $color-secondary;
+    font-weight: 700;
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      transform: translateY(-2px);
+      border-color: $color-secondary;
+      background: rgba(34, 31, 29, 0.96);
+    }
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+.eventTeaserIcon {
+  color: $color-secondary;
+  flex-shrink: 0;
+}
+
+.eventTeaserText {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.eventTeaserArrow {
+  color: $color-primary;
+  flex-shrink: 0;
 }

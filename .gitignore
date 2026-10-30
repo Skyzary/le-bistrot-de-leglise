@@ -47,6 +47,7 @@ node_modules/
 /blob-report/
 /playwright/.cache/
 /playwright/.auth/
+repomix-output.xml
 
 # Scratch and logs
 crawl.js
@@ -60,3 +61,6 @@ dev.log
 # OpenNext & Cloudflare
 .open-next
 .wrangler
+
+# Local Netlify folder
+.netlify

@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './TourismDiscovery.module.scss';
 import { Compass, Church, Castle, Waves, Mountain } from 'lucide-react';
+import { MapEmbed } from '@/components/molecules/MapEmbed/MapEmbed';
 
 export const TourismDiscovery = () => {
   return (
@@ -37,15 +38,9 @@ export const TourismDiscovery = () => {
         </div>
 
         <div className={styles.mapWrapper}>
-          <iframe 
+          <MapEmbed 
             title="Carte Le Bistrot de l'Église"
-            src="https://maps.google.com/maps?q=Le%20Bistrot%20de%20l'Eglise,%204%20place%20du%2011%20novembre%201918,%2034690%20Fabr%C3%A8gues&t=&z=15&ie=UTF8&iwloc=&output=embed" 
-            width="100%" 
-            height="100%" 
-            style={{ border: 0 }} 
-            allowFullScreen={false} 
-            loading="lazy" 
-            referrerPolicy="no-referrer-when-downgrade"
+            src="https://maps.google.com/maps?q=Le%20Bistrot%20de%20l'Eglise,%204%20place%20du%2011%20novembre%201918,%2034690%20Fabr%C3%A8gues&t=&z=15&ie=UTF8&iwloc=&output=embed"
           />
         </div>
       </div>

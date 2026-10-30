@@ -36,7 +36,9 @@ export const Philosophy = () => {
               className={styles.philosophyImage}
               width={500}
               height={625}
-              sizes="(max-width: 1024px) 100vw, 500px"
+              quality={65}
+              loading="lazy"
+              sizes="(max-width: 640px) 80vw, (max-width: 1024px) 50vw, 500px"
             />
           </div>
         </div>

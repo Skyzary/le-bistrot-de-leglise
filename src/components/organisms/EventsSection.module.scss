@@ -1,0 +1,279 @@
+@import '@/styles/vars.scss';
+
+.section {
+  padding: $space-2xl $space-md;
+  background-color: $color-surface-flat;
+}
+
+.container {
+  max-width: 1120px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: $space-2xl;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: $space-sm;
+}
+
+.tag {
+  display: flex;
+  align-items: center;
+  gap: $space-xs;
+  color: $color-primary;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.title {
+  font-size: 32px;
+  color: $color-parchment;
+  line-height: 1.2;
+}
+
+.description {
+  font-size: 16px;
+  color: rgba(249, 246, 240, 0.8);
+  max-width: 560px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $space-xl;
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(160deg, rgba(35, 19, 44, 0.96) 0%, rgba(20, 11, 26, 0.98) 100%);
+  border: 1px solid rgba(255, 123, 28, 0.38);
+  border-radius: $border-radius-md;
+  overflow: hidden;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.55), 0 0 24px rgba(255, 107, 26, 0.14);
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+
+  &:first-child {
+    border-color: rgba(255, 123, 28, 0.75);
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.65), 0 0 32px rgba(255, 107, 26, 0.28);
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      transform: translateY(-4px);
+      border-color: #ffb703;
+      box-shadow: 0 18px 44px rgba(0, 0, 0, 0.65), 0 0 36px rgba(255, 123, 28, 0.35);
+
+      .posterImage {
+        transform: scale(1.04);
+      }
+    }
+  }
+}
+
+.posterWrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background: #181512;
+  overflow: hidden;
+}
+
+.posterImage {
+  object-fit: cover;
+  object-position: center 20%;
+  transition: transform 0.5s ease;
+}
+
+.posterOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(34, 31, 29, 0.9) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.eventBadge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  background: rgba(18, 18, 18, 0.82);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(212, 163, 115, 0.4);
+  color: $color-primary;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 5px 12px;
+  border-radius: $border-radius-pill;
+  z-index: 2;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: $space-lg;
+  gap: $space-sm;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: $color-secondary;
+}
+
+.metaItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.metaIcon {
+  color: $color-primary;
+  flex-shrink: 0;
+}
+
+.metaDot {
+  color: rgba(212, 163, 115, 0.5);
+}
+
+.eventTitle {
+  font-size: 22px;
+  color: $color-parchment;
+  line-height: 1.3;
+  margin-top: 2px;
+}
+
+.eventDesc {
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: rgba(249, 246, 240, 0.78);
+  flex: 1;
+  margin-bottom: $space-sm;
+}
+
+.actionsRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.reserveBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: rgba(212, 163, 115, 0.14);
+  border: 1px solid rgba(212, 163, 115, 0.4);
+  color: $color-primary;
+  border-radius: $border-radius-pill;
+  padding: 10px 18px;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  @media (hover: hover) {
+    &:hover {
+      background: $color-primary;
+      color: $color-ink;
+      border-color: $color-primary;
+    }
+  }
+
+  &:active {
+    transform: scale(0.97);
+  }
+}
+
+.calendarToggleBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(249, 246, 240, 0.2);
+  color: $color-parchment;
+  border-radius: $border-radius-pill;
+  padding: 10px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  @media (hover: hover) {
+    &:hover {
+      border-color: rgba(212, 163, 115, 0.5);
+      background: rgba(212, 163, 115, 0.1);
+      color: $color-primary;
+    }
+  }
+
+  &:active {
+    transform: scale(0.97);
+  }
+}
+
+.calendarToggleActive {
+  border-color: $color-primary;
+  background: rgba(212, 163, 115, 0.15);
+  color: $color-primary;
+}
+
+.calendarMenu {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 6px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(212, 163, 115, 0.15);
+}
+
+.calendarOption {
+  flex: 1;
+  min-width: 150px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 9px 14px;
+  border-radius: 10px;
+  background: rgba(18, 18, 18, 0.75);
+  border: 1px solid rgba(212, 163, 115, 0.3);
+  color: $color-parchment;
+  font-size: 12.5px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  @media (hover: hover) {
+    &:hover {
+      border-color: $color-primary;
+      background: rgba(212, 163, 115, 0.18);
+      color: #fff;
+    }
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+

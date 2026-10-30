@@ -1,38 +1,75 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
+import dynamic from 'next/dynamic';
 import styles from './page.module.scss';
 import { Header } from '@/components/organisms/Header';
 import { Footer } from '@/components/organisms/Footer';
 import { QuickActionMenu } from '@/components/organisms/QuickActionMenu';
-import { ChevronLeft, Search } from 'lucide-react';
+import { ChevronLeft, Search, Wine, Dices } from 'lucide-react';
 import Link from 'next/link';
 import { ScrollReveal } from '@/components/atoms/ScrollReveal';
+import { getWinePairingForDish, WinePairing } from '@/data/winePairings';
+import { triggerHaptic } from '@/utils/haptics';
+import { fullMenuData as menuData } from '@/config/data';
 
-import { fullMenuData } from '@/config/data';
+const WinePairingModal = dynamic(
+  () => import('@/components/molecules/WinePairingModal').then((mod) => mod.WinePairingModal),
+  { ssr: false }
+);
 
-const menuData = fullMenuData;
+const ChefRouletteModal = dynamic(
+  () => import('@/components/molecules/ChefRouletteModal').then((mod) => mod.ChefRouletteModal),
+  { ssr: false }
+);
 
+const CATEGORIES = ['Toutes', ...menuData.map((c) => c.category)];
 
 export default function MenuPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState('Toutes');
+  const [selectedPairing, setSelectedPairing] = useState<WinePairing | null>(null);
+  const [isRouletteOpen, setIsRouletteOpen] = useState(false);
 
-  const categories = ['Toutes', ...menuData.map(c => c.category)];
+  const filteredMenu = useMemo(() => {
+    const query = searchQuery.trim().toLowerCase();
+    return menuData
+      .map((section) => {
+        if (activeCategory !== 'Toutes' && section.category !== activeCategory) {
+          return null;
+        }
 
-  const filteredMenu = menuData.map(section => {
-    if (activeCategory !== 'Toutes' && section.category !== activeCategory) {
-      return null;
-    }
+        const filteredItems = section.items.filter((item) => {
+          if (!query) return true;
+          return (
+            item.name.toLowerCase().includes(query) ||
+            Boolean(item.desc && item.desc.toLowerCase().includes(query))
+          );
+        });
 
-    const filteredItems = section.items.filter(item => {
-      const query = searchQuery.toLowerCase();
-      return item.name.toLowerCase().includes(query) || (item.desc && item.desc.toLowerCase().includes(query));
-    });
+        if (filteredItems.length === 0) return null;
 
-    if (filteredItems.length === 0) return null;
+        return { ...section, items: filteredItems };
+      })
+      .filter((s): s is NonNullable<typeof s> => s !== null);
+  }, [activeCategory, searchQuery]);
 
-    return { ...section, items: filteredItems };
-  }).filter(Boolean);
+  const handleOpenPairing = useCallback((pairing: WinePairing) => {
+    triggerHaptic('selection');
+    setSelectedPairing(pairing);
+  }, []);
+
+  const handleClosePairing = useCallback(() => {
+    setSelectedPairing(null);
+  }, []);
+
+  const handleOpenRoulette = useCallback(() => {
+    triggerHaptic('medium');
+    setIsRouletteOpen(true);
+  }, []);
+
+  const handleCloseRoulette = useCallback(() => {
+    setIsRouletteOpen(false);
+  }, []);
 
   return (
     <main className={styles.main}>
@@ -44,6 +81,16 @@ export default function MenuPage() {
         </Link>
         <h1 className={styles.title}>La Carte</h1>
         <p className={styles.subtitle}>Découvrez notre sélection de plats faits maison</p>
+        <div>
+          <button
+            type="button"
+            className={styles.rouletteBannerBtn}
+            onClick={handleOpenRoulette}
+          >
+            <Dices size={17} />
+            <span>Indécis ? La Roulette du Chef</span>
+          </button>
+        </div>
       </div>
 
       <div className={styles.stickyControls}>
@@ -60,7 +107,7 @@ export default function MenuPage() {
         
         <div className={styles.categoriesWrapper}>
           <div className={styles.categoriesList}>
-            {categories.map((cat) => (
+            {CATEGORIES.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
@@ -78,20 +125,34 @@ export default function MenuPage() {
           filteredMenu.map((section, idx) => (
             <ScrollReveal key={idx}>
               <section className={styles.section}>
-                <h2 className={styles.categoryTitle}>{section!.category}</h2>
-                {section!.desc && <p className={styles.categoryDesc}>{section!.desc}</p>}
+                <h2 className={styles.categoryTitle}>{section.category}</h2>
+                {section.desc && <p className={styles.categoryDesc}>{section.desc}</p>}
                 
                 <div className={styles.itemsList}>
-                  {section!.items.map((item, itemIdx) => (
-                    <div key={itemIdx} className={styles.menuItem}>
-                      <div className={styles.itemHeader}>
-                        <span className={styles.itemName}>{item.name}</span>
-                        <span className={styles.itemDots}></span>
-                        <span className={styles.itemPrice}>{item.price}</span>
+                  {section.items.map((item, itemIdx) => {
+                    const pairing = getWinePairingForDish(item.name);
+                    return (
+                      <div key={itemIdx} className={styles.menuItem}>
+                        <div className={styles.itemHeader}>
+                          <span className={styles.itemName}>{item.name}</span>
+                          <span className={styles.itemDots}></span>
+                          <span className={styles.itemPrice}>{item.price}</span>
+                        </div>
+                        {item.desc && <p className={styles.itemDesc}>{item.desc}</p>}
+                        {pairing && (
+                          <button
+                            type="button"
+                            className={styles.sommelierBtn}
+                            onClick={() => handleOpenPairing(pairing)}
+                            aria-label={`Accord vin pour ${item.name}`}
+                          >
+                            <Wine size={12} />
+                            <span>Accord sommelier : {pairing.wineName} ({pairing.appellation})</span>
+                          </button>
+                        )}
                       </div>
-                      {item.desc && <p className={styles.itemDesc}>{item.desc}</p>}
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </section>
             </ScrollReveal>
@@ -103,6 +164,20 @@ export default function MenuPage() {
           </div>
         )}
       </div>
+
+      {selectedPairing && (
+        <WinePairingModal
+          pairing={selectedPairing}
+          onClose={handleClosePairing}
+        />
+      )}
+
+      {isRouletteOpen && (
+        <ChefRouletteModal
+          isOpen={isRouletteOpen}
+          onClose={handleCloseRoulette}
+        />
+      )}
 
       <Footer />
       <QuickActionMenu />

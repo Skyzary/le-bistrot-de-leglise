@@ -1,0 +1,20 @@
+{
+  "items": [
+    {
+      "title": "Soirée Halloween 🎃",
+      "date": "Samedi",
+      "time": "Samedi soir",
+      "tag": "Soirée Spéciale",
+      "description": "Venez déguisés ! Des bonbons 🍬 pour les petits… et pour les adultes un shooter du diablotin 😈. Pensez à réserver au 04 34 11 75 85.",
+      "image": "/uploads/halloween-event.jpg"
+    },
+    {
+      "title": "Plat du Jour : Pâtes aux Fruits de Mer 🦐🐙🐚🇮🇹",
+      "date": "Vendredi",
+      "time": "Pour le déjeuner",
+      "tag": "Formule 11,90 €",
+      "description": "Vendredi pour le déjeuner en plat du jour à 11,90 € : Pâtes aux fruits de mer. Le Bistrot de l'Église, c’est un café, un restaurant, un lieu de vie de notre joli village.",
+      "image": "/images/food_1.jpg"
+    }
+  ]
+}
