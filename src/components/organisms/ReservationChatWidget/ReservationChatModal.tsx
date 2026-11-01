@@ -24,6 +24,7 @@ import dynamic from 'next/dynamic';
 import styles from './ReservationChatWidget.module.scss';
 import { triggerHaptic } from '@/utils/haptics';
 import { useScrollLock } from '@/utils/scrollLock';
+import { themeData } from '@/config/data';
 
 const CustomCalendar = dynamic(
   () => import('@/components/molecules/CustomCalendar').then((mod) => mod.CustomCalendar),
@@ -72,7 +73,12 @@ interface ReservationData {
 const INITIAL_BOT_MESSAGE: ChatMessage = {
   id: 'init-1',
   sender: 'bot',
-  text: 'Bonjour ! Pour quel jour souhaitez-vous réserver une table ?',
+  text:
+    themeData.mode === 'noel'
+      ? '🎄 Bonjour et Joyeuses Fêtes ! Pour quel jour souhaitez-vous réserver votre table ?'
+      : themeData.mode === 'halloween'
+        ? '🎃 Bonjour ! Pour quel jour souhaitez-vous réserver une table ?'
+        : 'Bonjour ! Pour quel jour souhaitez-vous réserver une table ?',
 };
 
 const DEFAULT_TIME_SLOTS = ['12:00', '12:30', '13:00', '19:30', '20:00', '20:30', '21:00'];

@@ -4,10 +4,10 @@
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  background-color: rgba(34, 31, 29, 0.85);
+  background-color: rgba(var(--color-surface-elevated-rgb), 0.85);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(212, 163, 115, 0.3);
+  border: 1px solid rgba(var(--color-primary-rgb), 0.35);
   padding: 6px 14px;
   border-radius: $border-radius-pill;
   font-size: 12px;
@@ -48,8 +48,8 @@
 }
 
 .urgent {
-  border-color: rgba(230, 175, 46, 0.5);
-  background-color: rgba(45, 34, 24, 0.9);
+  border-color: rgba(var(--color-secondary-rgb), 0.5);
+  background-color: rgba(var(--color-surface-elevated-rgb), 0.92);
 }
 
 .urgentPulse {

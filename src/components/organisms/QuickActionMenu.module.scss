@@ -7,10 +7,10 @@
   right: 0;
   height: 64px;
   padding-bottom: env(safe-area-inset-bottom); // iOS safe area
-  background-color: rgba(18, 18, 18, 0.95);
+  background-color: rgba(var(--color-canvas-rgb), 0.95);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border-top: 1px solid rgba(212, 163, 115, 0.2);
+  border-top: 1px solid rgba(var(--color-primary-rgb), 0.22);
   z-index: 100;
   display: flex;
   justify-content: space-around;
@@ -68,7 +68,7 @@
     .icon {
       transform: scale(1.1);
       /* optional: you can add a subtle drop shadow or something to make it pop */
-      filter: drop-shadow(0 0 8px rgba(212, 163, 115, 0.4));
+      filter: drop-shadow(0 0 8px rgba(var(--color-primary-rgb), 0.45));
     }
   }
 }

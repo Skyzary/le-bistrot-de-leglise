@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic';
 import { MessageSquare } from 'lucide-react';
 import styles from './ReservationChatWidget.module.scss';
 import { triggerHaptic } from '@/utils/haptics';
+import { themeData } from '@/config/data';
 
 const ReservationChatModal = dynamic(
   () => import('./ReservationChatModal').then((mod) => mod.ReservationChatModal),
@@ -36,7 +37,13 @@ export const ReservationChatWidget: React.FC = () => {
         }}
       >
         <MessageSquare size={22} className={styles.triggerIcon} />
-        <span className={styles.triggerLabel}>Réserver une table</span>
+        <span className={styles.triggerLabel}>
+          {themeData.mode === 'noel'
+            ? '🎄 Réserver une table'
+            : themeData.mode === 'halloween'
+              ? '🎃 Réserver une table'
+              : 'Réserver une table'}
+        </span>
         <span className={styles.onlineBadgeDot} />
       </button>
 

@@ -62,6 +62,15 @@ export const EventsSection = () => {
     return null;
   }
 
+  const displayedEvents =
+    themeData.mode === 'noel'
+      ? eventsData.filter((ev) => !/halloween/i.test(ev.title))
+      : eventsData;
+
+  if (displayedEvents.length === 0) {
+    return null;
+  }
+
   return (
     <section className={styles.section}>
       <div className={styles.container}>
@@ -93,7 +102,7 @@ export const EventsSection = () => {
         </div>
 
         <div className={styles.grid} id="evenements">
-          {eventsData.map((event, idx) => {
+          {displayedEvents.map((event, idx) => {
             const calEvent = buildCalendarEvent(event);
             const googleUrl = getGoogleCalendarUrl(calEvent);
             const isCalOpen = openCalendarIdx === idx;

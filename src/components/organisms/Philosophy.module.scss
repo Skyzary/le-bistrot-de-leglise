@@ -85,6 +85,6 @@
   justify-content: center;
   gap: 16px;
   margin: $space-md 0;
-  color: rgba(212, 163, 115, 0.4);
+  color: rgba(var(--color-primary-rgb), 0.55);
   font-size: 14px;
 }

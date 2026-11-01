@@ -10,7 +10,7 @@ import Link from 'next/link';
 import { ScrollReveal } from '@/components/atoms/ScrollReveal';
 import { getWinePairingForDish, WinePairing } from '@/data/winePairings';
 import { triggerHaptic } from '@/utils/haptics';
-import { fullMenuData as menuData } from '@/config/data';
+import { fullMenuData as menuData, themeData } from '@/config/data';
 
 const WinePairingModal = dynamic(
   () => import('@/components/molecules/WinePairingModal').then((mod) => mod.WinePairingModal),
@@ -79,8 +79,18 @@ export default function MenuPage() {
           <ChevronLeft size={24} />
           Retour
         </Link>
-        <h1 className={styles.title}>La Carte</h1>
-        <p className={styles.subtitle}>Découvrez notre sélection de plats faits maison</p>
+        <h1 className={styles.title}>
+          {themeData.mode === 'noel'
+            ? "🎄 La Carte & Saveurs d'Hiver"
+            : themeData.mode === 'halloween'
+              ? "🎃 La Carte d'Halloween"
+              : 'La Carte'}
+        </h1>
+        <p className={styles.subtitle}>
+          {themeData.mode === 'noel'
+            ? 'Découvrez notre sélection chaleureuse de plats faits maison pour les fêtes ✨'
+            : 'Découvrez notre sélection de plats faits maison'}
+        </p>
         <div>
           <button
             type="button"
@@ -88,7 +98,13 @@ export default function MenuPage() {
             onClick={handleOpenRoulette}
           >
             <Dices size={17} />
-            <span>Indécis ? La Roulette du Chef</span>
+            <span>
+              {themeData.mode === 'noel'
+                ? '🎁 La Roulette de Noël du Chef'
+                : themeData.mode === 'halloween'
+                  ? '😈 La Roulette du Diablotin'
+                  : 'Indécis ? La Roulette du Chef'}
+            </span>
           </button>
         </div>
       </div>

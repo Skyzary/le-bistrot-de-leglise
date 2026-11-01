@@ -22,8 +22,8 @@
 .modal {
   width: 100%;
   max-width: 480px;
-  background: rgba(26, 23, 21, 0.98);
-  border: 1px solid rgba(212, 163, 115, 0.35);
+  background: rgba(var(--color-surface-flat-rgb), 0.98);
+  border: 1px solid rgba(var(--color-primary-rgb), 0.35);
   border-radius: 24px 24px 0 0;
   padding: 16px 22px calc(24px + env(safe-area-inset-bottom));
   box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.85);
@@ -103,8 +103,8 @@
 
 /* Wine Card Showcase */
 .wineCard {
-  background: linear-gradient(135deg, rgba(38, 33, 30, 0.9) 0%, rgba(28, 24, 22, 0.95) 100%);
-  border: 1px solid rgba(212, 163, 115, 0.25);
+  background: linear-gradient(135deg, rgba(var(--color-surface-elevated-rgb), 0.92) 0%, rgba(var(--color-surface-flat-rgb), 0.96) 100%);
+  border: 1px solid rgba(var(--color-primary-rgb), 0.28);
   border-radius: 16px;
   padding: 16px;
   display: flex;
@@ -195,7 +195,7 @@
 
 /* Sommelier Notes Block */
 .sommelierBlock {
-  background: rgba(212, 163, 115, 0.08);
+  background: rgba(var(--color-primary-rgb), 0.08);
   border-left: 3px solid $color-primary;
   padding: 12px 14px;
   border-radius: 0 10px 10px 0;
@@ -230,7 +230,7 @@
 .reserveBtn {
   flex: 1;
   background: $color-primary;
-  color: #121212;
+  color: $color-ink;
   font-weight: 700;
   font-size: 14px;
   border: none;
@@ -241,7 +241,7 @@
   justify-content: center;
   gap: 8px;
   cursor: pointer;
-  box-shadow: 0 4px 16px rgba(212, 163, 115, 0.35);
+  box-shadow: 0 4px 16px rgba(var(--color-primary-rgb), 0.35);
   min-height: 44px;
   transition: all 0.2s;
 

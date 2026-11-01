@@ -9,6 +9,7 @@ import { getRandomChefCombo, ChefCombo } from '@/data/chefCombos';
 import { triggerHaptic } from '@/utils/haptics';
 import { useScrollLock } from '@/utils/scrollLock';
 import { smoothScrollTo } from '@/components/atoms/SmoothScroll';
+import { themeData } from '@/config/data';
 
 interface ChefRouletteModalProps {
   isOpen: boolean;
@@ -141,11 +142,24 @@ export const ChefRouletteModal: React.FC<ChefRouletteModalProps> = ({
           <div className={styles.header}>
             <div className={styles.titleArea}>
               <span className={styles.eyebrow}>
-                <Sparkles size={13} /> Suggestion Aléatoire du Jour
+                <Sparkles size={13} />{' '}
+                {themeData.mode === 'noel'
+                  ? '🎄 Suggestion Féerique des Fêtes'
+                  : themeData.mode === 'halloween'
+                    ? '🎃 Sortilège Gourmand du Jour'
+                    : 'Suggestion Aléatoire du Jour'}
               </span>
-              <h3 className={styles.title}>La Roulette du Chef</h3>
+              <h3 className={styles.title}>
+                {themeData.mode === 'noel'
+                  ? '🎁 La Roulette de Noël du Chef'
+                  : themeData.mode === 'halloween'
+                    ? '😈 La Roulette du Diablotin'
+                    : 'La Roulette du Chef'}
+              </h3>
               <p className={styles.subtitle}>
-                Laissez le hasard composer votre accord parfait au Bistrot.
+                {themeData.mode === 'noel'
+                  ? 'Laissez la magie de Noël composer votre accord festif au Bistrot.'
+                  : 'Laissez le hasard composer votre accord parfait au Bistrot.'}
               </p>
             </div>
             <button
@@ -251,7 +265,7 @@ export const ChefRouletteModal: React.FC<ChefRouletteModalProps> = ({
           {/* Total Price Estimate */}
           <div className={styles.totalBar}>
             <span className={styles.totalLabel}>
-              <Utensils size={14} color="#D4A373" /> Formule 4 étapes estimée :
+              <Utensils size={14} color="var(--color-primary)" /> Formule 4 étapes estimée :
             </span>
             <span className={styles.totalAmount}>~ {combo.totalPrice.toFixed(2)} € / pers.</span>
           </div>

@@ -1,7 +1,7 @@
 @import '@/styles/vars.scss';
 
 .tagOpen {
-  background-color: rgba(34, 31, 29, 0.8);
+  background-color: rgba(var(--color-surface-elevated-rgb), 0.8);
   padding: 6px 14px;
   border-radius: $border-radius-pill;
   font-size: 12px;
@@ -35,6 +35,6 @@
   @extend .tagOpen;
 
   &::before {
-    background-color: #d4a373; /* Neutral Gold */
+    background-color: $color-primary; /* Neutral Gold */
   }
 }

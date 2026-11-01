@@ -32,9 +32,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, $color-surface-elevated 0%, #2a2522 100%);
+  background: linear-gradient(135deg, $color-surface-elevated 0%, $color-surface-flat 100%);
   color: $color-secondary;
-  border: 1.5px solid rgba(var(--color-primary-rgb), 0.4);
+  border: 1.5px solid rgba(var(--color-primary-rgb), 0.45);
   border-radius: 50%;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45), 0 2px 8px rgba(var(--color-secondary-rgb), 0.15);
   cursor: pointer;
@@ -129,15 +129,15 @@
   max-width: 100%;
   height: 90vh;
   max-height: 720px;
-  background-color: rgba(22, 20, 19, 0.94);
+  background-color: rgba(var(--color-surface-flat-rgb), 0.96);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
-  border: 1px solid rgba(212, 163, 115, 0.22);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(212, 163, 115, 0.12);
+  border: 1px solid rgba(var(--color-primary-rgb), 0.25);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(var(--color-primary-rgb), 0.14);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -149,7 +149,7 @@
     height: 620px;
     max-height: calc(100vh - 40px);
     border-radius: $border-radius-md;
-    border: 1px solid rgba(212, 163, 115, 0.28);
+    border: 1px solid rgba(var(--color-primary-rgb), 0.3);
     bottom: 0;
     right: 0;
   }
@@ -161,10 +161,10 @@
   align-items: center;
   justify-content: space-between;
   padding: 14px 16px;
-  background: rgba(28, 25, 23, 0.94);
+  background: rgba(var(--color-surface-elevated-rgb), 0.96);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(212, 163, 115, 0.18);
+  border-bottom: 1px solid rgba(var(--color-primary-rgb), 0.2);
   flex-shrink: 0;
 }
 
@@ -390,10 +390,10 @@
 .controlsArea {
   padding: 16px;
   padding-bottom: max(16px, env(safe-area-inset-bottom));
-  background: rgba(22, 20, 19, 0.98);
+  background: rgba(var(--color-surface-flat-rgb), 0.98);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border-top: 1px solid rgba(212, 163, 115, 0.2);
+  border-top: 1px solid rgba(var(--color-primary-rgb), 0.22);
   display: flex;
   flex-direction: column;
   gap: 12px;

@@ -4,8 +4,8 @@
   background-color: $color-surface-elevated;
   border-radius: $border-radius-md;
   padding: $space-lg;
-  box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(212, 163, 115, 0.1);
-  border: 1px solid rgba(212, 163, 115, 0.15);
+  box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(var(--color-primary-rgb), 0.12);
+  border: 1px solid rgba(var(--color-primary-rgb), 0.18);
   display: flex;
   flex-direction: column;
   gap: $space-md;
@@ -15,8 +15,8 @@
 
   &:hover {
     transform: translateY(-6px);
-    box-shadow: 0 14px 32px -4px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(212, 163, 115, 0.3);
-    border-color: rgba(212, 163, 115, 0.4);
+    box-shadow: 0 14px 32px -4px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(var(--color-primary-rgb), 0.3);
+    border-color: rgba(var(--color-primary-rgb), 0.42);
   }
 }
 

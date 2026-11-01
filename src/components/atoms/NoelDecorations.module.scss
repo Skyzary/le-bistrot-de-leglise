@@ -11,28 +11,26 @@
 /* Warm Starlight Glow in Top Right */
 .starlightGlow {
   position: absolute;
-  top: 72px;
-  right: 6%;
-  width: 96px;
-  height: 96px;
+  top: -80px;
+  right: -60px;
+  width: 320px;
+  height: 320px;
   border-radius: 50%;
   background: radial-gradient(
     circle at 40% 40%,
-    rgba(255, 232, 163, 0.42) 0%,
-    rgba(245, 197, 66, 0.22) 45%,
-    rgba(201, 42, 42, 0.08) 72%,
-    transparent 85%
+    rgba(255, 232, 163, 0.28) 0%,
+    rgba(245, 197, 66, 0.16) 40%,
+    rgba(201, 42, 42, 0.1) 68%,
+    transparent 82%
   );
-  box-shadow:
-    0 0 55px rgba(245, 197, 66, 0.35),
-    0 0 110px rgba(201, 42, 42, 0.18);
+  filter: blur(16px);
   animation: pulseStarlight 6s ease-in-out infinite alternate;
 
   @media (max-width: 768px) {
-    width: 68px;
-    height: 68px;
-    top: 68px;
-    right: 4%;
+    width: 220px;
+    height: 220px;
+    top: -60px;
+    right: -40px;
   }
 }
 
@@ -42,32 +40,85 @@
     opacity: 0.72;
   }
   100% {
-    transform: scale(1.08);
+    transform: scale(1.12);
     opacity: 1;
+  }
+}
+
+/* Corner Pine & Holly Boughs */
+.hollyLeft {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 145px;
+  height: 145px;
+  opacity: 0.85;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.6));
+
+  @media (min-width: 768px) {
+    width: 210px;
+    height: 210px;
+  }
+}
+
+.hollyRight {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 145px;
+  height: 145px;
+  transform: scaleX(-1);
+  opacity: 0.85;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.6));
+
+  @media (min-width: 768px) {
+    width: 210px;
+    height: 210px;
   }
 }
 
 /* Top Fairy-Light Garland below Header */
 .garlandBar {
   position: absolute;
-  top: 64px;
+  top: 72px;
   left: 0;
   width: 100%;
   height: 28px;
   display: flex;
   justify-content: space-around;
   align-items: flex-start;
-  padding: 0 12px;
-  opacity: 0.9;
+  padding: 0 16px;
+  opacity: 0.92;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(45, 106, 79, 0.6) 10%,
+      rgba(232, 193, 112, 0.45) 50%,
+      rgba(45, 106, 79, 0.6) 90%,
+      transparent 100%
+    );
+  }
+
+  @media (min-width: 768px) {
+    top: 80px;
+  }
 }
 
 .garlandBulb {
   position: relative;
   width: 7px;
-  height: 10px;
+  height: 11px;
   border-radius: 50% 50% 55% 55%;
   margin-top: 2px;
-  animation: twinkleBulb 2.8s ease-in-out infinite alternate;
+  animation: twinkleBulb 2.6s ease-in-out infinite alternate;
 
   &::before {
     content: '';
@@ -76,66 +127,172 @@
     left: 1.5px;
     width: 4px;
     height: 3px;
-    background: #3a4f41;
+    background: #2b4c3b;
     border-radius: 1px;
   }
 }
 
 .bulbGold {
   background: #ffe066;
-  box-shadow: 0 0 10px #ffd43b, 0 0 20px rgba(255, 212, 59, 0.6);
+  box-shadow: 0 0 10px #ffd43b, 0 0 22px rgba(255, 212, 59, 0.65);
 }
 
 .bulbRed {
   background: #ff4d4d;
-  box-shadow: 0 0 10px #ef4444, 0 0 20px rgba(239, 68, 68, 0.6);
-  animation-delay: 0.9s;
+  box-shadow: 0 0 10px #ef4444, 0 0 22px rgba(239, 68, 68, 0.65);
+  animation-delay: 0.7s;
 }
 
 .bulbGreen {
   background: #4ade80;
-  box-shadow: 0 0 10px #22c55e, 0 0 20px rgba(34, 197, 94, 0.6);
-  animation-delay: 1.7s;
+  box-shadow: 0 0 10px #22c55e, 0 0 22px rgba(34, 197, 94, 0.65);
+  animation-delay: 1.4s;
+}
+
+.bulbWarm {
+  background: #fff3bf;
+  box-shadow: 0 0 10px #fcc419, 0 0 20px rgba(252, 196, 25, 0.6);
+  animation-delay: 2.1s;
 }
 
 @keyframes twinkleBulb {
   0% {
-    opacity: 0.45;
-    transform: scale(0.9);
+    opacity: 0.42;
+    transform: scale(0.88);
   }
   100% {
     opacity: 1;
-    transform: scale(1.12);
+    transform: scale(1.14);
   }
 }
 
-/* Hanging Christmas Ornament */
-.hangingOrnament {
+/* Hanging Christmas Ornaments */
+.hangingOrnamentLeft {
   position: absolute;
-  top: 64px;
-  left: 5%;
+  top: 0;
+  left: 28px;
   display: flex;
   flex-direction: column;
   align-items: center;
   transform-origin: top center;
   animation: swayOrnament 5.5s ease-in-out infinite alternate;
 
-  @media (max-width: 768px) {
-    left: 14px;
+  @media (min-width: 768px) {
+    left: 68px;
+  }
+}
+
+.hangingOrnamentLeftSecondary {
+  position: absolute;
+  top: 0;
+  left: 64px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform-origin: top center;
+  animation: swayOrnament 4.5s ease-in-out infinite alternate-reverse;
+
+  @media (max-width: 640px) {
+    display: none;
+  }
+
+  @media (min-width: 768px) {
+    left: 112px;
+  }
+}
+
+.hangingOrnamentRight {
+  position: absolute;
+  top: 0;
+  right: 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform-origin: top center;
+  animation: swayOrnament 6s ease-in-out infinite alternate-reverse;
+
+  @media (min-width: 768px) {
+    right: 68px;
   }
 }
 
 .ornamentThread {
   width: 1.5px;
-  height: 46px;
-  background: linear-gradient(to bottom, rgba(232, 193, 112, 0.7), rgba(245, 197, 66, 0.95));
+  height: 92px;
+  background: linear-gradient(to bottom, rgba(232, 193, 112, 0.4), rgba(245, 197, 66, 0.95));
 }
 
-.ornamentBall {
-  font-size: 22px;
+.ornamentThreadShort {
+  width: 1px;
+  height: 64px;
+  background: linear-gradient(to bottom, rgba(232, 193, 112, 0.4), rgba(245, 197, 66, 0.9));
+}
+
+.ornamentThreadMedium {
+  width: 1.5px;
+  height: 78px;
+  background: linear-gradient(to bottom, rgba(232, 193, 112, 0.4), rgba(245, 197, 66, 0.95));
+}
+
+.baubleRed {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 32% 30%, #ff6b6b 0%, #c92a2a 58%, #7f1d1d 100%);
+  border: 1px solid rgba(245, 197, 66, 0.75);
+  box-shadow: 0 0 14px rgba(201, 42, 42, 0.75), 0 4px 10px rgba(0, 0, 0, 0.5);
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 6px;
+    height: 4px;
+    background: #f5c542;
+    border-radius: 1px;
+  }
+}
+
+.baubleGold {
+  position: relative;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 32% 30%, #fff3bf 0%, #f5c542 55%, #b48327 100%);
+  border: 1px solid rgba(255, 243, 191, 0.8);
+  box-shadow: 0 0 14px rgba(245, 197, 66, 0.75), 0 4px 10px rgba(0, 0, 0, 0.5);
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 6px;
+    height: 4px;
+    background: #e8c170;
+    border-radius: 1px;
+  }
+}
+
+.baubleShine {
+  position: absolute;
+  top: 4px;
+  left: 5px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.75);
+}
+
+.ornamentStar {
+  font-size: 20px;
   line-height: 1;
   margin-top: -3px;
-  filter: drop-shadow(0 0 10px rgba(245, 197, 66, 0.75));
+  filter: drop-shadow(0 0 10px rgba(245, 197, 66, 0.8));
 }
 
 @keyframes swayOrnament {
@@ -151,14 +308,21 @@
 .snowflake {
   position: absolute;
   top: -30px;
-  color: rgba(255, 252, 245, 0.82);
-  text-shadow: 0 0 8px rgba(255, 255, 255, 0.55);
+  color: rgba(255, 252, 245, 0.84);
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
   user-select: none;
   will-change: transform, opacity;
-  animation: snowfall linear infinite;
 }
 
-@keyframes snowfall {
+.driftRight {
+  animation: snowfallRight linear infinite;
+}
+
+.driftLeft {
+  animation: snowfallLeft linear infinite;
+}
+
+@keyframes snowfallRight {
   0% {
     transform: translate3d(0, -5vh, 0) rotate(0deg);
     opacity: 0;
@@ -167,14 +331,65 @@
     opacity: 0.85;
   }
   50% {
-    transform: translate3d(22px, 50vh, 0) rotate(180deg);
-    opacity: 0.75;
+    transform: translate3d(26px, 50vh, 0) rotate(180deg);
+    opacity: 0.78;
   }
   90% {
     opacity: 0.65;
   }
   100% {
-    transform: translate3d(-16px, 105vh, 0) rotate(360deg);
+    transform: translate3d(-14px, 105vh, 0) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes snowfallLeft {
+  0% {
+    transform: translate3d(0, -5vh, 0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.85;
+  }
+  50% {
+    transform: translate3d(-24px, 50vh, 0) rotate(-180deg);
+    opacity: 0.78;
+  }
+  90% {
+    opacity: 0.65;
+  }
+  100% {
+    transform: translate3d(16px, 105vh, 0) rotate(-360deg);
+    opacity: 0;
+  }
+}
+
+/* Rising Golden Stardust Sparks */
+.stardust {
+  position: absolute;
+  bottom: -20px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff3bf 0%, #f5c542 65%, transparent 100%);
+  box-shadow: 0 0 10px #f5c542, 0 0 20px rgba(201, 42, 42, 0.6);
+  opacity: 0;
+  animation: stardustRise ease-in infinite;
+}
+
+@keyframes stardustRise {
+  0% {
+    transform: translateY(0) scale(0.5);
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.85;
+  }
+  75% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(-80vh) translateX(-20px) scale(1.15);
     opacity: 0;
   }
 }
@@ -185,11 +400,11 @@
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 110px;
+  height: 120px;
   background: linear-gradient(
     to top,
-    rgba(22, 101, 52, 0.14) 0%,
-    rgba(232, 193, 112, 0.06) 50%,
+    rgba(14, 29, 22, 0.65) 0%,
+    rgba(201, 42, 42, 0.08) 45%,
     transparent 100%
   );
   pointer-events: none;
@@ -200,7 +415,7 @@
   position: fixed;
   bottom: 84px;
   left: 16px;
-  z-index: 98;
+  z-index: 120;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -212,25 +427,26 @@
 }
 
 .noelBtn {
-  width: 48px;
-  height: 48px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, #1f4d36 0%, #0f291e 70%, #091811 100%);
-  border: 1.5px solid rgba(245, 197, 66, 0.75);
+  background: radial-gradient(circle at 35% 30%, #c92a2a 0%, #1b4332 68%, #091811 100%);
+  border: 2px solid #f5c542;
   box-shadow:
     0 6px 20px rgba(0, 0, 0, 0.65),
-    0 0 18px rgba(245, 197, 66, 0.4);
+    0 0 20px rgba(245, 197, 66, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+  animation: noelBob 3s ease-in-out infinite;
 
   &:hover {
-    transform: scale(1.1) rotate(-6deg);
+    transform: scale(1.12) rotate(-6deg);
     box-shadow:
       0 8px 25px rgba(0, 0, 0, 0.75),
-      0 0 26px rgba(245, 197, 66, 0.7);
+      0 0 28px rgba(245, 197, 66, 0.85);
   }
 
   &:active {
@@ -238,14 +454,23 @@
   }
 }
 
+@keyframes noelBob {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
 .noelEmoji {
-  font-size: 24px;
+  font-size: 25px;
   line-height: 1;
   filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.45));
 }
 
 .noelToast {
-  background: rgba(15, 31, 23, 0.96);
+  background: rgba(14, 29, 22, 0.96);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid #f5c542;
@@ -257,7 +482,7 @@
   max-width: 260px;
   box-shadow:
     0 10px 28px rgba(0, 0, 0, 0.65),
-    0 0 16px rgba(245, 197, 66, 0.3);
+    0 0 16px rgba(245, 197, 66, 0.35);
   cursor: pointer;
   animation: popInToast 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -272,4 +497,3 @@
     transform: translateY(0) scale(1);
   }
 }
-

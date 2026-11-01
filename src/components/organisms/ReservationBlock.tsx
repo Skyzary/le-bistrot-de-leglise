@@ -30,6 +30,7 @@ const ShareReservationInvite = dynamic(
   { ssr: false }
 );
 import { useScrollLock } from "@/utils/scrollLock";
+import { themeData } from "@/config/data";
 
 const CustomCalendar = dynamic(
   () =>
@@ -178,8 +179,18 @@ export const ReservationBlock = () => {
       <div className={styles.container}>
         <div className={styles.header}>
           <div className={styles.headerText}>
-            <span className={styles.tag}>Réservation Simple</span>
-            <h2 className={styles.title}>Réserver une table</h2>
+            <span className={styles.tag}>
+              {themeData.mode === "noel"
+                ? "🎄 Réservation des Fêtes"
+                : themeData.mode === "halloween"
+                  ? "🎃 Réservation Halloween"
+                  : "Réservation Simple"}
+            </span>
+            <h2 className={styles.title}>
+              {themeData.mode === "noel"
+                ? "Réserver votre table festive ✨"
+                : "Réserver une table"}
+            </h2>
           </div>
           <a
             href="tel:0434117585"

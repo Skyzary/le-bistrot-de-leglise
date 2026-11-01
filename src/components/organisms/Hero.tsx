@@ -9,9 +9,16 @@ import { LiveServiceBadge } from '@/components/molecules/LiveServiceBadge';
 import { eventsData, themeData } from '@/config/data';
 
 export const Hero = () => {
-  const featuredEvent = eventsData && eventsData.length > 0 ? eventsData[0] : null;
   const isHalloween = themeData.mode === 'halloween';
   const isNoel = themeData.mode === 'noel';
+  const featuredEvent =
+    eventsData && eventsData.length > 0
+      ? eventsData.find((ev) => {
+          if (isNoel && /halloween/i.test(ev.title)) return false;
+          if (!isHalloween && /halloween/i.test(ev.title) && eventsData.length > 1) return false;
+          return true;
+        }) || eventsData[0]
+      : null;
   const clickCountRef = useRef(0);
   const clickTimerRef = useRef<NodeJS.Timeout | null>(null);
 

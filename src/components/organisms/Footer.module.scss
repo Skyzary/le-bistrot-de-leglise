@@ -4,7 +4,7 @@
   width: 100%;
   margin-top: $space-2xl;
   background-color: $color-surface-elevated;
-  border-top: 1px solid rgba(212, 163, 115, 0.1);
+  border-top: 1px solid rgba(var(--color-primary-rgb), 0.14);
   padding: $space-2xl $space-md
     calc($space-2xl + 72px + env(safe-area-inset-bottom)) $space-md;
 
@@ -167,7 +167,7 @@
 }
 
 .bottomSection {
-  border-top: 1px solid rgba(212, 163, 115, 0.12);
+  border-top: 1px solid rgba(var(--color-primary-rgb), 0.14);
   padding-top: $space-lg;
   display: flex;
   flex-direction: column-reverse;
@@ -212,6 +212,6 @@
 }
 
 .dot {
-  color: rgba(212, 163, 115, 0.3);
+  color: rgba(var(--color-primary-rgb), 0.35);
   user-select: none;
 }

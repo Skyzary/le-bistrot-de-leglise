@@ -1,8 +1,8 @@
 @use '@/styles/vars.scss' as *;
 
 .inviteCard {
-  background: linear-gradient(135deg, rgba(38, 33, 30, 0.95) 0%, rgba(26, 23, 21, 0.98) 100%);
-  border: 1px solid rgba(212, 163, 115, 0.35);
+  background: linear-gradient(135deg, rgba(var(--color-surface-elevated-rgb), 0.95) 0%, rgba(var(--color-surface-flat-rgb), 0.98) 100%);
+  border: 1px solid rgba(var(--color-primary-rgb), 0.35);
   border-radius: 16px;
   padding: 16px;
   display: flex;
@@ -34,8 +34,8 @@
 
 .badge {
   font-size: 10.5px;
-  background: rgba(212, 163, 115, 0.15);
-  border: 1px solid rgba(212, 163, 115, 0.4);
+  background: rgba(var(--color-primary-rgb), 0.15);
+  border: 1px solid rgba(var(--color-primary-rgb), 0.4);
   color: $color-primary;
   padding: 3px 8px;
   border-radius: $border-radius-pill;
@@ -44,7 +44,7 @@
 
 .previewBox {
   background: rgba(0, 0, 0, 0.35);
-  border: 1px dashed rgba(212, 163, 115, 0.25);
+  border: 1px dashed rgba(var(--color-primary-rgb), 0.25);
   border-radius: 12px;
   padding: 12px;
   display: flex;
@@ -127,7 +127,7 @@
   @media (hover: hover) {
     &:hover {
       background: rgba(255, 255, 255, 0.15);
-      border-color: rgba(212, 163, 115, 0.4);
+      border-color: rgba(var(--color-primary-rgb), 0.4);
       color: #fff;
       transform: translateY(-2px);
     }

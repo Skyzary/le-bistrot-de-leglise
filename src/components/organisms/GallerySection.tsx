@@ -7,7 +7,7 @@ import styles from './GallerySection.module.scss';
 import { Camera, ArrowRight, Maximize2 } from 'lucide-react';
 import type { GalleryItem } from '@/components/molecules/DishStoryModal';
 import { triggerHaptic } from '@/utils/haptics';
-import { galleryData } from '@/config/data';
+import { galleryData, themeData } from '@/config/data';
 
 const DishStoryModal = dynamic(
   () => import('@/components/molecules/DishStoryModal').then((mod) => mod.DishStoryModal),
@@ -46,11 +46,15 @@ export const GallerySection = () => {
       <div className={styles.header}>
         <div className={styles.tag}>
           <Camera size={18} />
-          <span>En Images</span>
+          <span>{themeData.mode === 'noel' ? '✨ En Images • Ambiance Hivernale' : 'En Images'}</span>
         </div>
-        <h2 className={styles.title}>Instants Gourmands</h2>
+        <h2 className={styles.title}>
+          {themeData.mode === 'noel' ? '🎄 Instants Gourmands & Festifs' : 'Instants Gourmands'}
+        </h2>
         <p className={styles.description}>
-          Un aperçu de nos assiettes et de l'ambiance chaleureuse du Bistrot. Touchez une photo pour l'explorer en plein écran.
+          {themeData.mode === 'noel'
+            ? "Un aperçu de nos assiettes de saison et de l'ambiance chaleureuse du Bistrot pour les fêtes. Touchez une photo pour l'explorer en plein écran."
+            : "Un aperçu de nos assiettes et de l'ambiance chaleureuse du Bistrot. Touchez une photo pour l'explorer en plein écran."}
         </p>
       </div>
 

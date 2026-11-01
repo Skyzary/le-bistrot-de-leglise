@@ -33,7 +33,7 @@
 
     @media (hover: hover) {
       &:hover {
-        background-color: rgba(212, 163, 115, 0.1);
+        background-color: rgba(var(--color-primary-rgb), 0.12);
       }
     }
   }
@@ -49,7 +49,7 @@
 
     @media (hover: hover) {
       &:hover {
-        background-color: rgba(212, 163, 115, 0.1);
+        background-color: rgba(var(--color-primary-rgb), 0.12);
       }
     }
   }

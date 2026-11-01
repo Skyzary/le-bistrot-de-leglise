@@ -3,18 +3,29 @@ import Link from "next/link";
 import styles from "./Footer.module.scss";
 import { MapPin } from "lucide-react";
 import { InstagramIcon, FacebookIcon } from "@/components/atoms/SocialIcons";
-import { scheduleData } from "@/config/data";
+import { scheduleData, themeData } from "@/config/data";
 
 export const Footer = () => {
+  const isNoel = themeData.mode === "noel";
+  const isHalloween = themeData.mode === "halloween";
+
   return (
     <footer className={styles.footer}>
       <div className={styles.container}>
         <div className={styles.topSection}>
           <div className={styles.brandCol}>
             <div className={styles.brandGroup}>
-              <span className={styles.title}>Le Bistrot de l'Église</span>
+              <span className={styles.title}>
+                {isNoel
+                  ? "🎄 Le Bistrot de l'Église ✨"
+                  : isHalloween
+                    ? "🎃 Le Bistrot de l'Église"
+                    : "Le Bistrot de l'Église"}
+              </span>
               <p className={styles.subtitle}>
-                Bistronomie & convivialité au cœur de Fabrègues.
+                {isNoel
+                  ? "Bistronomie, saveurs d'hiver & magie des fêtes au cœur de Fabrègues."
+                  : "Bistronomie & convivialité au cœur de Fabrègues."}
               </p>
             </div>
 

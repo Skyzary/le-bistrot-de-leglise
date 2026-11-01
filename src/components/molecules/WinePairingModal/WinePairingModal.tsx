@@ -118,7 +118,7 @@ export const WinePairingModal: React.FC<WinePairingModalProps> = ({
           <div className={styles.header}>
             <div>
               <span className={styles.sommelierEyebrow}>
-                <Wine size={14} color="#D4A373" /> Accord du Sommelier
+                <Wine size={14} color="var(--color-primary)" /> Accord du Sommelier
               </span>
               <h3 className={styles.dishTitle}>{pairing.dishName}</h3>
             </div>

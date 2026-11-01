@@ -28,7 +28,7 @@
   background-color: $color-surface-elevated;
   border-radius: $border-radius-md;
   color: $color-primary;
-  border: 1px solid rgba(212, 163, 115, 0.15);
+  border: 1px solid rgba(var(--color-primary-rgb), 0.2);
 }
 
 .google {
@@ -79,17 +79,17 @@
     height: 6px;
   }
   &::-webkit-scrollbar-track {
-    background: rgba(212, 163, 115, 0.1);
+    background: rgba(var(--color-primary-rgb), 0.1);
     border-radius: 4px;
     margin: 0 $space-md; /* Prevent it from touching the edges */
   }
   &::-webkit-scrollbar-thumb {
-    background: rgba(212, 163, 115, 0.4);
+    background: rgba(var(--color-primary-rgb), 0.4);
     border-radius: 4px;
     cursor: pointer;
     
     &:hover {
-      background: rgba(212, 163, 115, 0.8);
+      background: rgba(var(--color-primary-rgb), 0.8);
     }
   }
 

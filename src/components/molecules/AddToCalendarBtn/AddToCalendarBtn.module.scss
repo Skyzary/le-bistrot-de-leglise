@@ -51,23 +51,23 @@
 }
 
 .appleBtn {
-  background: rgba(36, 32, 29, 0.9);
-  border: 1px solid rgba(212, 163, 115, 0.35);
+  background: rgba(var(--color-surface-elevated-rgb), 0.9);
+  border: 1px solid rgba(var(--color-primary-rgb), 0.35);
   color: $color-parchment;
 
   &:hover {
-    background: rgba(48, 42, 38, 0.95);
+    background: rgba(var(--color-surface-elevated-rgb), 1);
     border-color: $color-primary;
   }
 }
 
 .googleBtn {
-  background: rgba(36, 32, 29, 0.9);
+  background: rgba(var(--color-surface-elevated-rgb), 0.9);
   border: 1px solid rgba(255, 255, 255, 0.15);
   color: $color-parchment;
 
   &:hover {
-    background: rgba(48, 42, 38, 0.95);
+    background: rgba(var(--color-surface-elevated-rgb), 1);
     border-color: rgba(255, 255, 255, 0.3);
   }
 }
