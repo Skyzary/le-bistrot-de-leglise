@@ -26,18 +26,18 @@ export const WINE_PAIRINGS: Record<string, WinePairing> = {
     tastingNotes: 'Robe rubis profond aux reflets violines. Arômes généreux de mûres sauvages, de cerises noires et d’épices de la garrigue. Bouche gourmande, ronde et fruitée.',
     sommelierQuote: 'La gourmandise fruitée et les tanins fondus de ce Carignan du terroir équilibrent admirablement la tendreté et le caractère du magret rosé.',
   },
-  'cote-porc': {
-    dishKey: 'cote-porc',
-    dishName: 'Côte de porc aveyronnaise',
+  'cassoulet': {
+    dishKey: 'cassoulet',
+    dishName: 'Cassoulet confit de canard, lard et saucisse de Toulouse',
     wineName: 'Rouge - IGP OC Typiquement Carignan',
     appellation: 'IGP Pays d’Oc',
     wineType: 'Rouge',
-    badge: 'Épicé & Gourmand',
+    badge: 'Terroir & Générosité',
     priceGlass: '4.00 €',
     priceBottle: '14.00 €',
     cepages: 'Carignan 100%',
-    tastingNotes: 'Notes de fruits rouges mûrs, d’épices douces et d’herbes aromatiques. Finale fraîche et gouleyante.',
-    sommelierQuote: 'La franchise et la rondeur du Carignan accompagnent parfaitement la sauce généreuse miel-moutarde et la viande aveyronnaise.',
+    tastingNotes: 'Robe rubis profond. Notes de fruits noirs mûrs, d’épices douces et d’herbes de la garrigue. Bouche ample et chaleureuse.',
+    sommelierQuote: 'La structure fruitée et les tanins souples du Carignan équilibrent la richesse du confit de canard, du lard et de la saucisse de Toulouse.',
   },
   'bourride': {
     dishKey: 'bourride',
@@ -52,18 +52,18 @@ export const WINE_PAIRINGS: Record<string, WinePairing> = {
     tastingNotes: 'Robe dorée et brillante. Nez expressif de pêche blanche, de fleurs d’acacia et de zeste de citron. Bouche ample, onctueuse et fraîche.',
     sommelierQuote: 'La rondeur soyeuse du Chardonnay et les arômes floraux du Viognier épousent l’onctuosité de la rouille maison et des poissons frais mijotés.',
   },
-  'joue-boeuf': {
-    dishKey: 'joue-boeuf',
-    dishName: 'Joue de bœuf au cidre de pommes',
+  'boeuf-bourguignon': {
+    dishKey: 'boeuf-bourguignon',
+    dishName: 'Bœuf bourguignon',
     wineName: 'Rouge - IGP OC Typiquement Carignan',
     appellation: 'IGP Pays d’Oc',
     wineType: 'Rouge',
-    badge: 'Charnu & Fruité',
+    badge: 'Charnu & Mijoté',
     priceGlass: '4.00 €',
     priceBottle: '14.00 €',
     cepages: 'Carignan 100%',
     tastingNotes: 'Bouquet de fruits noirs compotés, de poivre noir et de garrigue. Matière souple et fondante en bouche.',
-    sommelierQuote: 'Les tanins soyeux et la rondeur du Carignan répondent délicieusement au fondant de la joue confite et à la douceur acidulée du cidre.',
+    sommelierQuote: 'Les tanins soyeux et la rondeur du Carignan répondent délicieusement au fondant du bœuf mijoté et à sa sauce au vin.',
   },
   'burger': {
     dishKey: 'burger',
@@ -91,9 +91,9 @@ export const WINE_PAIRINGS: Record<string, WinePairing> = {
     tastingNotes: 'Notes de fruits à chair blanche, d’agrumes et d’abricot. Équilibre idéal entre gras noble et vivacité en fin de bouche.',
     sommelierQuote: 'La vivacité et les arômes frais de cet assemblage blanc tranchent avec l’aïoli maison et subliment la plancha de seiches dorées.',
   },
-  'parmentier': {
-    dishKey: 'parmentier',
-    dishName: 'Parmentier de canard, patate douce',
+  'parmentier-boudin': {
+    dishKey: 'parmentier-boudin',
+    dishName: 'Parmentier de boudin noir',
     wineName: 'Rouge - IGP OC Typiquement Carignan',
     appellation: 'IGP Pays d’Oc',
     wineType: 'Rouge',
@@ -101,8 +101,8 @@ export const WINE_PAIRINGS: Record<string, WinePairing> = {
     priceGlass: '4.00 €',
     priceBottle: '14.00 €',
     cepages: 'Carignan 100%',
-    tastingNotes: 'Parfums de garrigue, de pruneau et d’épices douces. Bouche harmonieuse et soyeuse.',
-    sommelierQuote: 'Le bouquet d’épices douces et la rondeur du Carignan font un écho parfait à la douceur de la patate douce et à l’effiloché de canard.',
+    tastingNotes: 'Parfums de garrigue, de fruits rouges mûrs et d’épices douces. Bouche harmonieuse et soyeuse.',
+    sommelierQuote: 'Le bouquet d’épices douces et la rondeur du Carignan font un écho parfait au caractère généreux du boudin noir et à l’onctuosité du parmentier.',
   },
   'salade': {
     dishKey: 'salade',
@@ -125,12 +125,12 @@ export const WINE_PAIRINGS: Record<string, WinePairing> = {
 export function getWinePairingForDish(name: string): WinePairing | null {
   const normalized = name.toLowerCase();
   if (normalized.includes('magret')) return WINE_PAIRINGS['magret'];
-  if (normalized.includes('porc') || normalized.includes('aveyron')) return WINE_PAIRINGS['cote-porc'];
+  if (normalized.includes('cassoulet')) return WINE_PAIRINGS['cassoulet'];
   if (normalized.includes('bourride') || normalized.includes('poisson')) return WINE_PAIRINGS['bourride'];
-  if (normalized.includes('joue') || normalized.includes('bœuf') || normalized.includes('boeuf')) return WINE_PAIRINGS['joue-boeuf'];
+  if (normalized.includes('bourguignon') || normalized.includes('bœuf') || normalized.includes('boeuf')) return WINE_PAIRINGS['boeuf-bourguignon'];
   if (normalized.includes('bistrot\'s burger') || normalized.includes('st nectaire') || normalized.includes('saint-nectaire') || normalized.includes('burger')) return WINE_PAIRINGS['burger'];
   if (normalized.includes('seiche')) return WINE_PAIRINGS['seiches'];
-  if (normalized.includes('parmentier')) return WINE_PAIRINGS['parmentier'];
+  if (normalized.includes('parmentier') || normalized.includes('boudin')) return WINE_PAIRINGS['parmentier-boudin'];
   if (normalized.includes('salade croquant') || normalized.includes('croquant')) return WINE_PAIRINGS['salade'];
   return null;
 }

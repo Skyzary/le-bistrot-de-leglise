@@ -4,18 +4,16 @@
       "title": "Les plats de saison",
       "items": [
         {
-          "name": "Parmentier de canard, patate douce",
+          "name": "Cassoulet confit de canard, lard et saucisse de Toulouse",
+          "price": "21.50 €"
+        },
+        {
+          "name": "Parmentier de boudin noir",
           "price": "19.50 €"
         },
         {
-          "name": "Joue de bœuf au cidre de pommes",
-          "price": "19.50 €",
-          "desc": "Et gratin de pommes de terre"
-        },
-        {
-          "name": "Côte de porc aveyronnaise",
-          "price": "19.50 €",
-          "desc": "Sauce miel-moutarde"
+          "name": "Bœuf bourguignon",
+          "price": "19.50 €"
         }
       ]
     },
